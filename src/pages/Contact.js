@@ -193,61 +193,62 @@ const Contact = () => {
   };
 
   return (
-    <div className="min-h-screen">
+    <>
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center bg-gradient-to-br from-gray-800 via-gray-600 to-orange-500 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-orange-500/30 via-transparent to-gray-600/20"></div>
-        
-        <div className="relative z-10 container mx-auto px-6 py-20">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
-            <div className="text-center lg:text-left">
-              <h1 className="text-5xl lg:text-6xl font-bold text-white mb-6">
-                <span className="bg-gradient-to-r from-orange-400 to-orange-600 bg-clip-text text-transparent">
-                  Contattaci
-                </span>
-                <br />
-                Siamo Qui per Te
-              </h1>
-              
-              <p className="text-xl text-gray-300 leading-relaxed mb-8">
-                Hai domande su crypto, blockchain o DeFi? Vuoi una consulenza personalizzata? 
-                Il team di esperti di COINOLOGI è pronto ad aiutarti nel tuo percorso verso il successo nel mondo crypto.
-              </p>
+      <section className="hero hero--contact" aria-labelledby="hero-heading">
+        <div className="hero__container">
+          <div className="hero__content">
+            <div className="hero__badge">
+              <i className="fas fa-comments"></i>
+              <span>SIAMO QUI PER TE</span>
+            </div>
+            <h1 className="hero__title">
+              <span className="hero__title-highlight">Contattaci</span><br />
+              Iniziamo Insieme il Tuo Percorso
+            </h1>
+            <p className="hero__description">
+              Hai domande su crypto, blockchain o DeFi? Vuoi una consulenza personalizzata? 
+              Il team di esperti di COINOLOGI è pronto ad aiutarti nel tuo percorso verso il successo nel mondo crypto.
+            </p>
 
-              <div className="grid grid-cols-3 gap-4 mb-8">
-                {[
-                  { icon: 'clock', text: 'Risposta in 24h' },
-                  { icon: 'shield-alt', text: '100% Confidenziale' },
-                  { icon: 'star', text: 'Consulenza Gratuita' }
-                ].map((feature, index) => (
-                  <div key={index} className="text-center bg-white/10 backdrop-blur-lg rounded-lg p-4 border border-white/20">
-                    <i className={`fas fa-${feature.icon} text-orange-400 text-2xl mb-2 block`}></i>
-                    <span className="text-white text-sm font-medium">{feature.text}</span>
-                  </div>
-                ))}
+            <div className="hero__contact-features">
+              <div className="contact-feature">
+                <i className="fas fa-clock"></i>
+                <span>Risposta in 24h</span>
+              </div>
+              <div className="contact-feature">
+                <i className="fas fa-shield-alt"></i>
+                <span>100% Confidenziale</span>
+              </div>
+              <div className="contact-feature">
+                <i className="fas fa-star"></i>
+                <span>Consulenza Gratuita</span>
               </div>
             </div>
 
-            <div className="flex justify-center">
-              <div className="relative w-80 h-80">
-                <div className="bg-white/10 backdrop-blur-lg rounded-xl p-6 border border-white/20 animate-float">
-                  <div className="bg-orange-500 rounded-lg p-4 mb-4 text-center">
-                    <i className="fas fa-comments text-white text-3xl mb-2"></i>
-                    <span className="text-white font-medium">Come possiamo aiutarti?</span>
-                  </div>
-                  
-                  <div className="grid grid-cols-2 gap-4">
-                    {['envelope', 'phone', 'telegram', 'whatsapp'].map((icon, index) => (
-                      <div 
-                        key={index}
-                        className={`w-12 h-12 bg-white/20 rounded-lg flex items-center justify-center text-white text-xl hover:bg-orange-500 transition-colors duration-300`}
-                        style={{ animation: `float 4s ease-in-out infinite ${index * 0.5}s` }}
-                      >
-                        <i className={`fab fa-${icon === 'envelope' ? 'fas fa-envelope' : `fab fa-${icon}`}`}></i>
-                      </div>
-                    ))}
-                  </div>
-                </div>
+            <div className="hero__cta">
+              <button className="btn btn--primary">Invia Messaggio</button>
+              <button className="btn btn--secondary">Chiamaci</button>
+            </div>
+          </div>
+
+          <div className="hero__visual">
+            <div className="contact-showcase">
+              <div className="contact-method">
+                <i className="fas fa-envelope"></i>
+                <span>Email</span>
+              </div>
+              <div className="contact-method">
+                <i className="fas fa-phone"></i>
+                <span>Telefono</span>
+              </div>
+              <div className="contact-method">
+                <i className="fab fa-telegram"></i>
+                <span>Telegram</span>
+              </div>
+              <div className="contact-method">
+                <i className="fas fa-video"></i>
+                <span>Video Call</span>
               </div>
             </div>
           </div>
@@ -255,127 +256,107 @@ const Contact = () => {
       </section>
 
       {/* Contact Form & Info Section */}
-      <section className="py-20 bg-gray-50">
-        <div className="container mx-auto px-6">
-          <div className="grid lg:grid-cols-3 gap-12">
+      <section className="contact-section">
+        <div className="container">
+          <div className="contact-grid">
             {/* Contact Form */}
-            <div className="lg:col-span-2">
-              <div className="bg-white rounded-2xl p-8 shadow-xl border border-gray-200">
-                <h2 className="text-2xl font-bold text-gray-900 mb-2">Invia un Messaggio</h2>
-                <p className="text-gray-600 mb-8">Compila il form e ti risponderemo entro 24 ore</p>
+            <div className="contact-form-wrapper">
+              <div className="form-card">
+                <header className="form-header">
+                  <h2>Invia un Messaggio</h2>
+                  <p>Compila il form e ti risponderemo entro 24 ore</p>
+                </header>
 
                 {submitSuccess && (
-                  <div className="bg-green-500 text-white p-4 rounded-lg mb-6 flex items-center gap-3 animate-slideDown">
-                    <i className="fas fa-check-circle text-xl"></i>
+                  <div className="success-message">
+                    <i className="fas fa-check-circle"></i>
                     <span>Messaggio inviato con successo! Ti contatteremo presto.</span>
                   </div>
                 )}
 
-                <form onSubmit={handleSubmit} className="space-y-6">
-                  <div className="grid md:grid-cols-2 gap-6">
-                    <div>
-                      <label htmlFor="firstName" className="block text-sm font-semibold text-gray-700 mb-2">
-                        Nome *
-                      </label>
+                <form onSubmit={handleSubmit} className="contact-form">
+                  <div className="form-row">
+                    <div className="form-group">
+                      <label htmlFor="firstName">Nome *</label>
                       <input
                         type="text"
                         id="firstName"
                         name="firstName"
                         value={formData.firstName}
                         onChange={handleInputChange}
-                        className={`w-full px-4 py-3 border-2 rounded-lg transition-colors duration-300 ${
-                          formErrors.firstName ? 'border-red-500' : 'border-gray-200 focus:border-orange-500'
-                        }`}
+                        className={formErrors.firstName ? 'error' : ''}
                       />
                       {formErrors.firstName && (
-                        <span className="text-red-500 text-sm mt-1 block">{formErrors.firstName}</span>
+                        <span className="error-message">{formErrors.firstName}</span>
                       )}
                     </div>
 
-                    <div>
-                      <label htmlFor="lastName" className="block text-sm font-semibold text-gray-700 mb-2">
-                        Cognome *
-                      </label>
+                    <div className="form-group">
+                      <label htmlFor="lastName">Cognome *</label>
                       <input
                         type="text"
                         id="lastName"
                         name="lastName"
                         value={formData.lastName}
                         onChange={handleInputChange}
-                        className={`w-full px-4 py-3 border-2 rounded-lg transition-colors duration-300 ${
-                          formErrors.lastName ? 'border-red-500' : 'border-gray-200 focus:border-orange-500'
-                        }`}
+                        className={formErrors.lastName ? 'error' : ''}
                       />
                       {formErrors.lastName && (
-                        <span className="text-red-500 text-sm mt-1 block">{formErrors.lastName}</span>
+                        <span className="error-message">{formErrors.lastName}</span>
                       )}
                     </div>
                   </div>
 
-                  <div className="grid md:grid-cols-2 gap-6">
-                    <div>
-                      <label htmlFor="email" className="block text-sm font-semibold text-gray-700 mb-2">
-                        Email *
-                      </label>
+                  <div className="form-row">
+                    <div className="form-group">
+                      <label htmlFor="email">Email *</label>
                       <input
                         type="email"
                         id="email"
                         name="email"
                         value={formData.email}
                         onChange={handleInputChange}
-                        className={`w-full px-4 py-3 border-2 rounded-lg transition-colors duration-300 ${
-                          formErrors.email ? 'border-red-500' : 'border-gray-200 focus:border-orange-500'
-                        }`}
+                        className={formErrors.email ? 'error' : ''}
                       />
                       {formErrors.email && (
-                        <span className="text-red-500 text-sm mt-1 block">{formErrors.email}</span>
+                        <span className="error-message">{formErrors.email}</span>
                       )}
                     </div>
 
-                    <div>
-                      <label htmlFor="phone" className="block text-sm font-semibold text-gray-700 mb-2">
-                        Telefono
-                      </label>
+                    <div className="form-group">
+                      <label htmlFor="phone">Telefono</label>
                       <input
                         type="tel"
                         id="phone"
                         name="phone"
                         value={formData.phone}
                         onChange={handleInputChange}
-                        className={`w-full px-4 py-3 border-2 rounded-lg transition-colors duration-300 ${
-                          formErrors.phone ? 'border-red-500' : 'border-gray-200 focus:border-orange-500'
-                        }`}
+                        className={formErrors.phone ? 'error' : ''}
                       />
                       {formErrors.phone && (
-                        <span className="text-red-500 text-sm mt-1 block">{formErrors.phone}</span>
+                        <span className="error-message">{formErrors.phone}</span>
                       )}
                     </div>
                   </div>
 
-                  <div>
-                    <label htmlFor="company" className="block text-sm font-semibold text-gray-700 mb-2">
-                      Azienda
-                    </label>
+                  <div className="form-group">
+                    <label htmlFor="company">Azienda</label>
                     <input
                       type="text"
                       id="company"
                       name="company"
                       value={formData.company}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-orange-500 transition-colors duration-300"
                     />
                   </div>
 
-                  <div>
-                    <label htmlFor="service" className="block text-sm font-semibold text-gray-700 mb-2">
-                      Servizio di interesse
-                    </label>
+                  <div className="form-group">
+                    <label htmlFor="service">Servizio di interesse</label>
                     <select
                       id="service"
                       name="service"
                       value={formData.service}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-orange-500 transition-colors duration-300"
                     >
                       {services.map(service => (
                         <option key={service.value} value={service.value}>
@@ -385,10 +366,8 @@ const Contact = () => {
                     </select>
                   </div>
 
-                  <div>
-                    <label htmlFor="message" className="block text-sm font-semibold text-gray-700 mb-2">
-                      Messaggio *
-                    </label>
+                  <div className="form-group">
+                    <label htmlFor="message">Messaggio *</label>
                     <textarea
                       id="message"
                       name="message"
@@ -396,42 +375,38 @@ const Contact = () => {
                       value={formData.message}
                       onChange={handleInputChange}
                       placeholder="Descrivi la tua richiesta in dettaglio..."
-                      className={`w-full px-4 py-3 border-2 rounded-lg transition-colors duration-300 resize-vertical ${
-                        formErrors.message ? 'border-red-500' : 'border-gray-200 focus:border-orange-500'
-                      }`}
+                      className={formErrors.message ? 'error' : ''}
                     />
                     {formErrors.message && (
-                      <span className="text-red-500 text-sm mt-1 block">{formErrors.message}</span>
+                      <span className="error-message">{formErrors.message}</span>
                     )}
                   </div>
 
-                  <div className="space-y-4">
-                    <label className="flex items-start gap-3 cursor-pointer">
+                  <div className="form-checkboxes">
+                    <label className="checkbox-label">
                       <input
                         type="checkbox"
                         name="privacy"
                         checked={formData.privacy}
                         onChange={handleInputChange}
-                        className="mt-1 w-5 h-5 text-orange-500 border-2 border-gray-300 rounded focus:ring-orange-500"
                       />
-                      <span className={`text-sm leading-relaxed ${formErrors.privacy ? 'text-red-500' : 'text-gray-700'}`}>
-                        Accetto la <a href="#" className="text-orange-500 hover:underline">Privacy Policy</a> e i{' '}
-                        <a href="#" className="text-orange-500 hover:underline">Termini di Servizio</a> *
+                      <span className={formErrors.privacy ? 'error' : ''}>
+                        Accetto la <a href="#">Privacy Policy</a> e i{' '}
+                        <a href="#">Termini di Servizio</a> *
                       </span>
                     </label>
                     {formErrors.privacy && (
-                      <span className="text-red-500 text-sm block">{formErrors.privacy}</span>
+                      <span className="error-message">{formErrors.privacy}</span>
                     )}
 
-                    <label className="flex items-start gap-3 cursor-pointer">
+                    <label className="checkbox-label">
                       <input
                         type="checkbox"
                         name="newsletter"
                         checked={formData.newsletter}
                         onChange={handleInputChange}
-                        className="mt-1 w-5 h-5 text-orange-500 border-2 border-gray-300 rounded focus:ring-orange-500"
                       />
-                      <span className="text-sm text-gray-700 leading-relaxed">
+                      <span>
                         Desidero ricevere newsletter e aggiornamenti da COINOLOGI
                       </span>
                     </label>
@@ -440,11 +415,11 @@ const Contact = () => {
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full bg-gradient-to-r from-orange-500 to-orange-600 text-white py-4 px-6 rounded-lg font-bold hover:from-orange-600 hover:to-orange-700 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center gap-3"
+                    className="submit-button"
                   >
                     {isSubmitting ? (
                       <>
-                        <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                        <div className="spinner"></div>
                         Invio in corso...
                       </>
                     ) : (
@@ -459,20 +434,20 @@ const Contact = () => {
             </div>
 
             {/* Contact Info */}
-            <div className="space-y-6">
+            <div className="contact-info">
               {/* Contact Details */}
-              <div className="bg-white rounded-xl p-8 shadow-lg border border-gray-200">
-                <h3 className="text-xl font-bold text-gray-900 mb-6">Informazioni di Contatto</h3>
-                <div className="space-y-6">
+              <div className="info-card">
+                <h3>Informazioni di Contatto</h3>
+                <div className="contact-methods">
                   {contactInfo.map((info, index) => (
-                    <div key={index} className="flex gap-4">
-                      <div className="w-12 h-12 bg-gradient-to-r from-orange-500 to-orange-600 rounded-lg flex items-center justify-center flex-shrink-0">
-                        <i className={`${info.isBrand ? 'fab' : 'fas'} fa-${info.icon} text-white text-lg`}></i>
+                    <div key={index} className="contact-method-item">
+                      <div className="method-icon">
+                        <i className={`${info.isBrand ? 'fab' : 'fas'} fa-${info.icon}`}></i>
                       </div>
-                      <div>
-                        <h4 className="font-semibold text-gray-900">{info.title}</h4>
-                        <p className="text-gray-700 font-medium">{info.value}</p>
-                        <small className="text-gray-500">{info.subtitle}</small>
+                      <div className="method-info">
+                        <h4>{info.title}</h4>
+                        <p>{info.value}</p>
+                        <small>{info.subtitle}</small>
                       </div>
                     </div>
                   ))}
@@ -480,27 +455,28 @@ const Contact = () => {
               </div>
 
               {/* Schedule */}
-              <div className="bg-white rounded-xl p-8 shadow-lg border border-gray-200">
-                <h3 className="text-xl font-bold text-gray-900 mb-6">Orari di Supporto</h3>
-                <div className="space-y-3">
+              <div className="info-card">
+                <h3>Orari di Supporto</h3>
+                <div className="schedule-list">
                   {schedule.map((item, index) => (
-                    <div key={index} className="flex justify-between items-center p-3 bg-gray-50 rounded-lg border-l-4 border-orange-500">
-                      <span className="font-semibold text-gray-700">{item.day}</span>
-                      <span className="text-gray-600 font-medium">{item.hours}</span>
+                    <div key={index} className="schedule-item">
+                      <span className="day">{item.day}</span>
+                      <span className="hours">{item.hours}</span>
                     </div>
                   ))}
                 </div>
               </div>
 
               {/* Social Links */}
-              <div className="bg-white rounded-xl p-8 shadow-lg border border-gray-200">
-                <h3 className="text-xl font-bold text-gray-900 mb-6">Seguici sui Social</h3>
-                <div className="flex gap-3 flex-wrap">
+              <div className="info-card">
+                <h3>Seguici sui Social</h3>
+                <div className="social-links">
                   {socialLinks.map((social, index) => (
                     <a
                       key={index}
                       href="#"
-                      className="w-12 h-12 bg-gray-100 hover:bg-orange-500 hover:text-white rounded-lg flex items-center justify-center transition-colors duration-300"
+                      className="social-link"
+                      aria-label={`Seguici su ${social.platform}`}
                     >
                       <i className={social.icon}></i>
                     </a>
@@ -513,30 +489,30 @@ const Contact = () => {
       </section>
 
       {/* FAQ Section */}
-      <section className="py-20 bg-white">
-        <div className="container mx-auto px-6">
-          <h2 className="text-4xl font-bold text-center text-gray-900 mb-16">Domande Frequenti</h2>
-          <div className="max-w-4xl mx-auto space-y-4">
+      <section className="faq-section">
+        <div className="container">
+          <header className="services__header">
+            <h2 className="services__title">Domande Frequenti</h2>
+            <p className="services__subtitle">
+              Le risposte alle domande più comuni sui nostri servizi
+            </p>
+          </header>
+          
+          <div className="faq-list">
             {faqData.map((faq, index) => (
               <div
                 key={index}
-                className="bg-white border-2 border-gray-100 rounded-xl overflow-hidden hover:border-orange-500 transition-colors duration-300"
+                className={`faq-item ${openFaq === index ? 'open' : ''}`}
               >
                 <button
                   onClick={() => toggleFaq(index)}
-                  className="w-full p-6 text-left flex justify-between items-center hover:bg-gray-50 transition-colors duration-300"
+                  className="faq-question"
                 >
-                  <span className="font-semibold text-gray-900 text-lg">{faq.question}</span>
-                  <i className={`fas fa-chevron-down text-orange-500 transition-transform duration-300 ${
-                    openFaq === index ? 'rotate-180' : ''
-                  }`}></i>
+                  <span>{faq.question}</span>
+                  <i className={`fas fa-chevron-down ${openFaq === index ? 'rotate' : ''}`}></i>
                 </button>
-                <div className={`overflow-hidden transition-all duration-300 ${
-                  openFaq === index ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
-                }`}>
-                  <div className="p-6 pt-0 text-gray-600 leading-relaxed">
-                    {faq.answer}
-                  </div>
+                <div className="faq-answer">
+                  <p>{faq.answer}</p>
                 </div>
               </div>
             ))}
@@ -545,53 +521,596 @@ const Contact = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-r from-gray-800 to-orange-500">
-        <div className="container mx-auto px-6 text-center">
-          <h2 className="text-4xl font-bold text-white mb-6">Pronto a Iniziare?</h2>
-          <p className="text-xl text-gray-200 mb-8 max-w-3xl mx-auto">
-            Non aspettare oltre! Contattaci oggi stesso per la tua consulenza gratuita 
-            e scopri come COINOLOGI può aiutarti a raggiungere i tuoi obiettivi nel mondo crypto.
-          </p>
-          
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a
-              href="tel:+390212345678"
-              className="inline-flex items-center justify-center px-8 py-4 bg-orange-500 hover:bg-orange-600 text-white font-bold rounded-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
-            >
-              <i className="fas fa-phone mr-2"></i>
-              Chiamaci Ora
-            </a>
-            <a
-              href="mailto:info@coinologi.com"
-              className="inline-flex items-center justify-center px-8 py-4 bg-transparent border-2 border-white text-white hover:bg-white hover:text-gray-900 font-bold rounded-lg transition-all duration-300"
-            >
-              <i className="fas fa-envelope mr-2"></i>
-              Invia Email
-            </a>
+      <section className="cta">
+        <div className="cta__container">
+          <div className="cta__content">
+            <h2 className="cta__title">Pronto a Iniziare?</h2>
+            <p className="cta__description">
+              Non aspettare oltre! Contattaci oggi stesso per la tua consulenza gratuita 
+              e scopri come COINOLOGI può aiutarti a raggiungere i tuoi obiettivi nel mondo crypto.
+            </p>
+            
+            <div className="cta__actions">
+              <a href="tel:+390212345678" className="btn btn--primary">
+                <i className="fas fa-phone"></i>
+                Chiamaci Ora
+              </a>
+              <a href="mailto:info@coinologi.com" className="btn btn--secondary">
+                <i className="fas fa-envelope"></i>
+                Invia Email
+              </a>
+            </div>
           </div>
         </div>
       </section>
 
       <style jsx>{`
-        @keyframes float {
-          0%, 100% { transform: translateY(0px); }
-          50% { transform: translateY(-10px); }
+        /* Contact Showcase */
+        .contact-showcase {
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          gap: var(--space-4);
+          width: 100%;
+          max-width: 400px;
         }
-        
+
+        .contact-method {
+          background: rgba(255, 255, 255, 0.1);
+          backdrop-filter: blur(10px);
+          border: 1px solid rgba(255, 255, 255, 0.2);
+          border-radius: var(--radius-lg);
+          padding: var(--space-6);
+          text-align: center;
+          color: var(--color-white);
+          transition: var(--transition-base);
+          animation: float 6s ease-in-out infinite;
+        }
+
+        .contact-method:nth-child(2) {
+          animation-delay: 1.5s;
+        }
+
+        .contact-method:nth-child(3) {
+          animation-delay: 3s;
+        }
+
+        .contact-method:nth-child(4) {
+          animation-delay: 4.5s;
+        }
+
+        .contact-method:hover {
+          transform: scale(1.05);
+          background: rgba(255, 255, 255, 0.2);
+        }
+
+        .contact-method i {
+          font-size: var(--font-size-2xl);
+          margin-bottom: var(--space-2);
+          color: var(--color-primary);
+        }
+
+        .contact-method span {
+          display: block;
+          font-size: var(--font-size-sm);
+          font-weight: var(--font-weight-medium);
+        }
+
+        /* Hero Contact Features */
+        .hero__contact-features {
+          display: flex;
+          gap: var(--space-8);
+          margin: var(--space-8) 0;
+          flex-wrap: wrap;
+        }
+
+        .contact-feature {
+          display: flex;
+          align-items: center;
+          gap: var(--space-2);
+          background: rgba(255, 255, 255, 0.1);
+          padding: var(--space-3) var(--space-4);
+          border-radius: var(--radius-lg);
+          backdrop-filter: blur(10px);
+          border: 1px solid rgba(255, 255, 255, 0.2);
+          color: var(--color-white);
+          font-size: var(--font-size-sm);
+          font-weight: var(--font-weight-medium);
+        }
+
+        .contact-feature i {
+          color: var(--color-primary);
+        }
+
+        /* Contact Section */
+        .contact-section {
+          padding: var(--space-20) 0;
+          background: var(--color-gray-100);
+        }
+
+        .contact-grid {
+          display: grid;
+          grid-template-columns: 2fr 1fr;
+          gap: var(--space-12);
+        }
+
+        /* Form Card */
+        .contact-form-wrapper {
+          display: flex;
+          flex-direction: column;
+        }
+
+        .form-card {
+          background: var(--color-white);
+          border-radius: var(--radius-xl);
+          padding: var(--space-8);
+          box-shadow: var(--shadow-lg);
+          border: 1px solid var(--color-gray-200);
+        }
+
+        .form-header {
+          margin-bottom: var(--space-8);
+        }
+
+        .form-header h2 {
+          font-size: var(--font-size-2xl);
+          color: var(--color-gray-900);
+          margin-bottom: var(--space-2);
+        }
+
+        .form-header p {
+          color: var(--color-gray-600);
+          margin-bottom: 0;
+        }
+
+        .success-message {
+          background: var(--color-success);
+          color: var(--color-white);
+          padding: var(--space-4);
+          border-radius: var(--radius-lg);
+          margin-bottom: var(--space-6);
+          display: flex;
+          align-items: center;
+          gap: var(--space-3);
+          animation: slideDown 0.5s ease-out;
+        }
+
         @keyframes slideDown {
           from { transform: translateY(-20px); opacity: 0; }
           to { transform: translateY(0); opacity: 1; }
         }
-        
-        .animate-float {
-          animation: float 6s ease-in-out infinite;
+
+        /* Form Styles */
+        .contact-form {
+          display: flex;
+          flex-direction: column;
+          gap: var(--space-6);
         }
-        
-        .animate-slideDown {
-          animation: slideDown 0.5s ease-out;
+
+        .form-row {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: var(--space-6);
+        }
+
+        .form-group {
+          display: flex;
+          flex-direction: column;
+          gap: var(--space-2);
+        }
+
+        .form-group label {
+          font-size: var(--font-size-sm);
+          font-weight: var(--font-weight-semibold);
+          color: var(--color-gray-700);
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+          padding: var(--space-3) var(--space-4);
+          border: 2px solid var(--color-gray-200);
+          border-radius: var(--radius-lg);
+          font-size: var(--font-size-base);
+          transition: var(--transition-base);
+          background: var(--color-white);
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+          border-color: var(--color-primary);
+          outline: none;
+        }
+
+        .form-group input.error,
+        .form-group select.error,
+        .form-group textarea.error {
+          border-color: var(--color-error);
+        }
+
+        .form-group textarea {
+          resize: vertical;
+          min-height: 120px;
+        }
+
+        .error-message {
+          color: var(--color-error);
+          font-size: var(--font-size-sm);
+        }
+
+        .form-checkboxes {
+          display: flex;
+          flex-direction: column;
+          gap: var(--space-4);
+        }
+
+        .checkbox-label {
+          display: flex;
+          align-items: flex-start;
+          gap: var(--space-3);
+          cursor: pointer;
+        }
+
+        .checkbox-label input[type="checkbox"] {
+          margin-top: var(--space-1);
+          width: 20px;
+          height: 20px;
+          accent-color: var(--color-primary);
+        }
+
+        .checkbox-label span {
+          font-size: var(--font-size-sm);
+          line-height: var(--line-height-relaxed);
+          color: var(--color-gray-700);
+        }
+
+        .checkbox-label span.error {
+          color: var(--color-error);
+        }
+
+        .checkbox-label a {
+          color: var(--color-primary);
+        }
+
+        .checkbox-label a:hover {
+          text-decoration: underline;
+        }
+
+        .submit-button {
+          background: var(--gradient-primary);
+          color: var(--color-white);
+          padding: var(--space-4) var(--space-6);
+          border: none;
+          border-radius: var(--radius-lg);
+          font-size: var(--font-size-base);
+          font-weight: var(--font-weight-semibold);
+          cursor: pointer;
+          transition: var(--transition-base);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: var(--space-3);
+          margin-top: var(--space-4);
+        }
+
+        .submit-button:hover:not(:disabled) {
+          background: var(--color-primary-dark);
+          transform: translateY(-2px);
+          box-shadow: var(--shadow-lg);
+        }
+
+        .submit-button:disabled {
+          opacity: 0.6;
+          cursor: not-allowed;
+          transform: none;
+        }
+
+        .spinner {
+          width: 20px;
+          height: 20px;
+          border: 2px solid rgba(255, 255, 255, 0.3);
+          border-top: 2px solid var(--color-white);
+          border-radius: var(--radius-full);
+          animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
+        }
+
+        /* Contact Info */
+        .contact-info {
+          display: flex;
+          flex-direction: column;
+          gap: var(--space-6);
+        }
+
+        .info-card {
+          background: var(--color-white);
+          border-radius: var(--radius-xl);
+          padding: var(--space-8);
+          box-shadow: var(--shadow-lg);
+          border: 1px solid var(--color-gray-200);
+        }
+
+        .info-card h3 {
+          font-size: var(--font-size-xl);
+          color: var(--color-gray-900);
+          margin-bottom: var(--space-6);
+        }
+
+        .contact-methods {
+          display: flex;
+          flex-direction: column;
+          gap: var(--space-6);
+        }
+
+        .contact-method-item {
+          display: flex;
+          gap: var(--space-4);
+          align-items: flex-start;
+        }
+
+        .method-icon {
+          width: 48px;
+          height: 48px;
+          background: var(--gradient-primary);
+          border-radius: var(--radius-lg);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-shrink: 0;
+        }
+
+        .method-icon i {
+          color: var(--color-white);
+          font-size: var(--font-size-lg);
+        }
+
+        .method-info h4 {
+          font-size: var(--font-size-base);
+          color: var(--color-gray-900);
+          margin-bottom: var(--space-1);
+        }
+
+        .method-info p {
+          font-size: var(--font-size-base);
+          color: var(--color-gray-700);
+          font-weight: var(--font-weight-medium);
+          margin-bottom: var(--space-1);
+        }
+
+        .method-info small {
+          color: var(--color-gray-500);
+          font-size: var(--font-size-sm);
+        }
+
+        .schedule-list {
+          display: flex;
+          flex-direction: column;
+          gap: var(--space-3);
+        }
+
+        .schedule-item {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: var(--space-3);
+          background: var(--color-gray-50);
+          border-radius: var(--radius-lg);
+          border-left: 4px solid var(--color-primary);
+        }
+
+        .schedule-item .day {
+          font-weight: var(--font-weight-semibold);
+          color: var(--color-gray-700);
+        }
+
+        .schedule-item .hours {
+          color: var(--color-gray-600);
+          font-weight: var(--font-weight-medium);
+        }
+
+        .social-links {
+          display: flex;
+          gap: var(--space-3);
+          flex-wrap: wrap;
+        }
+
+        .social-link {
+          width: 48px;
+          height: 48px;
+          background: var(--color-gray-100);
+          color: var(--color-gray-600);
+          border-radius: var(--radius-lg);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          transition: var(--transition-base);
+          font-size: var(--font-size-lg);
+        }
+
+        .social-link:hover {
+          background: var(--color-primary);
+          color: var(--color-white);
+          transform: translateY(-2px);
+        }
+
+        /* FAQ Section */
+        .faq-section {
+          padding: var(--space-20) 0;
+          background: var(--color-white);
+        }
+
+        .faq-list {
+          max-width: 800px;
+          margin: 0 auto;
+          display: flex;
+          flex-direction: column;
+          gap: var(--space-4);
+        }
+
+        .faq-item {
+          background: var(--color-white);
+          border: 2px solid var(--color-gray-100);
+          border-radius: var(--radius-xl);
+          overflow: hidden;
+          transition: var(--transition-base);
+        }
+
+        .faq-item:hover {
+          border-color: var(--color-primary);
+        }
+
+        .faq-item.open {
+          border-color: var(--color-primary);
+        }
+
+        .faq-question {
+          width: 100%;
+          padding: var(--space-6);
+          background: none;
+          border: none;
+          text-align: left;
+          cursor: pointer;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          font-size: var(--font-size-lg);
+          font-weight: var(--font-weight-semibold);
+          color: var(--color-gray-900);
+          transition: var(--transition-base);
+        }
+
+        .faq-question:hover {
+          background: var(--color-gray-50);
+        }
+
+        .faq-question i {
+          color: var(--color-primary);
+          transition: var(--transition-base);
+          flex-shrink: 0;
+          margin-left: var(--space-4);
+        }
+
+        .faq-question i.rotate {
+          transform: rotate(180deg);
+        }
+
+        .faq-answer {
+          max-height: 0;
+          overflow: hidden;
+          transition: max-height 0.3s ease-out;
+        }
+
+        .faq-item.open .faq-answer {
+          max-height: 200px;
+        }
+
+        .faq-answer p {
+          padding: 0 var(--space-6) var(--space-6);
+          color: var(--color-gray-600);
+          line-height: var(--line-height-relaxed);
+          margin: 0;
+        }
+
+        /* CTA Actions */
+        .cta__actions {
+          display: flex;
+          gap: var(--space-4);
+          justify-content: center;
+          flex-wrap: wrap;
+        }
+
+        .cta__actions .btn {
+          display: flex;
+          align-items: center;
+          gap: var(--space-2);
+        }
+
+        /* Float Animation */
+        @keyframes float {
+          0%, 100% { transform: translateY(0px); }
+          50% { transform: translateY(-10px); }
+        }
+
+        /* Responsive */
+        @media (max-width: 991px) {
+          .contact-showcase {
+            grid-template-columns: 1fr;
+            max-width: 300px;
+          }
+
+          .hero__contact-features {
+            flex-direction: column;
+            align-items: center;
+            gap: var(--space-4);
+          }
+
+          .contact-grid {
+            grid-template-columns: 1fr;
+            gap: var(--space-8);
+          }
+
+          .form-row {
+            grid-template-columns: 1fr;
+          }
+        }
+
+        @media (max-width: 767px) {
+          .contact-method {
+            padding: var(--space-4);
+          }
+
+          .form-card {
+            padding: var(--space-6);
+          }
+
+          .info-card {
+            padding: var(--space-6);
+          }
+
+          .contact-method-item {
+            flex-direction: column;
+            text-align: center;
+          }
+
+          .method-icon {
+            align-self: center;
+          }
+
+          .schedule-item {
+            flex-direction: column;
+            text-align: center;
+            gap: var(--space-2);
+          }
+
+          .social-links {
+            justify-content: center;
+          }
+
+          .faq-question {
+            padding: var(--space-4);
+            font-size: var(--font-size-base);
+          }
+
+          .faq-answer p {
+            padding: 0 var(--space-4) var(--space-4);
+          }
+
+          .cta__actions {
+            flex-direction: column;
+            align-items: center;
+          }
+
+          .cta__actions .btn {
+            width: 100%;
+            max-width: 300px;
+          }
         }
       `}</style>
-    </div>
+    </>
   );
 };
 
