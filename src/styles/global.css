@@ -125,6 +125,30 @@
   --z-tooltip: 70;
 }
 
+@media (min-width: 576px) {
+  :root {
+    --container-max-width: 540px;
+  }
+}
+
+@media (min-width: 768px) {
+  :root {
+    --container-max-width: 720px;
+  }
+}
+
+@media (min-width: 992px) {
+  :root {
+    --container-max-width: 960px;
+  }
+}
+
+@media (min-width: 1200px) {
+  :root {
+    --container-max-width: 1140px;
+  }
+}
+
 /* ===== RESET AND BASE STYLES ===== */
 *, *::before, *::after {
   box-sizing: border-box;
@@ -1387,6 +1411,7 @@ button:focus, input:focus, select:focus, textarea:focus {
 
 @media (min-width: 1400px) {
   :root {
+    --container-max-width: 1320px;
     --container-padding: var(--space-8);
   }
 }
