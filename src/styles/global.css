@@ -148,8 +148,10 @@ body {
   background-color: var(--color-white);
   line-height: var(--line-height-normal);
   overflow-x: hidden;
-  /* Spazio per crypto ticker allargato */
-  padding-top: 40px;
+  /* Spazio per crypto ticker */
+  padding-top: 60px;
+  /* Previeni zoom su iOS */
+  -webkit-text-size-adjust: 100%;
 }
 
 /* Typography */
@@ -259,7 +261,6 @@ button:focus, input:focus, select:focus, textarea:focus {
 
 .main {
   min-height: 100vh;
-  /* Nessun padding-top aggiuntivo perché header non è fisso */
 }
 
 /* Accessibility */
@@ -1004,70 +1005,74 @@ button:focus, input:focus, select:focus, textarea:focus {
   animation: pulse 2s infinite;
 }
 
-/* ===== RESPONSIVE DESIGN ===== */
-@media (max-width: 575px) {
-  :root {
-    --container-padding: var(--space-4);
-  }
-  
-  .text-responsive {
-    font-size: var(--font-size-sm);
-  }
-}
+/* ===== RESPONSIVE DESIGN FIXES ===== */
 
-@media (min-width: 576px) and (max-width: 767px) {
-  .container {
-    padding: 0 var(--space-5);
-  }
-}
-
-@media (max-width: 767px) {
-  .text-4xl { font-size: var(--font-size-3xl); }
-  .text-3xl { font-size: var(--font-size-2xl); }
-  .text-2xl { font-size: var(--font-size-xl); }
-  .text-xl { font-size: var(--font-size-lg); }
-  
-  .grid-cols-2 { grid-template-columns: 1fr; }
-  .grid-cols-3 { grid-template-columns: 1fr; }
-  .grid-cols-4 { grid-template-columns: repeat(2, 1fr); }
-  
-  .flex-row { flex-direction: column; }
-}
-
-@media (min-width: 768px) and (max-width: 991px) {
-  .grid-cols-4 { grid-template-columns: repeat(2, 1fr); }
-}
-
+/* Mobile ticker and navigation fixes */
 @media (max-width: 991px) {
-  .hero {
-    min-height: 90vh;
+  body {
+    padding-top: 50px;
   }
-  
+
+  .nav-menu {
+    position: fixed;
+    top: 50px;
+    left: 0;
+    right: 0;
+    background: white;
+    border-top: 1px solid #e2e8f0;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    padding: 1.5rem;
+    transform: translateY(-100%);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 99999;
+    max-height: calc(100vh - 50px);
+    overflow-y: auto;
+  }
+
+  .nav-menu-active {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .nav-backdrop {
+    position: fixed;
+    top: 50px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 99998;
+  }
+
+  .header-static {
+    z-index: 9000;
+  }
+
+  .hero {
+    z-index: 1;
+    min-height: 85vh;
+    padding-top: 0;
+  }
+
+  .hero__visual {
+    z-index: 2;
+    order: -1;
+    height: 250px;
+  }
+
   .hero__container {
     grid-template-columns: 1fr;
-    gap: var(--space-12);
+    gap: 2rem;
     text-align: center;
-    padding: var(--space-16) var(--container-padding);
+    padding: 3rem 1.5rem;
   }
-  
-  .hero__title {
-    font-size: var(--font-size-4xl);
-  }
-  
-  .hero__description {
-    font-size: var(--font-size-base);
-  }
-  
-  .hero__cta {
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-  
-  .hero__visual {
-    height: 300px;
-    order: -1;
-  }
-  
+
   .hero__stats {
     justify-content: center;
   }
@@ -1078,105 +1083,305 @@ button:focus, input:focus, select:focus, textarea:focus {
 
   .cta__features {
     flex-direction: column;
-    gap: var(--space-4);
-  }
-
-  .timeline::before {
-    left: var(--space-4);
-  }
-
-  .timeline-item {
-    gap: var(--space-4);
-  }
-
-  .timeline-marker {
-    width: 48px;
-    height: 48px;
-    font-size: var(--font-size-xs);
-  }
-
-  /* Hero variants responsive */
-  .hero--academy,
-  .hero--vip,
-  .hero--web3,
-  .hero--contact,
-  .hero--about,
-  .hero--events {
-    min-height: 85vh;
+    gap: 1rem;
+    align-items: center;
   }
 }
 
 @media (max-width: 767px) {
   body {
-    padding-top: 40px; /* Mantieni consistente anche su mobile */
+    padding-top: 45px;
+  }
+
+  .nav-menu {
+    top: 45px;
+    padding: 1rem;
+  }
+
+  .nav-backdrop {
+    top: 45px;
+  }
+
+  .nav-wrapper {
+    padding: 0.5rem 1rem;
+    height: 60px;
+  }
+
+  .logo-text {
+    font-size: 1.125rem;
+  }
+
+  .crypto-ticker-fixed {
+    height: 45px;
+  }
+
+  .ticker-crypto {
+    margin-right: 14px;
+    min-width: 110px;
+    gap: 5px;
+    height: 26px;
+    padding: 0 8px;
+  }
+
+  .crypto-sym {
+    font-size: 9px;
+    min-width: 26px;
+  }
+
+  .crypto-pr {
+    font-size: 9px;
+    min-width: 48px;
+  }
+
+  .crypto-ch {
+    font-size: 8px;
+    min-width: 30px;
+    padding: 2px 4px;
+  }
+
+  .hero {
+    min-height: 80vh;
   }
 
   .hero__container {
-    padding: var(--space-12) var(--container-padding);
+    padding: 2rem 1rem;
+    gap: 1.5rem;
   }
-  
+
   .hero__title {
     font-size: var(--font-size-3xl);
+    margin-bottom: 1rem;
   }
-  
-  .hero__cta {
+
+  .hero__description {
+    font-size: var(--font-size-base);
+    margin-bottom: 1.5rem;
+  }
+
+  .hero__stats {
     flex-direction: column;
     align-items: center;
+    gap: 1rem;
+    margin: 1.5rem 0;
   }
-  
+
+  .hero__stat {
+    padding: 0.75rem 1rem;
+    min-width: 140px;
+  }
+
+  .hero__cta {
+    flex-direction: column;
+    gap: 0.75rem;
+    align-items: center;
+  }
+
+  .hero__visual {
+    height: 200px;
+  }
+
   .btn {
     width: 100%;
     max-width: 280px;
   }
-  
-  .hero__visual {
-    height: 200px;
-  }
-  
-  .hero__stats {
-    flex-direction: column;
-    align-items: center;
-    gap: var(--space-4);
-  }
 
   .services {
-    padding: var(--space-16) 0;
+    padding: 3rem 0;
+  }
+
+  .services__header {
+    margin-bottom: 2rem;
+  }
+
+  .services__title {
+    font-size: var(--font-size-3xl);
   }
 
   .service-card {
-    padding: var(--space-6);
+    padding: 1.5rem;
   }
 
   .cta {
-    padding: var(--space-16) 0;
+    padding: 3rem 0;
   }
 
   .cta__title {
-    font-size: var(--font-size-2xl);
+    font-size: var(--font-size-3xl);
   }
 
-  .timeline-content {
-    padding: var(--space-4);
+  .timeline::before {
+    left: 1rem;
   }
 
-  /* Hero variants mobile */
-  .hero {
-    min-height: 85vh;
+  .timeline-item {
+    gap: 1rem;
   }
 
-  .hero--academy,
-  .hero--vip,
-  .hero--web3,
-  .hero--contact,
-  .hero--about,
-  .hero--events {
-    min-height: 80vh;
+  .timeline-marker {
+    width: 40px;
+    height: 40px;
+    font-size: 0.75rem;
+  }
+
+  /* Form fixes */
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Grid fixes */
+  .performance__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .performance__summary {
+    grid-template-columns: 1fr;
+  }
+
+  .team-grid,
+  .instructors__grid,
+  .pricing-grid,
+  .testimonials__grid,
+  .testimonials-grid,
+  .case-studies__grid,
+  .events-grid,
+  .features-grid,
+  .courses__grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Footer fixes */
+  .footer__content {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .footer__links {
+    grid-template-columns: 1fr;
+  }
+
+  .footer__social {
+    justify-content: center;
+  }
+
+  /* Visual elements sizing */
+  .hero__crypto-icons {
+    width: 200px;
+    height: 200px;
+  }
+
+  .crypto-icon {
+    width: 50px;
+    height: 50px;
+    font-size: 1rem;
+  }
+
+  .web3-ecosystem {
+    width: 200px;
+    height: 200px;
+  }
+
+  .ecosystem-center {
+    width: 70px;
+    height: 70px;
+  }
+
+  .node {
+    width: 50px;
+    height: 50px;
+    font-size: 0.7rem;
+  }
+
+  .about-showcase,
+  .events-showcase,
+  .contact-showcase {
+    grid-template-columns: 1fr;
+    max-width: 200px;
+    gap: 0.75rem;
+  }
+
+  .showcase-circle,
+  .showcase-item,
+  .contact-method {
+    width: 80px;
+    height: 80px;
+  }
+
+  /* Touch targets */
+  .nav-link,
+  .service-card__link,
+  .footer__link {
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Prevent zoom on input focus (iOS) */
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  input[type="password"],
+  textarea,
+  select {
+    font-size: 16px !important;
   }
 }
 
 @media (max-width: 480px) {
-  body {
-    padding-top: 40px; /* Mantieni consistente */
+  .btn {
+    max-width: 240px;
+    padding: 0.625rem 1rem;
+  }
+
+  .performance__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero__container {
+    padding: 1.5rem 0.75rem;
+  }
+
+  .hero__title {
+    font-size: var(--font-size-2xl);
+  }
+
+  .service-card {
+    padding: 1.25rem;
+  }
+}
+
+@media (max-width: 575px) {
+  :root {
+    --container-padding: var(--space-4);
+  }
+}
+
+@media (min-width: 576px) and (max-width: 767px) {
+  .container {
+    padding: 0 var(--space-5);
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  .grid-cols-4 { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media screen and (max-height: 500px) and (orientation: landscape) {
+  .hero {
+    min-height: auto;
+    padding: 1rem 0;
+  }
+
+  .hero__container {
+    padding: 1rem;
+  }
+
+  .hero__visual {
+    height: 150px;
   }
 }
 
@@ -1242,13 +1447,247 @@ button:focus, input:focus, select:focus, textarea:focus {
     page-break-after: avoid;
   }
 
-  /* Nascondi crypto ticker nella stampa */
   .crypto-ticker-fixed {
     display: none !important;
   }
 
-  /* Rimuovi padding body per stampa */
   body {
     padding-top: 0 !important;
+  }
+}
+
+/* ===== MOBILE LAYOUT FIXES ===== */
+
+/* Aggiorna il padding del body per compensare il ticker più alto */
+body {
+  font-family: var(--font-family-primary);
+  font-weight: var(--font-weight-regular);
+  color: var(--color-gray-900);
+  background-color: var(--color-white);
+  line-height: var(--line-height-normal);
+  overflow-x: hidden;
+  /* Aumentato per compensare il ticker di 60px */
+  padding-top: 60px;
+}
+
+/* ===== HERO SECTIONS FIXES ===== */
+
+/* Hero base con altezza minima aumentata */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  background: var(--gradient-hero);
+  overflow: hidden;
+  /* Aggiungi padding-top per evitare sovrapposizioni */
+  padding-top: var(--space-8);
+}
+
+/* Hero variants con altezze corrette */
+.hero--academy {
+  background: var(--gradient-secondary);
+  min-height: 100vh;
+  padding-top: var(--space-12);
+}
+
+.hero--vip {
+  background: linear-gradient(135deg, var(--color-secondary) 0%, var(--color-secondary-light) 50%, var(--color-primary) 100%);
+  min-height: 100vh;
+  padding-top: var(--space-12);
+}
+
+.hero--web3 {
+  background: linear-gradient(135deg, var(--color-secondary) 0%, var(--color-secondary-light) 50%, var(--color-primary) 100%);
+  min-height: 100vh;
+  padding-top: var(--space-12);
+}
+
+.hero--contact {
+  background: linear-gradient(135deg, var(--color-secondary) 0%, var(--color-secondary-light) 50%, var(--color-primary) 100%);
+  min-height: 100vh;
+  padding-top: var(--space-12);
+}
+
+.hero--about {
+  background: var(--gradient-secondary);
+  min-height: 100vh;
+  padding-top: var(--space-12);
+}
+
+.hero--events {
+  background: linear-gradient(135deg, var(--color-secondary) 0%, var(--color-secondary-light) 50%, var(--color-primary) 100%);
+  min-height: 100vh;
+  padding-top: var(--space-12);
+}
+
+/* ===== RESPONSIVE FIXES ===== */
+
+@media (max-width: 991px) {
+  .hero {
+    min-height: 95vh;
+    padding-top: var(--space-16);
+  }
+  
+  .hero__container {
+    grid-template-columns: 1fr;
+    gap: var(--space-12);
+    text-align: center;
+    padding: var(--space-20) var(--container-padding) var(--space-16);
+  }
+  
+  /* Hero variants responsive con altezze aumentate */
+  .hero--academy,
+  .hero--vip,
+  .hero--web3,
+  .hero--contact,
+  .hero--about,
+  .hero--events {
+    min-height: 95vh;
+    padding-top: var(--space-20);
+  }
+
+  /* Assicurati che le sezioni successive abbiano margine superiore */
+  .services,
+  .performance,
+  .vip-features,
+  .contact-section,
+  .timeline-section {
+    margin-top: var(--space-8);
+  }
+}
+
+@media (max-width: 767px) {
+  body {
+    padding-top: 60px; /* Mantieni consistente con il ticker */
+  }
+
+  .hero {
+    min-height: 90vh;
+    padding-top: var(--space-20);
+  }
+  
+  .hero__container {
+    padding: var(--space-24) var(--container-padding) var(--space-16);
+  }
+  
+  /* Hero variants mobile con padding maggiore */
+  .hero--academy,
+  .hero--vip,
+  .hero--web3,
+  .hero--contact,
+  .hero--about,
+  .hero--events {
+    min-height: 90vh;
+    padding-top: var(--space-24);
+  }
+
+  /* Aumenta il margine delle sezioni successive */
+  .services,
+  .performance,
+  .vip-features,
+  .contact-section,
+  .timeline-section {
+    margin-top: var(--space-12);
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    padding-top: 60px;
+  }
+
+  .hero {
+    min-height: 85vh;
+    padding-top: var(--space-24);
+  }
+
+  .hero__container {
+    padding: var(--space-32) var(--container-padding) var(--space-20);
+  }
+
+  /* Hero variants per schermi molto piccoli */
+  .hero--academy,
+  .hero--vip,
+  .hero--web3,
+  .hero--contact,
+  .hero--about,
+  .hero--events {
+    min-height: 85vh;
+    padding-top: var(--space-32);
+  }
+
+  /* Margine ancora maggiore per schermi piccoli */
+  .services,
+  .performance,
+  .vip-features,
+  .contact-section,
+  .timeline-section {
+    margin-top: var(--space-16);
+  }
+}
+
+/* ===== SPECIFICI FIXES PER COMPONENTI ===== */
+
+/* Fix per service cards che si sovrappongono */
+.service-card {
+  position: relative;
+  background: var(--color-white);
+  border-radius: var(--radius-xl);
+  padding: var(--space-8);
+  border: 1px solid var(--color-gray-200);
+  transition: var(--transition-base);
+  overflow: hidden;
+  cursor: pointer;
+  z-index: 1; /* Aggiungi z-index per evitare sovrapposizioni */
+  margin-bottom: var(--space-4); /* Aggiungi margine inferiore */
+}
+
+/* Fix per le sezioni che si sovrappongono */
+.services {
+  padding: var(--space-20) 0;
+  background: var(--color-white);
+  position: relative;
+  overflow: hidden;
+  z-index: 2; /* Assicura che sia sopra l'hero */
+}
+
+/* Fix specifico per la performance section nelle pagine VIP */
+.performance {
+  padding: var(--space-20) 0;
+  background: #f7fafc;
+  position: relative;
+  z-index: 2;
+}
+
+/* Fix per contact form che si sovrappone */
+.contact-section {
+  padding: var(--space-20) 0;
+  background: var(--color-gray-100);
+  position: relative;
+  z-index: 2;
+}
+
+/* Fix per timeline section */
+.timeline-section {
+  padding: var(--space-20) 0;
+  background: var(--color-white);
+  position: relative;
+  z-index: 2;
+}
+
+/* ===== PRINT STYLES UPDATE ===== */
+@media print {
+  body {
+    padding-top: 0 !important;
+  }
+  
+  .crypto-ticker-fixed {
+    display: none !important;
+  }
+  
+  .hero {
+    padding-top: 0 !important;
+    min-height: auto !important;
   }
 }

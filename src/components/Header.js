@@ -426,14 +426,14 @@ const Header = ({ currentPage, setCurrentPage }) => {
         }
 
         .nav-backdrop {
-  position: fixed;
-  top: 48px; /* Stesso valore */
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
-  z-index: 9998; /* Sotto al menu */
-}
+         position: fixed;
+         top: 100px; /* AGGIORNA questo valore in base all'altezza ticker + header */
+         left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 9998; 
+        }
 
         /* ===== RESPONSIVE ===== */
         @media (max-width: 991px) {
