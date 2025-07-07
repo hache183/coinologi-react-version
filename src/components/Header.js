@@ -300,12 +300,15 @@ const Header = ({ currentPage, setCurrentPage }) => {
 
         /* ===== HEADER CON SPAZIATURE RIDOTTE ===== */
         .header-static {
-          position: relative;
-          background: rgba(255, 255, 255, 0.95);
-          backdrop-filter: blur(10px);
-          margin-top: 30px; /* Aggiornato da 32px a 40px */
-          margin-bottom: 10px;
-        }
+  position: fixed;
+  top: 60px;           /* Altezza del ticker */
+  left: 0;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  margin: 0;
+  z-index: 9998;
+}
 
         .nav-container {
           position: relative;
@@ -427,7 +430,7 @@ const Header = ({ currentPage, setCurrentPage }) => {
 
         .nav-backdrop {
          position: fixed;
-         top: 100px; /* AGGIORNA questo valore in base all'altezza ticker + header */
+         top: 60px; /* AGGIORNA questo valore in base all'altezza ticker + header */
          left: 0;
         right: 0;
         bottom: 0;
@@ -443,7 +446,7 @@ const Header = ({ currentPage, setCurrentPage }) => {
 
           .nav-menu {
   position: fixed;
-  top: 48px; /* Altezza ticker aggiornata */
+  top: 60px; /* Altezza ticker aggiornata */
   left: 0;
   right: 0;
   background: white;
