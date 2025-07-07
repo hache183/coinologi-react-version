@@ -29,7 +29,7 @@ const Home = () => {
       title: 'VIP Crypto Trading Signals',
       description: 'Accedi a segnali di trading esclusivi e analisi avanzate, entrando in una community riservata a investitori selezionati per massimizzare i tuoi risultati.',
       link: 'Accedi ora',
-      featured: true,
+      featured: false,
       badge: 'VIP'
     },
     {

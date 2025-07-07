@@ -71,7 +71,7 @@ const Web3Consulting = () => {
       icon: 'fas fa-code',
       title: 'Smart Contract Development',
       description: 'Sviluppiamo e auditiamo smart contract sicuri ed efficienti per automatizzare processi business e creare nuove funzionalità decentralizzate.',
-      featured: true
+      featured: false
     },
     {
       icon: 'fas fa-university',
