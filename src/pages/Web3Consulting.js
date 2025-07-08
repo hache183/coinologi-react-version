@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import SEO from '../components/SEO';
+
 const Web3Consulting = () => {
   const metricsRef = useRef([]);
 
@@ -367,14 +368,17 @@ const Web3Consulting = () => {
           font-weight: 500;
         }
 
+        /* Fix per il container dell'ecosistema */
         .web3-ecosystem {
           position: relative;
-          width: 400px;
+          width: 100%;
+          max-width: 400px;
           height: 400px;
           display: flex;
           align-items: center;
           justify-content: center;
           animation: float 6s ease-in-out infinite;
+          margin: 0 auto;
         }
 
         .ecosystem-center {
@@ -421,7 +425,7 @@ const Web3Consulting = () => {
         }
 
         .node:hover {
-          transform: scale(1.2);
+          transform: scale(1.1);
           z-index: 20;
         }
 
@@ -430,6 +434,7 @@ const Web3Consulting = () => {
           margin-bottom: 0.25rem;
         }
 
+        /* Posizionamento responsive dei nodi */
         .node--blockchain {
           top: 10%;
           left: 50%;
@@ -438,14 +443,14 @@ const Web3Consulting = () => {
         }
 
         .node--defi {
-          top: 30%;
-          right: 10%;
+          top: 25%;
+          right: 15%;
           animation-delay: 0.7s;
         }
 
         .node--nft {
-          bottom: 30%;
-          right: 10%;
+          bottom: 25%;
+          right: 15%;
           animation-delay: 1.4s;
         }
 
@@ -457,14 +462,14 @@ const Web3Consulting = () => {
         }
 
         .node--smart {
-          bottom: 30%;
-          left: 10%;
+          bottom: 25%;
+          left: 15%;
           animation-delay: 2.8s;
         }
 
         .node--tokens {
-          top: 30%;
-          left: 10%;
+          top: 25%;
+          left: 15%;
           animation-delay: 3.5s;
         }
 
@@ -579,38 +584,236 @@ const Web3Consulting = () => {
           background: linear-gradient(135deg, #2d3436 0%, #ff6b35 100%);
         }
 
-        @media (max-width: 768px) {
+        /* Fix per hero container su Web3 */
+        .hero--web3 .hero__container {
+          max-width: 100%;
+          overflow: hidden;
+        }
+
+        .hero--web3 .hero__visual {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 100%;
+          max-width: 100%;
+          overflow: hidden;
+        }
+
+        /* RESPONSIVE FIXES SPECIFICI */
+
+        /* Tablet */
+        @media (max-width: 991px) {
           .hero__stats {
             flex-direction: column;
             align-items: center;
           }
 
-          //.web3-ecosystem {
-          //  width: 250px;
-          //  height: 250px;
-          //}
-
+          .web3-ecosystem {
+            max-width: 350px;
+            height: 350px;
+          }
+          
           .ecosystem-center {
-            width: 80px;
-            height: 80px;
+            width: 100px;
+            height: 100px;
           }
-
+          
+          .ecosystem-center i {
+            font-size: 1.5rem;
+          }
+          
           .node {
-            width: 60px;
-            height: 60px;
-            font-size: 10px;
+            width: 70px;
+            height: 70px;
+            font-size: 0.7rem;
           }
-
+          
           .node i {
             font-size: 1rem;
+          }
+          
+          /* Riposiziona i nodi per evitare overflow */
+          .node--defi {
+            right: 10%;
+            top: 20%;
+          }
+          
+          .node--nft {
+            right: 10%;
+            bottom: 20%;
+          }
+          
+          .node--smart {
+            left: 10%;
+            bottom: 20%;
+          }
+          
+          .node--tokens {
+            left: 10%;
+            top: 20%;
           }
 
           .case-studies__grid {
             grid-template-columns: 1fr;
           }
+        }
+
+        /* Mobile */
+        @media (max-width: 767px) {
+          .hero__visual {
+            overflow: hidden;
+            width: 100%;
+            max-width: 100%;
+          }
+          
+          .web3-ecosystem {
+            max-width: 300px;
+            height: 300px;
+          }
+          
+          .ecosystem-center {
+            width: 80px;
+            height: 80px;
+          }
+          
+          .ecosystem-center i {
+            font-size: 1.25rem;
+            margin-bottom: 0.25rem;
+          }
+          
+          .ecosystem-center span {
+            font-size: 0.75rem;
+          }
+          
+          .node {
+            width: 60px;
+            height: 60px;
+            font-size: 0.65rem;
+          }
+          
+          .node i {
+            font-size: 0.875rem;
+            margin-bottom: 0.125rem;
+          }
+          
+          /* Posizionamento più compatto per mobile */
+          .node--blockchain {
+            top: 8%;
+          }
+          
+          .node--defi {
+            right: 8%;
+            top: 18%;
+          }
+          
+          .node--nft {
+            right: 8%;
+            bottom: 18%;
+          }
+          
+          .node--dao {
+            bottom: 8%;
+          }
+          
+          .node--smart {
+            left: 8%;
+            bottom: 18%;
+          }
+          
+          .node--tokens {
+            left: 8%;
+            top: 18%;
+          }
 
           .case-study__metrics {
             grid-template-columns: 1fr;
+          }
+        }
+
+        /* Mobile molto piccolo */
+        @media (max-width: 480px) {
+          .web3-ecosystem {
+            max-width: 280px;
+            height: 280px;
+          }
+          
+          .ecosystem-center {
+            width: 70px;
+            height: 70px;
+          }
+          
+          .ecosystem-center i {
+            font-size: 1rem;
+          }
+          
+          .ecosystem-center span {
+            font-size: 0.7rem;
+          }
+          
+          .node {
+            width: 50px;
+            height: 50px;
+            font-size: 0.6rem;
+          }
+          
+          .node i {
+            font-size: 0.75rem;
+          }
+          
+          /* Posizionamento ancora più compatto */
+          .node--defi {
+            right: 5%;
+            top: 15%;
+          }
+          
+          .node--nft {
+            right: 5%;
+            bottom: 15%;
+          }
+          
+          .node--smart {
+            left: 5%;
+            bottom: 15%;
+          }
+          
+          .node--tokens {
+            left: 5%;
+            top: 15%;
+          }
+        }
+
+        /* Disabilita le animazioni su dispositivi che preferiscono movimento ridotto */
+        @media (prefers-reduced-motion: reduce) {
+          .web3-ecosystem,
+          .node {
+            animation: none !important;
+          }
+          
+          .node:hover {
+            transform: scale(1.05);
+          }
+        }
+
+        /* Fix per orientamento landscape su mobile */
+        @media screen and (max-height: 500px) and (orientation: landscape) {
+          .web3-ecosystem {
+            max-width: 250px;
+            height: 250px;
+          }
+          
+          .ecosystem-center {
+            width: 60px;
+            height: 60px;
+          }
+          
+          .node {
+            width: 45px;
+            height: 45px;
+            font-size: 0.5rem;
+          }
+          
+          .node i {
+            font-size: 0.625rem;
           }
         }
       `}</style>
