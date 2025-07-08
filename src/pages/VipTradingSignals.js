@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import SEO from '../components/SEO';
 
 const VipTradingSignals = () => {
   const [dashboardProfit, setDashboardProfit] = useState(4.2);

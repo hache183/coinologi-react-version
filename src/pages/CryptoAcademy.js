@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react';
+import SEO from '../components/SEO';
 
 const CryptoAcademy = () => {
   const progressBarsRef = useRef([]);

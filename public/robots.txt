@@ -1,3 +1,15 @@
-# https://www.robotstxt.org/robotstxt.html
+# Robots.txt per COINOLOGI
+# https://coinologi.net/robots.txt
+
 User-agent: *
-Disallow:
+Allow: /
+
+# Sitemap location
+Sitemap: https://coinologi.com/sitemap.xml
+
+# Disallow specific paths if needed in the future
+# Disallow: /admin/
+# Disallow: /private/
+
+# Crawl-delay for polite crawling
+Crawl-delay: 1

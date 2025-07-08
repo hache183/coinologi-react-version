@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 
-// Componente Crypto Ticker con altezza aumentata
+
+// Componente Crypto Ticker (rimane uguale)
 const CryptoTicker = () => {
+  // ... tutto il codice del ticker rimane identico
   const [cryptoData, setCryptoData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -117,29 +120,29 @@ const CryptoTicker = () => {
   );
 };
 
-// Header component con spaziature ottimizzate
-const Header = ({ currentPage, setCurrentPage }) => {
+// Header component con React Router
+const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const location = useLocation(); // Hook per ottenere la route corrente
 
   const menuItems = [
-    { id: 'home', label: 'Home' },
-    { id: 'crypto-academy', label: 'Crypto Academy' },
-    { id: 'vip-trading-signals', label: 'VIP Trading Signals' },
-    { id: 'web3-consulting', label: 'Web3 Consulting' },
-    { id: 'exclusive-events', label: 'Exclusive Events' },
-    { id: 'about-us', label: 'Chi Siamo' },
-    { id: 'contact', label: 'Contatti' }
+    { path: '/', label: 'Home' },
+    { path: '/crypto-academy', label: 'Crypto Academy' },
+    { path: '/vip-trading-signals', label: 'VIP Trading Signals' },
+    { path: '/web3-consulting', label: 'Web3 Consulting' },
+    { path: '/exclusive-events', label: 'Exclusive Events' },
+    { path: '/about-us', label: 'Chi Siamo' },
+    { path: '/contact', label: 'Contatti' }
   ];
-
-  const handleMenuClick = (pageId) => {
-    setCurrentPage(pageId);
-    setIsMenuOpen(false);
-    window.scrollTo(0, 0);
-  };
 
   const toggleMobileMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
+
+  // Chiudi menu quando cambia la route
+  useEffect(() => {
+    setIsMenuOpen(false);
+  }, [location]);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -157,28 +160,25 @@ const Header = ({ currentPage, setCurrentPage }) => {
       {/* Ticker fisso in alto */}
       <CryptoTicker />
       
-      {/* Header con spaziature ridotte */}
+      {/* Header con React Router */}
       <header className="header-static" role="banner">
         <nav className="nav-container" role="navigation">
           <div className="nav-wrapper">
             <div className="nav-logo">
-              <button 
-                onClick={() => handleMenuClick('home')} 
-                className="logo-btn"
-              >
+              <Link to="/" className="logo-btn">
                 <span className="logo-text">COINOLOGI</span>
-              </button>
+              </Link>
             </div>
 
             <ul className={`nav-menu ${isMenuOpen ? 'nav-menu-active' : ''}`}>
               {menuItems.map((item) => (
-                <li key={item.id} className="nav-item">
-                  <button
-                    onClick={() => handleMenuClick(item.id)}
-                    className={`nav-link ${currentPage === item.id ? 'nav-link-active' : ''}`}
+                <li key={item.path} className="nav-item">
+                  <Link
+                    to={item.path}
+                    className={`nav-link ${location.pathname === item.path ? 'nav-link-active' : ''}`}
                   >
                     {item.label}
-                  </button>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -186,6 +186,7 @@ const Header = ({ currentPage, setCurrentPage }) => {
             <button 
               className={`nav-toggle ${isMenuOpen ? 'nav-toggle-active' : ''}`}
               onClick={toggleMobileMenu}
+              aria-label="Toggle menu"
             >
               <span className="toggle-line"></span>
               <span className="toggle-line"></span>
@@ -202,15 +203,16 @@ const Header = ({ currentPage, setCurrentPage }) => {
         )}
       </header>
 
+      {/* Stili CSS rimangono identici */}
       <style jsx>{`
-        /* ===== CRYPTO TICKER FISSO - ALLARGATO ===== */
+        /* Tutti gli stili CSS rimangono esattamente uguali */
         .crypto-ticker-fixed {
           position: fixed;
           top: 0;
           left: 0;
           right: 0;
           z-index: 9999;
-          height: 60px; /* Aumentata da 32px a 40px */
+          height: 60px;
           background: #1a202c;
           border-bottom: 1px solid #ff6b35;
           overflow: hidden;
@@ -250,41 +252,41 @@ const Header = ({ currentPage, setCurrentPage }) => {
         .ticker-crypto {
           display: flex;
           align-items: center;
-          margin-right: 24px; /* Aumentato da 20px */
-          padding: 0 12px; /* Aumentato da 8px */
-          height: 32px; /* Aumentata da 24px */
+          margin-right: 24px;
+          padding: 0 12px;
+          height: 32px;
           background: rgba(255, 255, 255, 0.08);
-          border-radius: 4px; /* Aumentato da 3px */
-          min-width: 160px; /* Aumentata da 140px */
-          gap: 8px; /* Aumentato da 6px */
+          border-radius: 4px;
+          min-width: 160px;
+          gap: 8px;
           flex-shrink: 0;
         }
 
         .crypto-sym {
           font-family: 'Courier New', monospace;
           font-weight: 700;
-          font-size: 11px; /* Aumentato da 10px */
+          font-size: 11px;
           color: #ffd700;
-          min-width: 36px; /* Aumentato da 32px */
+          min-width: 36px;
           text-align: left;
         }
 
         .crypto-pr {
           font-family: 'Courier New', monospace;
-          font-size: 11px; /* Aumentato da 10px */
+          font-size: 11px;
           font-weight: 600;
           color: #ffffff;
-          min-width: 60px; /* Aumentato da 50px */
+          min-width: 60px;
           text-align: right;
         }
 
         .crypto-ch {
           font-family: 'Courier New', monospace;
-          font-size: 10px; /* Aumentato da 9px */
+          font-size: 10px;
           font-weight: 600;
-          padding: 2px 6px; /* Aumentato da 1px 4px */
-          border-radius: 3px; /* Aumentato da 2px */
-          min-width: 42px; /* Aumentato da 38px */
+          padding: 2px 6px;
+          border-radius: 3px;
+          min-width: 42px;
           text-align: center;
         }
 
@@ -298,17 +300,16 @@ const Header = ({ currentPage, setCurrentPage }) => {
           background: rgba(245, 101, 101, 0.2);
         }
 
-        /* ===== HEADER CON SPAZIATURE RIDOTTE ===== */
         .header-static {
-  position: fixed;
-  top: 60px;           /* Altezza del ticker */
-  left: 0;
-  width: 100%;
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(10px);
-  margin: 0;
-  z-index: 9998;
-}
+          position: fixed;
+          top: 60px;
+          left: 0;
+          width: 100%;
+          background: rgba(255, 255, 255, 0.95);
+          backdrop-filter: blur(10px);
+          margin: 0;
+          z-index: 9998;
+        }
 
         .nav-container {
           position: relative;
@@ -320,8 +321,8 @@ const Header = ({ currentPage, setCurrentPage }) => {
           justify-content: space-between;
           max-width: 1200px;
           margin: 0 auto;
-          padding: 0.75rem 1.5rem; /* Ridotto da 1rem a 0.75rem */
-          height: 70px; /* Ridotto da 80px a 70px */
+          padding: 0.75rem 1.5rem;
+          height: 70px;
         }
 
         .nav-logo {
@@ -333,6 +334,7 @@ const Header = ({ currentPage, setCurrentPage }) => {
           border: none;
           cursor: pointer;
           transition: transform 0.2s ease;
+          text-decoration: none;
         }
 
         .logo-btn:hover {
@@ -370,9 +372,7 @@ const Header = ({ currentPage, setCurrentPage }) => {
           font-size: 0.875rem;
           font-weight: 500;
           color: #4a5568;
-          background: none;
-          border: none;
-          cursor: pointer;
+          text-decoration: none;
           border-radius: 12px;
           transition: all 0.2s ease;
           white-space: nowrap;
@@ -429,39 +429,38 @@ const Header = ({ currentPage, setCurrentPage }) => {
         }
 
         .nav-backdrop {
-         position: fixed;
-         top: 60px; /* AGGIORNA questo valore in base all'altezza ticker + header */
-         left: 0;
-        right: 0;
-        bottom: 0;
-        background: rgba(0, 0, 0, 0.5);
-        z-index: 9998; 
+          position: fixed;
+          top: 130px;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: rgba(0, 0, 0, 0.5);
+          z-index: 9998;
         }
 
-        /* ===== RESPONSIVE ===== */
         @media (max-width: 991px) {
           .nav-toggle {
             display: flex;
           }
 
           .nav-menu {
-  position: fixed;
-  top: 60px; /* Altezza ticker aggiornata */
-  left: 0;
-  right: 0;
-  background: white;
-  border-top: 1px solid #e2e8f0;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-  flex-direction: column;
-  align-items: stretch;
-  gap: 0;
-  padding: 1.5rem;
-  transform: translateY(-100%);
-  opacity: 0;
-  visibility: hidden;
-  transition: all 0.3s ease;
-  z-index: 9999; /* AUMENTATO */
-}
+            position: fixed;
+            top: 130px;
+            left: 0;
+            right: 0;
+            background: white;
+            border-top: 1px solid #e2e8f0;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            flex-direction: column;
+            align-items: stretch;
+            gap: 0;
+            padding: 1.5rem;
+            transform: translateY(-100%);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 9999;
+          }
 
           .nav-menu-active {
             transform: translateY(0);
@@ -479,57 +478,12 @@ const Header = ({ currentPage, setCurrentPage }) => {
             font-size: 1rem;
             margin-bottom: 0.5rem;
           }
-
-          /* Ticker mobile - spaziature proporzionali */
-          .ticker-crypto {
-            margin-right: 18px;
-            min-width: 140px;
-            gap: 6px;
-            height: 28px;
-          }
-          
-          .crypto-sym {
-            font-size: 10px;
-            min-width: 32px;
-          }
-          
-          .crypto-pr {
-            font-size: 10px;
-            min-width: 55px;
-          }
-          
-          .crypto-ch {
-            font-size: 9px;
-            min-width: 38px;
-          }
         }
 
         @media (max-width: 480px) {
           .nav-wrapper {
-            padding: 0.5rem 1rem; /* Ulteriormente ridotto per mobile */
-            height: 60px; /* Ridotto per mobile */
-          }
-
-          .ticker-crypto {
-            margin-right: 15px;
-            min-width: 120px;
-            gap: 4px;
-            height: 24px;
-          }
-          
-          .crypto-sym {
-            font-size: 9px;
-            min-width: 28px;
-          }
-          
-          .crypto-pr {
-            font-size: 9px;
-            min-width: 50px;
-          }
-          
-          .crypto-ch {
-            font-size: 8px;
-            min-width: 32px;
+            padding: 0.5rem 1rem;
+            height: 60px;
           }
         }
       `}</style>

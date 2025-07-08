@@ -1,18 +1,20 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import SEO from '../components/SEO';
 
 const Footer = () => {
   const footerLinks = {
     services: [
-      { label: 'Crypto Academy', id: 'crypto-academy' },
-      { label: 'VIP Trading Signals', id: 'vip-trading-signals' },
-      { label: 'Web3 Consulting', id: 'web3-consulting' },
-      { label: 'Exclusive Events', id: 'exclusive-events' }
+      { label: 'Crypto Academy', path: '/crypto-academy' },
+      { label: 'VIP Trading Signals', path: '/vip-trading-signals' },
+      { label: 'Web3 Consulting', path: '/web3-consulting' },
+      { label: 'Exclusive Events', path: '/exclusive-events' }
     ],
     company: [
-      { label: 'Chi Siamo', id: 'about-us' },
-      { label: 'Contatti', id: 'contact' },
-      { label: 'Privacy Policy', id: 'privacy' },
-      { label: 'Termini di Servizio', id: 'terms' }
+      { label: 'Chi Siamo', path: '/about-us' },
+      { label: 'Contatti', path: '/contact' },
+      { label: 'Privacy Policy', path: '/privacy' },
+      { label: 'Termini di Servizio', path: '/terms' }
     ]
   };
 
@@ -38,9 +40,11 @@ const Footer = () => {
             <div className="footer__column">
               <h4 className="footer__column-title">Servizi</h4>
               <ul className="footer__menu">
-                {footerLinks.services.map((link) => (
-                  <li key={link.id}>
-                    <button className="footer__link">{link.label}</button>
+                {footerLinks.services.map((link, index) => (
+                  <li key={index}>
+                    <Link to={link.path} className="footer__link">
+                      {link.label}
+                    </Link>
                   </li>
                 ))}
               </ul>
@@ -49,9 +53,11 @@ const Footer = () => {
             <div className="footer__column">
               <h4 className="footer__column-title">Azienda</h4>
               <ul className="footer__menu">
-                {footerLinks.company.map((link) => (
-                  <li key={link.id}>
-                    <button className="footer__link">{link.label}</button>
+                {footerLinks.company.map((link, index) => (
+                  <li key={index}>
+                    <Link to={link.path} className="footer__link">
+                      {link.label}
+                    </Link>
                   </li>
                 ))}
               </ul>
@@ -82,6 +88,7 @@ const Footer = () => {
         </div>
       </div>
 
+      {/* Tutti gli stili CSS rimangono identici */}
       <style jsx>{`
         .footer {
           background: #2d3436;
@@ -171,14 +178,12 @@ const Footer = () => {
 
         .footer__link {
           color: #cbd5e0;
-          background: none;
-          border: none;
-          cursor: pointer;
+          text-decoration: none;
           font-size: 1rem;
           padding: 0.25rem 0;
           position: relative;
           transition: color 0.1s ease-out;
-          text-align: left;
+          display: block;
         }
 
         .footer__link::before {

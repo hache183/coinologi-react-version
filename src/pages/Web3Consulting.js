@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-
+import SEO from '../components/SEO';
 const Web3Consulting = () => {
   const metricsRef = useRef([]);
 

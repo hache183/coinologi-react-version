@@ -1,47 +1,81 @@
-import React, { useState } from 'react';
+import React, { Suspense } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
-import Home from './pages/Home';
-import CryptoAcademy from './pages/CryptoAcademy';
-import VipTradingSignals from './pages/VipTradingSignals';
-import Web3Consulting from './pages/Web3Consulting';
-import ExclusiveEvents from './pages/ExclusiveEvents';
-import AboutUs from './pages/AboutUs';
-import Contact from './pages/Contact';
 import './styles/global.css';
 
+// Lazy loading dei componenti per migliorare le performance
+const Home = React.lazy(() => import('./pages/Home'));
+const CryptoAcademy = React.lazy(() => import('./pages/CryptoAcademy'));
+const VipTradingSignals = React.lazy(() => import('./pages/VipTradingSignals'));
+const Web3Consulting = React.lazy(() => import('./pages/Web3Consulting'));
+const ExclusiveEvents = React.lazy(() => import('./pages/ExclusiveEvents'));
+const AboutUs = React.lazy(() => import('./pages/AboutUs'));
+const Contact = React.lazy(() => import('./pages/Contact'));
+
+// Componente di loading
+const PageLoader = () => (
+  <div className="page-loader">
+    <div className="loader-spinner"></div>
+    <p>Caricamento...</p>
+    
+    <style jsx>{`
+      .page-loader {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 50vh;
+        padding: 2rem;
+      }
+      
+      .loader-spinner {
+        width: 40px;
+        height: 40px;
+        border: 4px solid #f3f3f3;
+        border-top: 4px solid #ff6b35;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        margin-bottom: 1rem;
+      }
+      
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+      
+      .page-loader p {
+        color: #718096;
+        font-size: 1rem;
+        margin: 0;
+      }
+    `}</style>
+  </div>
+);
+
 function App() {
-  const [currentPage, setCurrentPage] = useState('home');
-
-  const renderPage = () => {
-    switch(currentPage) {
-      case 'home':
-        return <Home />;
-      case 'crypto-academy':
-        return <CryptoAcademy />;
-      case 'vip-trading-signals':
-        return <VipTradingSignals />;
-      case 'web3-consulting':
-        return <Web3Consulting />;
-      case 'exclusive-events':
-        return <ExclusiveEvents />;
-      case 'about-us':
-        return <AboutUs />;
-      case 'contact':
-        return <Contact />;
-      default:
-        return <Home />;
-    }
-  };
-
   return (
-    <div className="App">
-      <Header currentPage={currentPage} setCurrentPage={setCurrentPage} />
-      <main className="main" role="main">
-        {renderPage()}
-      </main>
-      <Footer />
-    </div>
+    <Router>
+      <div className="App">
+        <Header />
+        <main className="main" role="main">
+          <Suspense fallback={<PageLoader />}>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/crypto-academy" element={<CryptoAcademy />} />
+              <Route path="/vip-trading-signals" element={<VipTradingSignals />} />
+              <Route path="/web3-consulting" element={<Web3Consulting />} />
+              <Route path="/exclusive-events" element={<ExclusiveEvents />} />
+              <Route path="/about-us" element={<AboutUs />} />
+              <Route path="/contact" element={<Contact />} />
+              {/* 404 Route - Redirect to Home */}
+              <Route path="*" element={<Home />} />
+            </Routes>
+          </Suspense>
+        </main>
+        <Footer />
+      </div>
+    </Router>
   );
 }
 
