@@ -657,6 +657,7 @@ const ExclusiveEvents = () => {
           text-align: center;
           color: var(--color-white);
           transition: var(--transition-base);
+          justify-self: center;
         }
 
         .showcase-item:hover {
@@ -739,6 +740,7 @@ const ExclusiveEvents = () => {
           margin-top: var(--space-1);
           position: relative;
           z-index: 10;
+          margin-left: calc(var(--space-2) + 1px);
         }
 
         .timeline-content {
@@ -845,7 +847,7 @@ const ExclusiveEvents = () => {
           }
 
           .events-showcase {
-            grid-template-columns: 1fr;
+            //grid-template-columns: 1fr;
             max-width: 300px;
           }
 
