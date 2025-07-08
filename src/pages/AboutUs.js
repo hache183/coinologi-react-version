@@ -355,13 +355,14 @@ const AboutUs = () => {
         /* About Showcase */
         .about-showcase {
           display: grid;
-          grid-template-columns: repeat(2, 1fr);
+          grid-template-columns: auto;
           gap: var(--space-6);
           width: 100%;
           max-width: 400px;
         }
 
         .showcase-circle {
+          justify-self: center;
           width: 120px;
           height: 120px;
           background: rgba(255, 255, 255, 0.1);

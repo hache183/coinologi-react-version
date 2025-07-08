@@ -371,6 +371,7 @@ button:focus, input:focus, select:focus, textarea:focus {
 }
 
 .hero__badge {
+  margin: auto;
   display: inline-flex;
   align-items: center;
   gap: var(--space-2);
@@ -570,7 +571,7 @@ button:focus, input:focus, select:focus, textarea:focus {
   .events-showcase,
   .about-showcase,
   .contact-showcase {
-    grid-template-columns: 1fr;
+    /*grid-template-columns: 1fr;*/
   }
 }
 
@@ -1125,7 +1126,7 @@ button:focus, input:focus, select:focus, textarea:focus {
   .hero__visual {
     z-index: 2;
     order: -1;
-    height: 250px;
+    /*height: 250px;*/
   }
 
   .hero__container {
@@ -1239,7 +1240,7 @@ button:focus, input:focus, select:focus, textarea:focus {
   }
 
   .hero__visual {
-    height: 200px;
+    min-height: 300px;
   }
 
   .btn {
@@ -1342,8 +1343,8 @@ button:focus, input:focus, select:focus, textarea:focus {
   }
 
   .web3-ecosystem {
-    width: 200px;
-    height: 200px;
+    width: 350px;
+    height: 350px;
   }
 
   .ecosystem-center {
@@ -1381,7 +1382,7 @@ button:focus, input:focus, select:focus, textarea:focus {
 
 @media (max-width: 480px) {
   .btn {
-    max-width: 240px;
+    /*max-width: 240px;*/
     padding: 0.625rem 1rem;
   }
 

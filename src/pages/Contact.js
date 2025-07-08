@@ -1074,6 +1074,7 @@ const Contact = () => {
           .contact-method-item {
             flex-direction: column;
             text-align: center;
+            align-items: center;
           }
 
           .method-icon {

@@ -585,10 +585,10 @@ const Web3Consulting = () => {
             align-items: center;
           }
 
-          .web3-ecosystem {
-            width: 250px;
-            height: 250px;
-          }
+          //.web3-ecosystem {
+          //  width: 250px;
+          //  height: 250px;
+          //}
 
           .ecosystem-center {
             width: 80px;
