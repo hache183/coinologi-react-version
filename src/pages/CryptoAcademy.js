@@ -73,56 +73,164 @@ const CryptoAcademy = () => {
   };
 
   const courses = [
-    {
-      id: 'beginner',
-      level: 'Principiante',
-      icon: 'fas fa-seedling',
-      title: 'Blockchain Foundations',
-      description: 'Impara le basi della blockchain, cryptocurrency e DeFi. Perfetto per chi inizia da zero.',
-      features: [
-        '10 ore di video lezioni',
-        'Esercizi pratici',
-        'Certificato di completamento',
-        'Accesso community'
-      ],
-      oldPrice: '€199',
-      newPrice: '€149',
-      cta: 'Inizia Ora'
-    },
-    {
-      id: 'intermediate',
-      level: 'Più Popolare',
-      icon: 'fas fa-chart-bar',
-      title: 'Crypto Trading Mastery',
-      description: 'Strategie avanzate di trading, analisi tecnica e gestione del rischio nel mondo crypto.',
-      features: [
-        '20 ore di contenuti',
-        'Strategie di trading live',
-        'Simulatore di trading',
-        'Mentorship 1-on-1'
-      ],
-      oldPrice: '€399',
-      newPrice: '€299',
-      cta: 'Accedi Ora',
-      popular: true
-    },
-    {
-      id: 'advanced',
-      level: 'Avanzato',
-      icon: 'fas fa-rocket',
-      title: 'DeFi & Web3 Expert',
-      description: 'Diventa un esperto in DeFi, NFT, DAO e le tecnologie Web3 più innovative.',
-      features: [
-        '30 ore di formazione',
-        'Progetti pratici',
-        'Networking esclusivo',
-        'Job placement'
-      ],
-      oldPrice: '€699',
-      newPrice: '€499',
-      cta: 'Scopri di Più'
-    }
-  ];
+  // FREE
+  {
+    id: 'starter-free',
+    level: 'Principiante',
+    icon: 'fas fa-rocket',
+    title: 'Coinologi Starter Pack',
+    description: 'Mini-corsi gratuiti: basi crypto, blockchain e fiscalità.',
+    features: [
+      'Mini-corso “Da Zero a Crypto”',
+      'Mini-guida MiCAR & tasse',
+      'Accesso community Telegram'
+    ],
+    oldPrice: '€49',
+    newPrice: 'Gratis',
+    cta: 'Iscriviti Gratis'
+  },
+
+  // CRYPTO PATH
+  {
+    id: 'crypto-beginner',
+    level: 'Principiante',
+    icon: 'fas fa-seedling',
+    title: 'Crypto Beginner',
+    description: 'Blockchain, wallet, exchange e fiscalità spiegati facile.',
+    features: [
+      '3 h di video lezioni',
+      'Guida wallet & sicurezza',
+      'Introduzione trading',
+      'Community Telegram'
+    ],
+    oldPrice: '€99',
+    newPrice: '€69',
+    cta: 'Acquista Ora'
+  },
+  {
+    id: 'crypto-pro',
+    level: 'Intermedio',
+    icon: 'fas fa-leaf',
+    title: 'Crypto Pro',
+    description: 'Masterclass DeFi, NFT, yield farming e fiscalità avanzata.',
+    features: [
+      '5 h di lezioni',
+      'Casi studio DeFi & NFT',
+      'Mentorship 30 min',
+      '3 mesi Telegram Premium'
+    ],
+    oldPrice: '€349',
+    newPrice: '€249',
+    cta: 'Acquista Ora',
+    popular: true
+  },
+  {
+    id: 'crypto-executive',
+    level: 'Avanzato',
+    icon: 'fas fa-crown',
+    title: 'Crypto Executive',
+    description: 'Token, DAO aziendali e strategia Web3 per PMI.',
+    features: [
+      '7 h di formazione',
+      'Token & DAO per aziende',
+      '2 call mentorship (60 min)',
+      '12 mesi Telegram Premium'
+    ],
+    oldPrice: '€699',
+    newPrice: '€499',
+    cta: 'Acquista Ora'
+  },
+
+  // TRADING PATH
+  {
+    id: 'trading-essentials',
+    level: 'Principiante',
+    icon: 'fas fa-chart-line',
+    title: 'Trading Essentials',
+    description: 'Basi del trading crypto e risk management.',
+    features: [
+      '2 h di video-lezioni',
+      'Analisi tecnica base',
+      'Risk management base',
+      '1 mese segnali VIP'
+    ],
+    oldPrice: '€149',
+    newPrice: '€89',
+    cta: 'Acquista Ora'
+  },
+  {
+    id: 'trading-master',
+    level: 'Intermedio',
+    icon: 'fas fa-chart-area',
+    title: 'Trading Master',
+    description: 'Tecniche avanzate (order flow, on-chain) e coaching.',
+    features: [
+      '6 h di lezioni avanzate',
+      'Order-flow & Volume Profile',
+      'Analisi on-chain pratica',
+      'Call privata 60 min',
+      '3 mesi segnali VIP'
+    ],
+    oldPrice: '€399',
+    newPrice: '€299',
+    cta: 'Acquista Ora'
+  },
+  {
+    id: 'trading-premium',
+    level: 'Avanzato',
+    icon: 'fas fa-gem',
+    title: 'Trading Premium',
+    description: 'Strategie hedge, opzioni e bot personalizzati.',
+    features: [
+      '10 h formazione pro',
+      'Hedge futures/opzioni',
+      'Bot trading ready-to-use',
+      '2 call private 90 min',
+      '12 mesi segnali VIP'
+    ],
+    oldPrice: '€1 199',
+    newPrice: '€799',
+    cta: 'Scopri di Più'
+  },
+
+  // COMPLIANCE TRAINING (solo formazione)
+  {
+    id: 'compliance-masterclass',
+    level: 'Professionisti',
+    icon: 'fas fa-shield-alt',
+    title: 'MiCAR Compliance Masterclass',
+    description:
+      'Corso completo su MiCAR, AML e fiscalità crypto per consulenti e PMI.',
+    features: [
+      '4 h di video-lezioni',
+      'Template whitepaper MiCAR',
+      'Checklist AML/Fiscalità',
+      'Q&A live mensile'
+    ],
+    oldPrice: '€349',
+    newPrice: '€249',
+    cta: 'Acquista Ora'
+  },
+
+  // MEMBERSHIP
+  {
+    id: 'membership-pro',
+    level: 'Membership Annuale',
+    icon: 'fas fa-users',
+    title: 'Coinologi PRO Membership',
+    description:
+      'Tutti i corsi + segnali VIP + webinar esclusivi per 12 mesi.',
+    features: [
+      'Accesso completo ai corsi',
+      'Segnali Telegram VIP',
+      'Webinar mensili',
+      'Eventi networking VIP'
+    ],
+    oldPrice: '€999',
+    newPrice: '€499/anno',
+    cta: 'Abbonati Ora'
+  }
+];
 
   const instructors = [
     {

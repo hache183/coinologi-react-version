@@ -43,7 +43,7 @@ const Home = () => {
     },
     {
       id: 'exclusive-events',
-      icon: 'fas fa-calendar-star',
+      icon: 'fa-solid fa-calendar',
       title: 'Exclusive Events',
       description: 'Partecipa ai nostri esclusivi eventi formativi e di networking, ideali per professionisti e investitori interessati alla blockchain e al Web3.',
       link: 'Partecipa',
@@ -61,7 +61,7 @@ const Home = () => {
               Il Futuro della <span className="hero__title-highlight">Crypto Consulting</span>
             </h1>
             <p className="hero__description">
-              Coinologi nasce da un'idea di Ivan Eo, Dottore Commercialista e nerd affilato che dal 2014 offre supporto trasparente e sicuro a chiunque voglia avvicinarsi al mondo delle tecnologie decentralizzate.
+              Coinologi nasce da un'idea di Ivan Epicoco, Dottore Commercialista e nerd affilato che dal 2014 offre supporto trasparente e sicuro a chiunque voglia avvicinarsi al mondo delle tecnologie decentralizzate.
             </p>
             <div className="hero__cta">
               <button className="btn btn--primary">Inizia Oggi</button>
