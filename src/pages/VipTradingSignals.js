@@ -238,11 +238,20 @@ const VipTradingSignals = () => {
               <div className="signal-card">
                 <div className="signal-pair">BTC/USDT</div>
                 <div className="signal-action buy">BUY</div>
-                <div className="signal-price">Entry: $67,450</div>
+                <div className="signal-price">Entry: $59,450</div>
                 <div className="signal-targets">
-                  <span>TP1: $69,200 ✅</span>
-                  <span>TP2: $71,800 📈</span>
-                  <span>SL: $65,100</span>
+                  <span>TP1: $88,200 ✅</span>
+                  <span>TP1: $92,400 ✅</span>
+                  <span>TP1: $98,900 ✅</span>
+                  <span>TP1: $103,800 ✅</span>
+                  <span>TP1: $105,000 ✅</span>
+                  <span>TP1: $109,000 ✅</span>
+                  <span>TP1: $111,000 ✅</span>
+                  <span>TP1: $114,000 ✅</span>
+                  <span>TP1: $118,000 ✅</span>
+                  <span>TP1: $126,000 </span>
+
+                  <span>SL: $79,100</span>
                 </div>
                 <div className="signal-profit">+{dashboardProfit.toFixed(1)}% PROFIT</div>
               </div>

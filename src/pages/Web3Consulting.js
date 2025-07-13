@@ -585,10 +585,18 @@ const Web3Consulting = () => {
         }
 
         /* Fix per hero container su Web3 */
-        .hero--web3 .hero__container {
-          max-width: 100%;
-          overflow: hidden;
-        }
+.hero--web3 .hero__container {
+  display: flex;
+  align-items: center;         /* centra verticalmente */
+  justify-content: space-between; /* se vuoi spazio tra testo e visual */
+  gap: 2rem;                   /* spazio tra le due colonne */
+  max-width: 1200px;           /* oppure 100%, come preferisci */
+  margin: 0 auto;
+  padding: 4rem 2rem;
+  min-height: 90vh;            /* già presente nel parent .hero--web3 */
+  position: relative;
+  z-index: 2;                  /* sopra il ::before */
+}
 
         .hero--web3 .hero__visual {
           display: flex;
@@ -729,6 +737,20 @@ const Web3Consulting = () => {
             grid-template-columns: 1fr;
           }
         }
+
+        @media (max-width: 767px) {
+  .hero--web3 .hero__container {
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .hero__content, .hero__visual {
+    width: 100%;
+    align-items: center;
+  }
+}
+
 
         /* Mobile molto piccolo */
         @media (max-width: 480px) {
