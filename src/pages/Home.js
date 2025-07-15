@@ -337,6 +337,7 @@ const Home = () => {
           grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
           gap: 2rem;
           margin-top: 4rem;
+          align-items: stretch;
         }
 
         .service-card {
@@ -348,6 +349,7 @@ const Home = () => {
           transition: transform 0.15s ease-out, border-color 0.15s ease-out;
           overflow: hidden;
           cursor: pointer;
+          display: flex; flex-direction: column; height: 100%;
         }
 
         .service-card::before {
@@ -433,6 +435,7 @@ const Home = () => {
           color: #718096;
           line-height: 1.625;
           margin-bottom: 1.5rem;
+          flex-grow: 1;
         }
 
         .service-card__link {
@@ -449,6 +452,7 @@ const Home = () => {
           cursor: pointer;
           transition: all 0.1s ease-out;
           margin-top: auto;
+          align-self: flex-start;
         }
 
         .service-card__link:hover {

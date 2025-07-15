@@ -509,17 +509,22 @@ const Web3Consulting = () => {
         }
 
         .case-studies__grid {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-          gap: 2rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: var(--space-8);
+  align-items: stretch; /* Le card si estendono per avere la stessa altezza */
         }
 
         .case-study {
-          background: white;
-          border-radius: 1rem;
-          padding: 2rem;
-          box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-          transition: all 0.15s ease-out;
+  background: white;
+  border-radius: var(--radius-xl);
+  padding: var(--space-8);
+  box-shadow: var(--shadow-md);
+  transition: var(--transition-base);
+  /* Usa flexbox per distribuire il contenuto */
+  display: flex;
+  flex-direction: column;
+  height: 100%; /* Assicura che occupi tutta l'altezza disponibile */
         }
 
         .case-study:hover {

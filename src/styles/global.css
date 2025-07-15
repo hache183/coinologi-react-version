@@ -638,6 +638,7 @@ button:focus, input:focus, select:focus, textarea:focus {
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: var(--space-8);
   margin-top: var(--space-16);
+  align-items: stretch; /* Le card si estendono per avere la stessa altezza */
 }
 
 /* Service Cards */
@@ -650,6 +651,12 @@ button:focus, input:focus, select:focus, textarea:focus {
   transition: var(--transition-base);
   overflow: hidden;
   cursor: pointer;
+  z-index: 1;
+  margin-bottom: var(--space-4);
+  /* Usa flexbox per distribuire il contenuto */
+  display: flex;
+  flex-direction: column;
+  height: 100%; /* Assicura che occupi tutta l'altezza disponibile */
 }
 
 .service-card::before {
@@ -736,6 +743,8 @@ button:focus, input:focus, select:focus, textarea:focus {
   color: var(--color-gray-600);
   line-height: var(--line-height-relaxed);
   margin-bottom: var(--space-6);
+  /* Flex-grow fa sì che la descrizione si espanda per riempire lo spazio */
+  flex-grow: 1;
 }
 
 .service-card__link {
@@ -751,7 +760,9 @@ button:focus, input:focus, select:focus, textarea:focus {
   border-radius: var(--radius-lg);
   cursor: pointer;
   transition: var(--transition-base);
+  /* Il pulsante rimane sempre in fondo */
   margin-top: auto;
+  align-self: flex-start; /* Impedisce al pulsante di estendersi */
 }
 
 .service-card__link:hover {
@@ -1066,6 +1077,219 @@ button:focus, input:focus, select:focus, textarea:focus {
 
 .animate-pulse {
   animation: pulse 2s infinite;
+}
+
+.courses__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: var(--space-8);
+  align-items: stretch;
+}
+
+.course-card {
+  background: white;
+  border-radius: var(--radius-xl);
+  padding: var(--space-8);
+  box-shadow: var(--shadow-md);
+  transition: var(--transition-base);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.course-card__features {
+  list-style: none;
+  padding: 0;
+  margin-bottom: var(--space-6);
+  flex-grow: 1;
+}
+
+.course-card__cta {
+  display: block;
+  width: 100%;
+  background: var(--gradient-primary);
+  color: white;
+  padding: var(--space-3) var(--space-6);
+  border: none;
+  border-radius: var(--radius-lg);
+  font-weight: var(--font-weight-bold);
+  cursor: pointer;
+  transition: var(--transition-base);
+  margin-top: auto;
+}
+
+/* FIX PER PRICING GRID (VIP Trading Signals) */
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: var(--space-8);
+  margin-bottom: var(--space-16);
+  align-items: stretch;
+}
+
+.pricing-card {
+  background: white;
+  border-radius: var(--radius-xl);
+  padding: var(--space-8);
+  box-shadow: var(--shadow-md);
+  position: relative;
+  transition: var(--transition-base);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.pricing-features {
+  list-style: none;
+  padding: 0;
+  margin-bottom: var(--space-8);
+  flex-grow: 1;
+}
+
+.pricing-cta {
+  display: block;
+  width: 100%;
+  background: var(--gradient-primary);
+  color: white;
+  padding: var(--space-4) var(--space-6);
+  border: none;
+  border-radius: var(--radius-lg);
+  font-weight: var(--font-weight-bold);
+  cursor: pointer;
+  transition: var(--transition-base);
+  margin-top: auto;
+}
+
+/* FIX PER EVENTS GRID (Exclusive Events) */
+.events-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: var(--space-8);
+  align-items: stretch;
+}
+
+.event-card {
+  background: var(--color-white);
+  border-radius: var(--radius-xl);
+  padding: var(--space-8);
+  box-shadow: var(--shadow-md);
+  transition: var(--transition-base);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.event-card__content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  flex-grow: 1;
+}
+
+.event-card__speakers {
+  background: var(--color-gray-100);
+  padding: var(--space-3);
+  border-radius: var(--radius-lg);
+  font-size: var(--font-size-sm);
+  color: var(--color-gray-700);
+  font-style: italic;
+  flex-grow: 1;
+}
+
+.event-card__cta {
+  background: var(--gradient-primary);
+  color: var(--color-white);
+  padding: var(--space-3) var(--space-6);
+  border: none;
+  border-radius: var(--radius-lg);
+  font-weight: var(--font-weight-semibold);
+  cursor: pointer;
+  transition: var(--transition-base);
+  text-decoration: none;
+  text-align: center;
+  margin-top: auto;
+  align-self: stretch;
+}
+
+/* ===== FIX PER CASE STUDIES - AGGIUNGI ALLA FINE DI global.css ===== */
+
+/* Case Studies Grid - Altezza uniforme */
+.case-studies__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: var(--space-8);
+  align-items: stretch; /* AGGIUNTO - forza stessa altezza */
+}
+
+.case-study {
+  background: white;
+  border-radius: var(--radius-xl);
+  padding: var(--space-8);
+  box-shadow: var(--shadow-md);
+  transition: var(--transition-base);
+  /* AGGIUNTI - struttura flex */
+  display: flex;
+  flex-direction: column;
+  height: 100%; /* Occupa tutta l'altezza disponibile */
+}
+
+.case-study__content {
+  /* AGGIUNTO - il contenuto si espande */
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.case-study__description {
+  color: var(--color-gray-600);
+  line-height: var(--line-height-relaxed);
+  margin-bottom: var(--space-6);
+  /* AGGIUNTO - la descrizione si espande per riempire lo spazio */
+  flex-grow: 1;
+}
+
+.case-study__metrics {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-4);
+  margin-bottom: var(--space-6);
+  /* I metrics rimangono sempre nella stessa posizione */
+}
+
+.case-study__technologies {
+  display: flex;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+  /* Le tecnologie rimangono sempre in fondo */
+  margin-top: auto;
+}
+
+/* Responsive fix per Case Studies */
+@media (max-width: 767px) {
+  .case-studies__grid {
+    grid-template-columns: 1fr;
+    align-items: stretch; /* Mantieni l'estensione anche su mobile */
+  }
+  
+  .case-study {
+    display: flex;
+    flex-direction: column;
+    min-height: 400px; /* Altezza minima su mobile */
+  }
+  
+  .case-study__metrics {
+    grid-template-columns: 1fr; /* Stack verticale su mobile */
+    gap: var(--space-3);
+  }
+}
+
+@media (max-width: 480px) {
+  .case-study {
+    min-height: 350px; /* Ridotta per schermi molto piccoli */
+  }
 }
 
 /* ===== RESPONSIVE DESIGN FIXES ===== */

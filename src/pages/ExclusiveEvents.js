@@ -418,19 +418,25 @@ const ExclusiveEvents = () => {
       <style jsx>{`
         /* Event Cards */
         .events-grid {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-          gap: var(--space-8);
+ display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: var(--space-8);
+  align-items: stretch; /* Le card si estendono per avere la stessa altezza */
         }
 
         .event-card {
-          background: var(--color-white);
-          border-radius: var(--radius-xl);
-          padding: var(--space-8);
-          box-shadow: var(--shadow-md);
-          transition: var(--transition-base);
-          position: relative;
-          overflow: hidden;
+  background: var(--color-white);
+  border-radius: var(--radius-xl);
+  padding: var(--space-8);
+  box-shadow: var(--shadow-md);
+  transition: var(--transition-base);
+  position: relative;
+  overflow: hidden;
+  /* Usa flexbox per distribuire il contenuto */
+  display: flex;
+  flex-direction: column;
+  height: 100%; /* Assicura che occupi tutta l'altezza disponibile */
+
         }
 
         .event-card:hover {
@@ -487,9 +493,11 @@ const ExclusiveEvents = () => {
         }
 
         .event-card__content {
-          display: flex;
-          flex-direction: column;
-          gap: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  /* Flex-grow fa sì che il contenuto si espanda per riempire lo spazio */
+  flex-grow: 1;
         }
 
         .event-card__title {
@@ -526,12 +534,14 @@ const ExclusiveEvents = () => {
         }
 
         .event-card__speakers {
-          background: var(--color-gray-100);
-          padding: var(--space-3);
-          border-radius: var(--radius-lg);
-          font-size: var(--font-size-sm);
-          color: var(--color-gray-700);
-          font-style: italic;
+  background: var(--color-gray-100);
+  padding: var(--space-3);
+  border-radius: var(--radius-lg);
+  font-size: var(--font-size-sm);
+  color: var(--color-gray-700);
+  font-style: italic;
+  /* Flex-grow fa sì che questa sezione si espanda se necessario */
+  flex-grow: 1;
         }
 
         .event-card__pricing {
@@ -553,17 +563,19 @@ const ExclusiveEvents = () => {
         }
 
         .event-card__cta {
-          background: var(--gradient-primary);
-          color: var(--color-white);
-          padding: var(--space-3) var(--space-6);
-          border: none;
-          border-radius: var(--radius-lg);
-          font-weight: var(--font-weight-semibold);
-          cursor: pointer;
-          transition: var(--transition-base);
-          text-decoration: none;
-          text-align: center;
-          margin-top: auto;
+  background: var(--gradient-primary);
+  color: var(--color-white);
+  padding: var(--space-3) var(--space-6);
+  border: none;
+  border-radius: var(--radius-lg);
+  font-weight: var(--font-weight-semibold);
+  cursor: pointer;
+  transition: var(--transition-base);
+  text-decoration: none;
+  text-align: center;
+  /* Il pulsante rimane sempre in fondo */
+  margin-top: auto;
+  align-self: stretch; /* Il pulsante si estende per tutta la larghezza */
         }
 
         .event-card__cta:hover {

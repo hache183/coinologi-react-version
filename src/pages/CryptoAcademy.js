@@ -626,18 +626,23 @@ const CryptoAcademy = () => {
         }
 
         .courses__grid {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-          gap: 2rem;
+           display: grid;
+           grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+           gap: var(--space-8);
+           align-items: stretch; /* Le card si estendono per avere la stessa altezza */
         }
 
         .course-card {
-          background: white;
-          border-radius: 1rem;
-          padding: 2rem;
-          box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-          transition: all 0.15s ease-out;
-          position: relative;
+            background: white;
+            border-radius: var(--radius-xl);
+            padding: var(--space-8);
+            box-shadow: var(--shadow-md);
+            transition: var(--transition-base);
+            position: relative;
+          /* Usa flexbox per distribuire il contenuto */
+         display: flex;
+  flex-direction: column;
+  height: 100%; /* Assicura che occupi tutta l'altezza disponibile */
         }
 
         .course-card:hover {
@@ -695,9 +700,11 @@ const CryptoAcademy = () => {
         }
 
         .course-card__features {
-          list-style: none;
-          padding: 0;
-          margin-bottom: 1.5rem;
+  list-style: none;
+  padding: 0;
+  margin-bottom: var(--space-6);
+  /* Flex-grow fa sì che le features si espandano per riempire lo spazio */
+  flex-grow: 1;
         }
 
         .course-card__features li {
@@ -733,16 +740,18 @@ const CryptoAcademy = () => {
         }
 
         .course-card__cta {
-          display: block;
-          width: 100%;
-          background: linear-gradient(135deg, #ff6b35 0%, #ff8a5c 100%);
-          color: white;
-          padding: 0.75rem 1.5rem;
-          border: none;
-          border-radius: 0.5rem;
-          font-weight: 700;
-          cursor: pointer;
-          transition: all 0.15s ease-out;
+  display: block;
+  width: 100%;
+  background: var(--gradient-primary);
+  color: white;
+  padding: var(--space-3) var(--space-6);
+  border: none;
+  border-radius: var(--radius-lg);
+  font-weight: var(--font-weight-bold);
+  cursor: pointer;
+  transition: var(--transition-base);
+  /* Il pulsante rimane sempre in fondo */
+  margin-top: auto;
         }
 
         .course-card__cta:hover {

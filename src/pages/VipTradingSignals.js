@@ -712,18 +712,23 @@ const VipTradingSignals = () => {
         }
 
         .features-grid {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-          gap: 2rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--space-8);
+  align-items: stretch; /* Le card si estendono per avere la stessa altezza */
         }
 
         .feature-card {
-          background: white;
-          padding: 2rem;
-          border-radius: 1rem;
-          box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-          text-align: center;
-          transition: all 0.15s ease-out;
+  background: white;
+  padding: var(--space-8);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-md);
+  text-align: center;
+  transition: var(--transition-base);
+  /* Usa flexbox per distribuire il contenuto */
+  display: flex;
+  flex-direction: column;
+  height: 100%; /* Assicura che occupi tutta l'altezza disponibile */
         }
 
         .feature-card:hover {
@@ -751,9 +756,11 @@ const VipTradingSignals = () => {
         }
 
         .feature-card p {
-          color: #718096;
-          line-height: 1.625;
-          margin: 0;
+  color: var(--color-gray-600);
+  line-height: var(--line-height-relaxed);
+  margin: 0;
+  /* Flex-grow fa sì che il paragrafo si espanda per riempire lo spazio */
+  flex-grow: 1;
         }
 
         .testimonials {
@@ -826,19 +833,24 @@ const VipTradingSignals = () => {
         }
 
         .pricing-grid {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-          gap: 2rem;
-          margin-bottom: 4rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: var(--space-8);
+  margin-bottom: var(--space-16);
+  align-items: stretch; /* Le card si estendono per avere la stessa altezza */
         }
 
         .pricing-card {
-          background: white;
-          border-radius: 1rem;
-          padding: 2rem;
-          box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-          position: relative;
-          transition: all 0.15s ease-out;
+  background: white;
+  border-radius: var(--radius-xl);
+  padding: var(--space-8);
+  box-shadow: var(--shadow-md);
+  position: relative;
+  transition: var(--transition-base);
+  /* Usa flexbox per distribuire il contenuto */
+  display: flex;
+  flex-direction: column;
+  height: 100%; /* Assicura che occupi tutta l'altezza disponibile */
         }
 
         .pricing-card:hover {
@@ -889,9 +901,11 @@ const VipTradingSignals = () => {
         }
 
         .pricing-features {
-          list-style: none;
-          padding: 0;
-          margin-bottom: 2rem;
+  list-style: none;
+  padding: 0;
+  margin-bottom: var(--space-8);
+  /* Flex-grow fa sì che le features si espandano per riempire lo spazio */
+  flex-grow: 1;
         }
 
         .pricing-features li {
@@ -908,16 +922,18 @@ const VipTradingSignals = () => {
         }
 
         .pricing-cta {
-          display: block;
-          width: 100%;
-          background: linear-gradient(135deg, #ff6b35 0%, #ff8a5c 100%);
-          color: white;
-          padding: 1rem 1.5rem;
-          border: none;
-          border-radius: 0.5rem;
-          font-weight: 700;
-          cursor: pointer;
-          transition: all 0.15s ease-out;
+            display: block;
+  width: 100%;
+  background: var(--gradient-primary);
+  color: white;
+  padding: var(--space-4) var(--space-6);
+  border: none;
+  border-radius: var(--radius-lg);
+  font-weight: var(--font-weight-bold);
+  cursor: pointer;
+  transition: var(--transition-base);
+  /* Il pulsante rimane sempre in fondo */
+  margin-top: auto;
         }
 
         .pricing-cta:hover {
