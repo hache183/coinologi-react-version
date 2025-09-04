@@ -1,0 +1,250 @@
+/* CSS Module per Header */
+.header {
+  /* ...stili da migrare qui... */
+}
+.cryptoTickerFixed {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+  height: 60px;
+  background: #1a202c;
+  border-bottom: 1px solid #ff6b35;
+  overflow: hidden;
+}
+.cryptoTickerError {
+  background: #e53e3e;
+}
+.tickerLoading {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ff6b35;
+  font-size: 12px;
+  font-weight: 500;
+}
+.tickerScroll {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  animation: scrollTicker 40s linear infinite;
+  will-change: transform;
+}
+.tickerScroll:hover {
+  animation-play-state: paused;
+}
+@keyframes scrollTicker {
+  0% { transform: translateX(100vw); }
+  100% { transform: translateX(-100%); }
+}
+.tickerCrypto {
+  display: flex;
+  align-items: center;
+  margin-right: 24px;
+  padding: 0 12px;
+  height: 32px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 4px;
+  min-width: 160px;
+  gap: 8px;
+  flex-shrink: 0;
+}
+.cryptoSym {
+  font-family: 'Courier New', monospace;
+  font-weight: 700;
+  font-size: 11px;
+  color: #ffd700;
+  min-width: 36px;
+  text-align: left;
+}
+.cryptoPr {
+  font-family: 'Courier New', monospace;
+  font-size: 11px;
+  font-weight: 600;
+  color: #ffffff;
+  min-width: 60px;
+  text-align: right;
+}
+.cryptoCh {
+  font-family: 'Courier New', monospace;
+  font-size: 10px;
+  font-weight: 600;
+  padding: 2px 6px;
+  border-radius: 3px;
+  min-width: 42px;
+  text-align: center;
+}
+.cryptoChPos {
+  color: #48bb78;
+  background: rgba(72, 187, 120, 0.2);
+}
+.cryptoChNeg {
+  color: #f56565;
+  background: rgba(245, 101, 101, 0.2);
+}
+.headerStatic {
+  position: fixed;
+  top: 60px;
+  left: 0;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  margin: 0;
+  z-index: 9998;
+}
+.navContainer {
+  position: relative;
+}
+.navWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0.75rem 1.5rem;
+  height: 70px;
+}
+.navLogo {
+  flex-shrink: 0;
+}
+.logoBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  text-decoration: none;
+}
+.logoBtn:hover {
+  transform: scale(1.05);
+}
+.logoText {
+  font-size: 1.25rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #ff6b35 0%, #ff8a5c 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.navMenu {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  list-style: none;
+  margin: 0;
+  padding: 0.5rem;
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 16px;
+}
+.navItem {
+  margin: 0;
+}
+.navLink {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #4a5568;
+  text-decoration: none;
+  border-radius: 12px;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+.navLink:hover {
+  color: #ff6b35;
+  background-color: #f7fafc;
+  transform: translateY(-1px);
+}
+.navLinkActive {
+  color: white;
+  background: linear-gradient(135deg, #ff6b35 0%, #ff8a5c 100%);
+}
+.navLinkActive:hover {
+  color: white;
+  background: #e55a2e;
+}
+.navToggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  border-radius: 8px;
+}
+.toggleLine {
+  width: 24px;
+  height: 2px;
+  background-color: #4a5568;
+  transition: all 0.2s ease;
+  margin: 2px 0;
+  border-radius: 2px;
+}
+.navToggleActive .toggleLine:nth-child(1) {
+  transform: translateY(6px) rotate(45deg);
+}
+.navToggleActive .toggleLine:nth-child(2) {
+  opacity: 0;
+}
+.navToggleActive .toggleLine:nth-child(3) {
+  transform: translateY(-6px) rotate(-45deg);
+}
+.navBackdrop {
+  position: fixed;
+  top: 130px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 9998;
+}
+@media (max-width: 991px) {
+  .navToggle {
+    display: flex;
+  }
+  .navMenu {
+    position: fixed;
+    top: 130px;
+    left: 0;
+    right: 0;
+    background: white;
+    border-top: 1px solid #e2e8f0;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    padding: 1.5rem;
+    transform: translateY(-100%);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 9999;
+  }
+  .navMenuActive {
+    background: #ffe5d0 !important; /* DEBUG: colore visibile */
+    transform: translateY(0) !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    z-index: 9999 !important;
+  }
+  .navItem {
+    width: 100%;
+  }
+  .navLink {
+    width: 100%;
+    padding: 1rem 1.5rem;
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+  }
+}
+@media (max-width: 480px) {
+  .navWrapper {
+    padding: 0.5rem 1rem;
+    height: 60px;
+  }
+}

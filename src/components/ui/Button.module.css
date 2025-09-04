@@ -1,0 +1,22 @@
+.button {
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: background 0.2s;
+}
+.primary {
+  background: linear-gradient(135deg, #ff6b35 0%, #ff8a5c 100%);
+  color: #fff;
+}
+.secondary {
+  background: #f7fafc;
+  color: #ff6b35;
+  border: 1px solid #ff6b35;
+}
+.button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

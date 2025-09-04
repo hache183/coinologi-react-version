@@ -1,66 +1,54 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import SEO from '../components/SEO';
 
-const Web3Consulting = () => {
-  const metricsRef = useRef([]);
+function useAnimatedMetric(value, options = {}) {
+  const { duration = 2000 } = options;
+  const [display, setDisplay] = useState(value);
 
   useEffect(() => {
-    // Animate metrics on scroll
-    const metricsObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          animateMetric(entry.target);
-          metricsObserver.unobserve(entry.target);
-        }
-      });
-    });
-
-    metricsRef.current.forEach(metric => {
-      if (metric) metricsObserver.observe(metric);
-    });
-
-    return () => {
-      metricsObserver.disconnect();
-    };
-  }, []);
-
-  const animateMetric = (element) => {
-    const text = element.textContent;
-    const isEuro = text.includes('€');
-    const isPercent = text.includes('%');
-    const isPlus = text.includes('+');
-    const isK = text.includes('K');
-    const isM = text.includes('M');
-
-    let number = parseFloat(text.replace(/[^\d.]/g, ''));
-    if (isK) number *= 1000;
-    if (isM) number *= 1000000;
-
-    let current = 0;
-    const increment = number / 50;
-    const timer = setInterval(() => {
-      current += increment;
-      if (current >= number) {
-        current = number;
-        clearInterval(timer);
-      }
-
+    let start = 0;
+    let end = parseFloat(value.replace(/[^\d.]/g, ''));
+    let isEuro = value.includes('€');
+    let isPercent = value.includes('%');
+    let isPlus = value.includes('+');
+    let isK = value.includes('K');
+    let isM = value.includes('M');
+    if (isK) end *= 1000;
+    if (isM) end *= 1000000;
+    let startTime = null;
+    function animate(ts) {
+      if (!startTime) startTime = ts;
+      const progress = Math.min((ts - startTime) / duration, 1);
+      let current = start + (end - start) * progress;
       let displayValue = Math.floor(current);
       if (isM && current >= 1000000) {
         displayValue = (current / 1000000).toFixed(1) + 'M';
       } else if (isK && current >= 1000) {
         displayValue = (current / 1000).toFixed(0) + 'K';
       }
-
       let finalText = '';
       if (isEuro) finalText += '€';
       if (isPlus) finalText += '+';
       finalText += displayValue;
       if (isPercent) finalText += '%';
+      setDisplay(finalText);
+      if (progress < 1) {
+        requestAnimationFrame(animate);
+      }
+    }
+    setDisplay(value);
+    requestAnimationFrame(animate);
+    // eslint-disable-next-line
+  }, [value]);
+  return display;
+}
 
-      element.textContent = finalText;
-    }, 40);
-  };
+const Web3Consulting = () => {
+  const stats = [
+    { value: '€45M', label: 'Valore Progetti' },
+    { value: '50+', label: 'Aziende Clienti' },
+    { value: '300%', label: 'ROI Medio' }
+  ];
 
   const services = [
     {
@@ -132,6 +120,11 @@ const Web3Consulting = () => {
     }
   ];
 
+  // Inizializza i 3 hook all'inizio del componente
+  const animatedStat0 = useAnimatedMetric(stats[0].value);
+  const animatedStat1 = useAnimatedMetric(stats[1].value);
+  const animatedStat2 = useAnimatedMetric(stats[2].value);
+
   return (
     <>
       {/* Hero Section */}
@@ -152,16 +145,16 @@ const Web3Consulting = () => {
             </p>
             <div className="hero__stats">
               <div className="hero__stat">
-                <span className="stat-number" ref={el => metricsRef.current[0] = el}>€45M</span>
-                <span className="stat-label">Valore Progetti</span>
+                <span className="stat-number" style={{minWidth:'80px',display:'inline-block'}}>{animatedStat0}</span>
+                <span className="stat-label">{stats[0].label}</span>
               </div>
               <div className="hero__stat">
-                <span className="stat-number" ref={el => metricsRef.current[1] = el}>50+</span>
-                <span className="stat-label">Aziende Clienti</span>
+                <span className="stat-number" style={{minWidth:'80px',display:'inline-block'}}>{animatedStat1}</span>
+                <span className="stat-label">{stats[1].label}</span>
               </div>
               <div className="hero__stat">
-                <span className="stat-number" ref={el => metricsRef.current[2] = el}>300%</span>
-                <span className="stat-label">ROI Medio</span>
+                <span className="stat-number" style={{minWidth:'80px',display:'inline-block'}}>{animatedStat2}</span>
+                <span className="stat-label">{stats[2].label}</span>
               </div>
             </div>
             <div className="hero__cta">
@@ -343,6 +336,7 @@ const Web3Consulting = () => {
           gap: 2rem;
           margin: 2rem 0;
           flex-wrap: wrap;
+          justify-content: center;
         }
 
         .hero__stat {
@@ -352,6 +346,10 @@ const Web3Consulting = () => {
           border-radius: 0.75rem;
           backdrop-filter: blur(10px);
           border: 1px solid rgba(255, 255, 255, 0.2);
+          min-width: 120px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
         }
 
         .stat-number {
@@ -360,6 +358,8 @@ const Web3Consulting = () => {
           font-weight: 700;
           color: #8b5cf6;
           margin-bottom: 0.25rem;
+          min-width: 80px;
+          text-align: center;
         }
 
         .stat-label {
@@ -795,6 +795,17 @@ const Web3Consulting = () => {
           .node span {
             line-height: 1.1;
           }
+
+          .hero__cta {
+            flex-direction: column;
+            gap: 1rem;
+            align-items: center;
+          }
+          .btn {
+            width: 100%;
+            font-size: 1rem;
+            padding: 0.85rem 0;
+          }
         }
 
         /* Mobile standard (480px e meno) */
@@ -947,6 +958,42 @@ const Web3Consulting = () => {
           .node:hover {
             transform: scale(1.05);
           }
+        }
+
+        .hero__cta {
+          display: flex;
+          gap: 1.5rem;
+          justify-content: center;
+          margin-top: 2rem;
+        }
+        .btn {
+          padding: 0.85rem 2.2rem;
+          border-radius: 10px;
+          font-size: 1.1rem;
+          font-weight: 700;
+          border: none;
+          cursor: pointer;
+          transition: background 0.2s, box-shadow 0.2s, color 0.2s;
+          box-shadow: 0 2px 8px rgba(255,107,53,0.08);
+        }
+        .btn--primary {
+          background: linear-gradient(135deg, #ff6b35 0%, #ff8a5c 100%);
+          color: #fff;
+        }
+        .btn--primary:hover {
+          background: linear-gradient(135deg, #ff8a5c 0%, #ff6b35 100%);
+          color: #fff;
+          box-shadow: 0 4px 16px rgba(255,107,53,0.18);
+        }
+        .btn--secondary {
+          background: #fff;
+          color: #ff6b35;
+          border: 2px solid #ff6b35;
+        }
+        .btn--secondary:hover {
+          background: #ffe5d0;
+          color: #ff6b35;
+          box-shadow: 0 4px 16px rgba(255,107,53,0.12);
         }
       `}</style>
     </>

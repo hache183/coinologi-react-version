@@ -68,3 +68,47 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+# COINOLOGI React - Architettura & Best Practices
+
+## Struttura delle cartelle
+
+```
+src/
+  features/           # Feature-based modules (pagine, logica specifica)
+  hooks/              # Custom hooks riutilizzabili
+  components/
+    ui/               # Design system: Button, Input, Card, Modal, ecc.
+    ErrorBoundary.js  # Error boundary globale
+    ...               # Altri componenti
+  pages/              # Pagine principali (lazy loaded)
+  styles/             # CSS Modules e global.css
+  utils/              # Funzioni di utilità
+```
+
+## Best Practices
+- **CSS Modules** per isolamento degli stili
+- **Feature-based architecture** per scalabilità
+- **Custom hooks** per logica business riutilizzabile
+- **Design system** con componenti base ottimizzati (React.memo)
+- **Error boundaries** per gestione errori runtime
+- **Lazy loading** e **Suspense** per performance
+- **Testing** con Jest e React Testing Library
+
+## Convenzioni
+- I nomi dei file CSS Modules seguono il pattern `Component.module.css`
+- I componenti UI sono riutilizzabili e documentati
+- Tutta la logica business è estratta dai componenti di presentazione
+- Le pagine sono caricate in modo asincrono
+
+## Come estendere
+- Per aggiungere una nuova feature, crea una cartella in `features/`
+- Per nuovi componenti base, aggiungi in `components/ui/`
+- Per nuova logica, crea un hook in `hooks/`
+
+## Testing
+- I test sono in file `.test.js` accanto ai componenti
+- Usa `ErrorBoundary` per testare la resilienza dell'app
+
+---
+Questa architettura garantisce manutenibilità, performance e scalabilità a lungo termine.
