@@ -37,6 +37,7 @@ function App() {
                 <Route path="/vip-trading-signals" element={<VipTradingSignals />} />
                 <Route path="/web3-consulting" element={<Web3Consulting />} />
                 <Route path="/exclusive-events" element={<ExclusiveEvents />} />
+                <Route path="/about" element={<AboutUs />} />
                 <Route path="/about-us" element={<AboutUs />} />
                 <Route path="/contact" element={<Contact />} />
                 {/* 404 Route - Redirect to Home */}

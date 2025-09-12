@@ -1,4 +1,72 @@
 /* CSS Module per ServiceCard */
 .serviceCard {
-  /* ...stili da migrare qui... */
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  padding: 2rem;
+  margin: 1rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+.serviceCard:hover {
+  box-shadow: 0 8px 32px rgba(255,107,53,0.18);
+  transform: translateY(-4px) scale(1.02);
+}
+.serviceCard__icon {
+  font-size: 2.5rem;
+  color: #ff6b35;
+  margin-bottom: 1rem;
+}
+.serviceCard__title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #2d3436;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+.serviceCard__description {
+  color: #718096;
+  font-size: 1rem;
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+.serviceCard__link {
+  background: linear-gradient(135deg, #ff6b35 0%, #ff8a5c 100%);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 8px rgba(255,107,53,0.08);
+}
+.serviceCard__link:hover {
+  background: linear-gradient(135deg, #ff8a5c 0%, #ff6b35 100%);
+  box-shadow: 0 4px 16px rgba(255,107,53,0.18);
+}
+.serviceCard--featured {
+  border: 2px solid #ff6b35;
+  box-shadow: 0 4px 24px rgba(255,107,53,0.18);
+}
+.serviceCard__badge {
+  background: #ff6b35;
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 700;
+  border-radius: 9999px;
+  padding: 0.3rem 1rem;
+  margin-bottom: 1rem;
+  letter-spacing: 0.05em;
+}
+@media (max-width: 767px) {
+  .serviceCard {
+    padding: 1.2rem;
+  }
+  .serviceCard__icon {
+    font-size: 2rem;
+  }
 }

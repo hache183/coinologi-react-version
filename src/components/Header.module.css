@@ -7,11 +7,12 @@
   top: 0;
   left: 0;
   right: 0;
-  z-index: 9999;
+  z-index: 9996; /* lowered so header sits above */
   height: 60px;
   background: #1a202c;
   border-bottom: 1px solid #ff6b35;
   overflow: hidden;
+  pointer-events: auto;
 }
 .cryptoTickerError {
   background: #e53e3e;
@@ -84,6 +85,7 @@
   color: #f56565;
   background: rgba(245, 101, 101, 0.2);
 }
+/* Header Modern Styles */
 .headerStatic {
   position: fixed;
   top: 60px;
@@ -92,7 +94,8 @@
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(10px);
   margin: 0;
-  z-index: 9998;
+  z-index: 9999; /* raised above ticker */
+  box-shadow: 0 2px 12px rgba(255,107,53,0.08);
 }
 .navContainer {
   position: relative;
@@ -136,6 +139,7 @@
   padding: 0.5rem;
   background: rgba(0, 0, 0, 0.05);
   border-radius: 16px;
+  box-shadow: 0 2px 8px rgba(255,107,53,0.05);
 }
 .navItem {
   margin: 0;
@@ -144,7 +148,7 @@
   display: flex;
   align-items: center;
   padding: 0.75rem 1rem;
-  font-size: 0.875rem;
+  font-size: 0.95rem;
   font-weight: 500;
   color: #4a5568;
   text-decoration: none;
@@ -176,6 +180,8 @@
   border: none;
   cursor: pointer;
   border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(255,107,53,0.08);
+  pointer-events: auto;
 }
 .toggleLine {
   width: 24px;
@@ -205,7 +211,7 @@
 }
 @media (max-width: 991px) {
   .navToggle {
-    display: flex;
+    display: flex !important;
   }
   .navMenu {
     position: fixed;
@@ -226,11 +232,9 @@
     z-index: 9999;
   }
   .navMenuActive {
-    background: #ffe5d0 !important; /* DEBUG: colore visibile */
-    transform: translateY(0) !important;
-    opacity: 1 !important;
-    visibility: visible !important;
-    z-index: 9999 !important;
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
   }
   .navItem {
     width: 100%;

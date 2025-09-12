@@ -35,7 +35,7 @@ export default function useCryptoTicker() {
   const fetchCryptoData = async () => {
     try {
       const response = await fetch(
-        `https://api.coingecko.com/api/v3/simple/price?ids=${cryptoSymbols.join(',')}&vs_currencies=eur&include_24hr_change=true`
+        `/api/coingecko/simple/price?ids=${cryptoSymbols.join(',')}&vs_currencies=eur&include_24hr_change=true`
       );
       if (!response.ok) throw new Error('API Error');
       const data = await response.json();

@@ -410,12 +410,14 @@ const VipTradingSignals = () => {
         </div>
       </section>
 
-      <style jsx>{`
+  <style>{`
         .hero--vip {
           background: linear-gradient(135deg, #2d3436 0%, #636e72 50%, #ff6b35 100%);
           position: relative;
           overflow: hidden;
-          min-height: 90vh;
+          /* push content below the fixed ticker + header (60px + 70px = 130px) */
+          padding-top: 140px;
+          min-height: calc(90vh - 140px);
         }
 
         .hero--vip::before {
@@ -994,14 +996,16 @@ const VipTradingSignals = () => {
           50% { transform: scale(1.05); }
         }
 
-        @media (max-width: 768px) {
+    @media (max-width: 768px) {
           .hero__stats {
             flex-direction: column;
             align-items: center;
           }
 
           .trading-dashboard {
-            margin-top: 2rem;
+      margin-top: 2rem;
+      /* ensure dashboard doesn't sit under the fixed header on small screens */
+      margin-top: 1rem;
           }
 
           .features-grid {
@@ -1030,7 +1034,7 @@ const VipTradingSignals = () => {
             grid-template-columns: 1fr;
           }
         }
-      `}</style>
+  `}</style>
     </>
   );
 };

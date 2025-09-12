@@ -60,64 +60,71 @@ const CryptoTicker = () => {
 
 // Header component con React Router
 const Header = () => {
-  const menuItems = [
-    { path: '/', label: 'Home' },
-    { path: '/crypto-academy', label: 'Crypto Academy' },
-    { path: '/vip-trading-signals', label: 'VIP Trading Signals' },
-    { path: '/web3-consulting', label: 'Web3 Consulting' },
-    { path: '/exclusive-events', label: 'Exclusive Events' },
-    { path: '/about-us', label: 'Chi Siamo' },
-    { path: '/contact', label: 'Contatti' }
+  const navLinks = [
+    { to: '/', label: 'Home' },
+    { to: '/about', label: 'Chi siamo' },
+    { to: '/crypto-academy', label: 'Crypto Academy' },
+    { to: '/vip-trading-signals', label: 'VIP Trading Signals' },
+    { to: '/web3-consulting', label: 'Web3 Consulting' },
+    { to: '/exclusive-events', label: 'Exclusive Events' },
+    { to: '/contact', label: 'Contatti' }
   ];
   const navRef = useRef(null);
   const { isMenuOpen, toggleMobileMenu, setIsMenuOpen } = useMobileMenu(navRef);
   const location = useLocation();
 
-  // Chiudi menu quando cambia la route
+  const closeMenu = () => setIsMenuOpen(false);
+
+  // Debug wrapper to log clicks
+  const debugToggle = (e) => {
+    console.log('toggle clicked', { isMenuOpen });
+    toggleMobileMenu(e);
+  };
+
   useEffect(() => {
-    setIsMenuOpen(false);
-  }, [location]);
+    console.log('isMenuOpen changed', isMenuOpen);
+  }, [isMenuOpen]);
 
   return (
     <>
       <CryptoTicker />
-      <header className={styles.headerStatic} role="banner">
-        <nav className={styles.navContainer} role="navigation" ref={navRef}>
-          <div className={styles.navWrapper}>
-            <div className={styles.navLogo}>
-              <Link to="/" className={styles.logoBtn}>
-                <span className={styles.logoText}>COINOLOGI</span>
-              </Link>
-            </div>
-            <ul className={`${styles.navMenu} ${isMenuOpen ? styles.navMenuActive : ''}`}>
-              {menuItems.map((item) => (
-                <li key={item.path} className={styles.navItem}>
-                  <Link
-                    to={item.path}
-                    className={`${styles.navLink} ${location.pathname === item.path ? styles.navLinkActive : ''}`}
-                  >
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-            <button 
+      <header className={styles.headerStatic}>
+        <nav className={styles.navContainer}>
+          <div className={styles.navWrapper} ref={navRef}>
+            <Link to="/" className={styles.logoBtn}>
+              <span className={styles.logoText}>COINOLOGI</span>
+            </Link>
+            <button
               className={`${styles.navToggle} ${isMenuOpen ? styles.navToggleActive : ''}`}
-              onClick={toggleMobileMenu}
-              aria-label="Toggle menu"
+              aria-label="Apri menu"
+              onClick={debugToggle}
             >
               <span className={styles.toggleLine}></span>
               <span className={styles.toggleLine}></span>
               <span className={styles.toggleLine}></span>
             </button>
+            <ul
+              className={`${styles.navMenu} ${isMenuOpen ? styles.navMenuActive : ''}`}
+            >
+              {navLinks.map((link) => (
+                <li key={link.to} className={styles.navItem}>
+                  <Link
+                    to={link.to}
+                    className={
+                      location.pathname === link.to
+                        ? `${styles.navLink} ${styles.navLinkActive}`
+                        : styles.navLink
+                    }
+                    onClick={closeMenu}
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </div>
+          {isMenuOpen && <div className={styles.navBackdrop} onClick={closeMenu} />}
         </nav>
-        {isMenuOpen && (
-          <div 
-            className={styles.navBackdrop}
-            onClick={() => setIsMenuOpen(false)}
-          />
-        )}
       </header>
       {/* Stili migrati in Header.module.css */}
     </>
