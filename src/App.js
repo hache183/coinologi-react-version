@@ -13,6 +13,12 @@ const Web3Consulting = React.lazy(() => import('./pages/Web3Consulting'));
 const ExclusiveEvents = React.lazy(() => import('./pages/ExclusiveEvents'));
 const AboutUs = React.lazy(() => import('./pages/AboutUs'));
 const Contact = React.lazy(() => import('./pages/Contact'));
+const Blog = React.lazy(() => import('./pages/Blog'));
+const BlogPost = React.lazy(() => import('./pages/BlogPost'));
+const AdminLogin = React.lazy(() => import('./pages/admin/Login'));
+const AdminDashboard = React.lazy(() => import('./pages/admin/Dashboard'));
+const AdminBlogEditor = React.lazy(() => import('./pages/admin/BlogEditor'));
+const ProtectedRoute = React.lazy(() => import('./components/admin/ProtectedRoute'));
 
 // Componente di loading
 const PageLoader = () => (
@@ -40,6 +46,33 @@ function App() {
                 <Route path="/about" element={<AboutUs />} />
                 <Route path="/about-us" element={<AboutUs />} />
                 <Route path="/contact" element={<Contact />} />
+                <Route path="/blog" element={<Blog />} />
+                <Route path="/blog/:slug" element={<BlogPost />} />
+                <Route path="/admin/login" element={<AdminLogin />} />
+                <Route
+                  path="/admin/dashboard"
+                  element={(
+                    <ProtectedRoute>
+                      <AdminDashboard />
+                    </ProtectedRoute>
+                  )}
+                />
+                <Route
+                  path="/admin/blog/new"
+                  element={(
+                    <ProtectedRoute>
+                      <AdminBlogEditor />
+                    </ProtectedRoute>
+                  )}
+                />
+                <Route
+                  path="/admin/blog/edit/:id"
+                  element={(
+                    <ProtectedRoute>
+                      <AdminBlogEditor />
+                    </ProtectedRoute>
+                  )}
+                />
                 {/* 404 Route - Redirect to Home */}
                 <Route path="*" element={<Home />} />
               </Routes>

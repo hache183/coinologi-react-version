@@ -127,6 +127,11 @@ const Web3Consulting = () => {
 
   return (
     <>
+      <SEO
+        title="Web3 Consulting"
+        description="Consulenza Web3 di Coinologi: tokenomics, smart contract e strategie blockchain per aziende e professionisti."
+        canonical="/web3-consulting"
+      />
       {/* Hero Section */}
       <section className="hero hero--web3" aria-labelledby="hero-heading">
         <div className="hero__container">

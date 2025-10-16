@@ -215,6 +215,11 @@ const ExclusiveEvents = () => {
 
   return (
     <>
+      <SEO
+        title="Eventi Esclusivi"
+        description="Partecipa agli eventi esclusivi Coinologi dedicati a blockchain, DeFi e networking professionale."
+        canonical="/exclusive-events"
+      />
       {/* Hero Section */}
       <section className="hero hero--events" aria-labelledby="hero-heading">
         <div className="hero__container">

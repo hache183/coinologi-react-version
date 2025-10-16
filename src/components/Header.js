@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import styles from './Header.module.css';
 import useCryptoTicker from '../hooks/useCryptoTicker';
@@ -75,16 +75,6 @@ const Header = () => {
 
   const closeMenu = () => setIsMenuOpen(false);
 
-  // Debug wrapper to log clicks
-  const debugToggle = (e) => {
-    console.log('toggle clicked', { isMenuOpen });
-    toggleMobileMenu(e);
-  };
-
-  useEffect(() => {
-    console.log('isMenuOpen changed', isMenuOpen);
-  }, [isMenuOpen]);
-
   return (
     <>
       <CryptoTicker />
@@ -97,7 +87,7 @@ const Header = () => {
             <button
               className={`${styles.navToggle} ${isMenuOpen ? styles.navToggleActive : ''}`}
               aria-label="Apri menu"
-              onClick={debugToggle}
+              onClick={toggleMobileMenu}
             >
               <span className={styles.toggleLine}></span>
               <span className={styles.toggleLine}></span>

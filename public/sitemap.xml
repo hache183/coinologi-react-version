@@ -6,7 +6,7 @@
   
   <!-- Homepage -->
   <url>
-    <loc>https://coinologi.com/</loc>
+  <loc>https://coinologi.net/</loc>
     <lastmod>2025-01-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
@@ -14,7 +14,7 @@
   
   <!-- Crypto Academy -->
   <url>
-    <loc>https://coinologi.com/crypto-academy</loc>
+  <loc>https://coinologi.net/crypto-academy</loc>
     <lastmod>2025-01-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
@@ -22,7 +22,7 @@
   
   <!-- VIP Trading Signals -->
   <url>
-    <loc>https://coinologi.com/vip-trading-signals</loc>
+  <loc>https://coinologi.net/vip-trading-signals</loc>
     <lastmod>2025-01-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
@@ -30,7 +30,7 @@
   
   <!-- Web3 Consulting -->
   <url>
-    <loc>https://coinologi.com/web3-consulting</loc>
+  <loc>https://coinologi.net/web3-consulting</loc>
     <lastmod>2025-01-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -38,7 +38,7 @@
   
   <!-- Exclusive Events -->
   <url>
-    <loc>https://coinologi.com/exclusive-events</loc>
+  <loc>https://coinologi.net/exclusive-events</loc>
     <lastmod>2025-01-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -46,7 +46,7 @@
   
   <!-- About Us -->
   <url>
-    <loc>https://coinologi.com/about-us</loc>
+  <loc>https://coinologi.net/about-us</loc>
     <lastmod>2025-01-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -54,7 +54,7 @@
   
   <!-- Contact -->
   <url>
-    <loc>https://coinologi.com/contact</loc>
+  <loc>https://coinologi.net/contact</loc>
     <lastmod>2025-01-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>

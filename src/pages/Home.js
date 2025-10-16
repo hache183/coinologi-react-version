@@ -53,6 +53,11 @@ const Home = () => {
 
   return (
     <>
+      <SEO
+        title="Coinologi"
+        description="Consulenza crypto, formazione e segnali di trading professionali dal team Coinologi."
+        canonical="/"
+      />
       {/* Hero Section */}
       <section className="hero" aria-labelledby="hero-heading">
         <div className="hero__container">

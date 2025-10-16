@@ -73,164 +73,56 @@ const CryptoAcademy = () => {
   };
 
   const courses = [
-  // FREE
-  {
-    id: 'starter-free',
-    level: 'Principiante',
-    icon: 'fas fa-rocket',
-    title: 'Coinologi Starter Pack',
-    description: 'Mini-corsi gratuiti: basi crypto, blockchain e fiscalità.',
-    features: [
-      'Mini-corso “Da Zero a Crypto”',
-      'Mini-guida MiCAR & tasse',
-      'Accesso community Telegram'
-    ],
-    oldPrice: '€49',
-    newPrice: 'Gratis',
-    cta: 'Iscriviti Gratis'
-  },
-
-  // CRYPTO PATH
-  {
-    id: 'crypto-beginner',
-    level: 'Principiante',
-    icon: 'fas fa-seedling',
-    title: 'Crypto Beginner',
-    description: 'Blockchain, wallet, exchange e fiscalità spiegati facile.',
-    features: [
-      '3 h di video lezioni',
-      'Guida wallet & sicurezza',
-      'Introduzione trading',
-      'Community Telegram'
-    ],
-    oldPrice: '€99',
-    newPrice: '€69',
-    cta: 'Acquista Ora'
-  },
-  {
-    id: 'crypto-pro',
-    level: 'Intermedio',
-    icon: 'fas fa-leaf',
-    title: 'Crypto Pro',
-    description: 'Masterclass DeFi, NFT, yield farming e fiscalità avanzata.',
-    features: [
-      '5 h di lezioni',
-      'Casi studio DeFi & NFT',
-      'Mentorship 30 min',
-      '3 mesi Telegram Premium'
-    ],
-    oldPrice: '€349',
-    newPrice: '€249',
-    cta: 'Acquista Ora',
-    popular: true
-  },
-  {
-    id: 'crypto-executive',
-    level: 'Avanzato',
-    icon: 'fas fa-crown',
-    title: 'Crypto Executive',
-    description: 'Token, DAO aziendali e strategia Web3 per PMI.',
-    features: [
-      '7 h di formazione',
-      'Token & DAO per aziende',
-      '2 call mentorship (60 min)',
-      '12 mesi Telegram Premium'
-    ],
-    oldPrice: '€699',
-    newPrice: '€499',
-    cta: 'Acquista Ora'
-  },
-
-  // TRADING PATH
-  {
-    id: 'trading-essentials',
-    level: 'Principiante',
-    icon: 'fas fa-chart-line',
-    title: 'Trading Essentials',
-    description: 'Basi del trading crypto e risk management.',
-    features: [
-      '2 h di video-lezioni',
-      'Analisi tecnica base',
-      'Risk management base',
-      '1 mese segnali VIP'
-    ],
-    oldPrice: '€149',
-    newPrice: '€89',
-    cta: 'Acquista Ora'
-  },
-  {
-    id: 'trading-master',
-    level: 'Intermedio',
-    icon: 'fas fa-chart-area',
-    title: 'Trading Master',
-    description: 'Tecniche avanzate (order flow, on-chain) e coaching.',
-    features: [
-      '6 h di lezioni avanzate',
-      'Order-flow & Volume Profile',
-      'Analisi on-chain pratica',
-      'Call privata 60 min',
-      '3 mesi segnali VIP'
-    ],
-    oldPrice: '€399',
-    newPrice: '€299',
-    cta: 'Acquista Ora'
-  },
-  {
-    id: 'trading-premium',
-    level: 'Avanzato',
-    icon: 'fas fa-gem',
-    title: 'Trading Premium',
-    description: 'Strategie hedge, opzioni e bot personalizzati.',
-    features: [
-      '10 h formazione pro',
-      'Hedge futures/opzioni',
-      'Bot trading ready-to-use',
-      '2 call private 90 min',
-      '12 mesi segnali VIP'
-    ],
-    oldPrice: '€1 199',
-    newPrice: '€799',
-    cta: 'Scopri di Più'
-  },
-
-  // COMPLIANCE TRAINING (solo formazione)
-  {
-    id: 'compliance-masterclass',
-    level: 'Professionisti',
-    icon: 'fas fa-shield-alt',
-    title: 'MiCAR Compliance Masterclass',
-    description:
-      'Corso completo su MiCAR, AML e fiscalità crypto per consulenti e PMI.',
-    features: [
-      '4 h di video-lezioni',
-      'Template whitepaper MiCAR',
-      'Checklist AML/Fiscalità',
-      'Q&A live mensile'
-    ],
-    oldPrice: '€349',
-    newPrice: '€249',
-    cta: 'Acquista Ora'
-  },
-
-  // MEMBERSHIP
-  {
-    id: 'membership-pro',
-    level: 'Membership Annuale',
-    icon: 'fas fa-users',
-    title: 'Coinologi PRO Membership',
-    description:
-      'Tutti i corsi + segnali VIP + webinar esclusivi per 12 mesi.',
-    features: [
-      'Accesso completo ai corsi',
-      'Segnali Telegram VIP',
-      'Webinar mensili',
-      'Eventi networking VIP'
-    ],
-    oldPrice: '€999',
-    newPrice: '€499/anno',
-    cta: 'Abbonati Ora'
-  }
-];
+    {
+      id: 'academy-base-registered',
+      level: 'Base',
+      icon: 'fas fa-laptop-code',
+      title: 'Formazione Base (Corsi Registrati)',
+      description: 'Percorso on-demand completo con contenuti aggiornati e supporto costante.',
+      features: [
+        'Accesso a tutti i corsi video registrati',
+        '2 call live settimanali/mensili (da definire in UI)',
+        'Materiali scaricabili e aggiornati',
+        'Certificazione finale inclusa',
+        'Sconto €80 su sala segnali (paghi €70 invece di €150)'
+      ],
+      newPrice: '€150/mese',
+      cta: 'Iscriviti alla Base'
+    },
+    {
+      id: 'academy-one-to-one',
+      level: 'Premium',
+      icon: 'fas fa-user-tie',
+      title: 'Formazione One-to-One',
+      description: 'Sessioni personalizzate con docenti senior per accelerare la tua crescita.',
+      features: [
+        'Consulenza personalizzata 1-on-1',
+        'Piano di studi tailor-made',
+        'Sessioni registrate e disponibili on demand',
+        'Follow-up dedicato via chat',
+        '€70/ora per chi ha formazione mensile (max 5 ore/mese)'
+      ],
+      newPrice: '€100/ora',
+      cta: 'Prenota la One-to-One'
+    },
+    {
+      id: 'academy-complete-bundle',
+      level: 'Suggerito',
+      icon: 'fas fa-gem',
+      title: 'Pacchetto Completo',
+      description: 'La combinazione ideale di formazione, coaching e segnali professionali.',
+      features: [
+        'Tutti i vantaggi della Formazione Base',
+        'Sala Segnali Mensile inclusa',
+        'Sconto dedicato sulla Formazione One-to-One',
+        'Supporto prioritario e community esclusiva',
+        'Perfetto per chi vuole risultati rapidi e completi'
+      ],
+      newPrice: '€220/mese',
+      cta: 'Attiva il Pacchetto',
+      popular: true
+    }
+  ];
 
   const instructors = [
     {
@@ -238,22 +130,39 @@ const CryptoAcademy = () => {
       role: 'Founder & Lead Instructor',
       bio: 'Dottore Commercialista e esperto blockchain dal 2014. Oltre 8 anni di esperienza nel settore crypto.',
       stats: { years: '10+', consultations: '500+' },
-      founder: true
+      founder: true,
+      links: {
+        linkedin: 'https://www.linkedin.com/in/ivan-coinologi',
+        twitter: 'https://twitter.com/coinologi'
+      }
     },
     {
       name: 'Marco Rossi',
       role: 'Trading Expert',
-      bio: 'Ex trader istituzionale con 15 anni di esperienza nei mercati finanziari tradizionali e crypto.'
+      bio: 'Ex trader istituzionale con 15 anni di esperienza nei mercati finanziari tradizionali e crypto.',
+      links: {
+        linkedin: 'https://www.linkedin.com/in/marco-rossi-trading',
+        twitter: 'https://twitter.com/coinologi'
+      }
     },
     {
       name: 'Sara Bianchi',
       role: 'Blockchain Developer',
-      bio: 'Sviluppatrice blockchain esperta in smart contracts e protocolli DeFi e sviluppo di soluzioni innovative.'
+      bio: 'Sviluppatrice blockchain esperta in smart contracts e protocolli DeFi e sviluppo di soluzioni innovative.',
+      links: {
+        linkedin: 'https://www.linkedin.com/in/sara-bianchi-dev',
+        twitter: 'https://twitter.com/coinologi'
+      }
     }
   ];
 
   return (
     <>
+      <SEO
+        title="Crypto Academy"
+        description="Percorsi di formazione Coinologi per padroneggiare blockchain, crypto e trading con docenti esperti."
+        canonical="/crypto-academy"
+      />
       {/* Hero Section */}
       <section className="hero hero--academy" aria-labelledby="hero-heading">
         <div className="hero__container">
@@ -358,7 +267,9 @@ const CryptoAcademy = () => {
                   ))}
                 </ul>
                 <div className="course-card__price">
-                  <span className="course-card__old-price">{course.oldPrice}</span>
+                  {course.oldPrice && (
+                    <span className="course-card__old-price">{course.oldPrice}</span>
+                  )}
                   <span className="course-card__new-price">{course.newPrice}</span>
                 </div>
                 <button className="course-card__cta">{course.cta}</button>
@@ -430,8 +341,16 @@ const CryptoAcademy = () => {
                   </div>
                 )}
                 <div className="instructor-card__social">
-                  <a href="#"><i className="fab fa-linkedin-in"></i></a>
-                  <a href="#"><i className="fab fa-twitter"></i></a>
+                  {instructor.links?.linkedin ? (
+                    <a href={instructor.links.linkedin} target="_blank" rel="noopener noreferrer" aria-label={`LinkedIn di ${instructor.name}`}>
+                      <i className="fab fa-linkedin-in"></i>
+                    </a>
+                  ) : null}
+                  {instructor.links?.twitter ? (
+                    <a href={instructor.links.twitter} target="_blank" rel="noopener noreferrer" aria-label={`Twitter di ${instructor.name}`}>
+                      <i className="fab fa-twitter"></i>
+                    </a>
+                  ) : null}
                 </div>
               </div>
             ))}

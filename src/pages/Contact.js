@@ -33,7 +33,7 @@ const Contact = () => {
     {
       icon: 'envelope',
       title: 'Email',
-      value: 'info@coinologi.com',
+  value: 'info@coinologi.net',
       subtitle: 'Risposta entro 24h'
     },
     {
@@ -64,11 +64,11 @@ const Contact = () => {
   ];
 
   const socialLinks = [
-    { platform: 'twitter', icon: 'fab fa-twitter' },
-    { platform: 'linkedin', icon: 'fab fa-linkedin-in' },
-    { platform: 'telegram', icon: 'fab fa-telegram' },
-    { platform: 'youtube', icon: 'fab fa-youtube' },
-    { platform: 'instagram', icon: 'fab fa-instagram' }
+    { platform: 'twitter', icon: 'fab fa-twitter', url: 'https://twitter.com/coinologi' },
+    { platform: 'linkedin', icon: 'fab fa-linkedin-in', url: 'https://www.linkedin.com/company/coinologi' },
+    { platform: 'telegram', icon: 'fab fa-telegram', url: 'https://t.me/coinologi_official' },
+    { platform: 'youtube', icon: 'fab fa-youtube', url: 'https://www.youtube.com/@coinologi' },
+    { platform: 'instagram', icon: 'fab fa-instagram', url: 'https://www.instagram.com/coinologi' }
   ];
 
   const faqData = [
@@ -117,7 +117,7 @@ const Contact = () => {
         }
         break;
       case 'phone':
-        if (value && !/^[\d\s\-\+\(\)]+$/.test(value)) {
+        if (value && !/^[\d\s+()-]+$/.test(value)) {
           error = 'Inserisci un numero di telefono valido';
         }
         break;
@@ -125,6 +125,8 @@ const Contact = () => {
         if (!value) {
           error = 'Devi accettare la Privacy Policy';
         }
+        break;
+      default:
         break;
     }
     
@@ -195,6 +197,11 @@ const Contact = () => {
 
   return (
     <>
+      <SEO
+        title="Contattaci"
+        description="Richiedi supporto personalizzato dal team Coinologi per consulenze crypto, formazione e servizi professionali."
+        canonical="/contact"
+      />
       {/* Hero Section */}
       <section className="hero hero--contact" aria-labelledby="hero-heading">
         <div className="hero__container">
@@ -392,8 +399,8 @@ const Contact = () => {
                         onChange={handleInputChange}
                       />
                       <span className={formErrors.privacy ? 'error' : ''}>
-                        Accetto la <a href="#">Privacy Policy</a> e i{' '}
-                        <a href="#">Termini di Servizio</a> *
+                        Accetto la <a href="https://coinologi.net/privacy-policy" target="_blank" rel="noopener noreferrer">Privacy Policy</a> e i{' '}
+                        <a href="https://coinologi.net/termini-di-servizio" target="_blank" rel="noopener noreferrer">Termini di Servizio</a> *
                       </span>
                     </label>
                     {formErrors.privacy && (
@@ -475,9 +482,11 @@ const Contact = () => {
                   {socialLinks.map((social, index) => (
                     <a
                       key={index}
-                      href="#"
+                      href={social.url}
                       className="social-link"
                       aria-label={`Seguici su ${social.platform}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
                     >
                       <i className={social.icon}></i>
                     </a>
@@ -536,7 +545,7 @@ const Contact = () => {
                 <i className="fas fa-phone"></i>
                 Chiamaci Ora
               </a>
-              <a href="mailto:info@coinologi.com" className="btn btn--secondary">
+              <a href="mailto:info@coinologi.net" className="btn btn--secondary">
                 <i className="fas fa-envelope"></i>
                 Invia Email
               </a>

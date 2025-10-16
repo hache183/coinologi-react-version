@@ -1,0 +1,27 @@
+.container {
+  display: flex;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+.button {
+  border: 1px solid var(--color-gray-200);
+  background: #fff;
+  color: var(--color-gray-700);
+  padding: 0.5rem 1rem;
+  border-radius: 999px;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: var(--transition-base);
+}
+
+.button:hover {
+  border-color: var(--color-primary-500, #ff6b35);
+  color: var(--color-primary-600, #ff6b35);
+}
+
+.active {
+  background: var(--gradient-primary, linear-gradient(135deg, #ff6b35 0%, #ff8a5c 100%));
+  color: #fff;
+  border-color: transparent;
+}

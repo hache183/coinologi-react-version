@@ -83,25 +83,42 @@ const AboutUs = () => {
         { number: '10+', label: 'Anni Crypto' },
         { number: '500+', label: 'Consulenze' }
       ],
-      isFounder: true
+      isFounder: true,
+      links: {
+        linkedin: 'https://www.linkedin.com/in/ivan-coinologi',
+        twitter: 'https://twitter.com/coinologi'
+      }
     },
     {
       name: 'Marco Rossi',
       role: 'Head of Trading',
       credential: 'Analista Finanziario',
-      bio: 'Ex trader istituzionale con 15 anni di esperienza nei mercati tradizionali e crypto. Marco guida la nostra divisione trading e sviluppa strategie innovative per i nostri VIP signals.'
+      bio: 'Ex trader istituzionale con 15 anni di esperienza nei mercati tradizionali e crypto. Marco guida la nostra divisione trading e sviluppa strategie innovative per i nostri VIP signals.',
+      links: {
+        linkedin: 'https://www.linkedin.com/in/marco-rossi-trading',
+        twitter: 'https://twitter.com/coinologi'
+      }
     },
     {
       name: 'Sara Bianchi',
       role: 'Blockchain Developer',
       credential: 'Specialista DeFi',
-      bio: 'Sviluppatrice blockchain esperta in smart contracts e protocolli DeFi. Sara guida i nostri progetti di consulenza Web3 e sviluppo di soluzioni innovative.'
+      bio: 'Sviluppatrice blockchain esperta in smart contracts e protocolli DeFi. Sara guida i nostri progetti di consulenza Web3 e sviluppo di soluzioni innovative.',
+      links: {
+        linkedin: 'https://www.linkedin.com/in/sara-bianchi-dev',
+        twitter: 'https://twitter.com/coinologi',
+        github: 'https://github.com/sarabi-dev'
+      }
     },
     {
       name: 'Luca Verde',
       role: 'Community Manager',
       credential: 'Specialista Marketing',
-      bio: 'Esperto di community building e marketing crypto. Luca gestisce la nostra community e sviluppa strategie per coinvolgere e educare i nostri membri.'
+      bio: 'Esperto di community building e marketing crypto. Luca gestisce la nostra community e sviluppa strategie per coinvolgere e educare i nostri membri.',
+      links: {
+        linkedin: 'https://www.linkedin.com/in/luca-verde-marketing',
+        twitter: 'https://twitter.com/coinologi'
+      }
     }
   ];
 
@@ -169,17 +186,36 @@ const AboutUs = () => {
         )}
         
         <div className="team-social">
-          <a href="#" aria-label={`LinkedIn di ${member.name}`}>
-            <i className="fab fa-linkedin-in"></i>
-          </a>
-          <a href="#" aria-label={`Twitter di ${member.name}`}>
-            <i className="fab fa-twitter"></i>
-          </a>
-          {member.name === 'Sara Bianchi' && (
-            <a href="#" aria-label={`GitHub di ${member.name}`}>
+          {member.links?.linkedin ? (
+            <a
+              href={member.links.linkedin}
+              aria-label={`LinkedIn di ${member.name}`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <i className="fab fa-linkedin-in"></i>
+            </a>
+          ) : null}
+          {member.links?.twitter ? (
+            <a
+              href={member.links.twitter}
+              aria-label={`Twitter di ${member.name}`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <i className="fab fa-twitter"></i>
+            </a>
+          ) : null}
+          {member.links?.github ? (
+            <a
+              href={member.links.github}
+              aria-label={`GitHub di ${member.name}`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <i className="fab fa-github"></i>
             </a>
-          )}
+          ) : null}
         </div>
       </div>
     </article>
@@ -187,6 +223,11 @@ const AboutUs = () => {
 
   return (
     <>
+      <SEO
+        title="Chi Siamo"
+        description="Scopri il team Coinologi, oltre dieci anni di esperienza in consulenza crypto, formazione blockchain e soluzioni Web3."
+        canonical="/about-us"
+      />
       {/* Hero Section */}
       <section className="hero hero--about" aria-labelledby="hero-heading">
         <div className="hero__container">

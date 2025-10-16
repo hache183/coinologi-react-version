@@ -11,7 +11,7 @@ const SEO = ({
   ogType = 'website',
   twitterCard = 'summary_large_image'
 }) => {
-  const siteUrl = 'https://coinologi.com'; // Sostituisci con il tuo dominio
+  const siteUrl = 'https://coinologi.net';
   const fullTitle = title ? `${title} | COINOLOGI` : 'COINOLOGI - Il Futuro della Crypto Consulting';
   const canonicalUrl = canonical ? `${siteUrl}${canonical}` : siteUrl;
 

@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import SEO from '../components/SEO';
 import styles from './Footer.module.css';
 
 const Footer = () => {
@@ -20,10 +19,10 @@ const Footer = () => {
   };
 
   const socialLinks = [
-    { icon: 'fab fa-twitter', label: 'Twitter', url: '#' },
-    { icon: 'fab fa-linkedin-in', label: 'LinkedIn', url: '#' },
-    { icon: 'fab fa-telegram-plane', label: 'Telegram', url: '#' },
-    { icon: 'fab fa-youtube', label: 'YouTube', url: '#' }
+    { icon: 'fab fa-twitter', label: 'Twitter', url: 'https://twitter.com/coinologi' },
+    { icon: 'fab fa-linkedin-in', label: 'LinkedIn', url: 'https://www.linkedin.com/company/coinologi' },
+    { icon: 'fab fa-telegram-plane', label: 'Telegram', url: 'https://t.me/coinologi_official' },
+    { icon: 'fab fa-youtube', label: 'YouTube', url: 'https://www.youtube.com/@coinologi' }
   ];
 
   return (
@@ -68,11 +67,13 @@ const Footer = () => {
               <h4 className={styles.footerColumnTitle}>Seguici</h4>
               <div className={styles.footerSocial}>
                 {socialLinks.map((social, index) => (
-                  <a 
+                  <a
                     key={index}
-                    href={social.url} 
-                    className={styles.footerSocialLink} 
+                    href={social.url}
+                    className={styles.footerSocialLink}
                     aria-label={`Seguici su ${social.label}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
                   >
                     <i className={social.icon} aria-hidden="true"></i>
                   </a>

@@ -146,54 +146,44 @@ const VipTradingSignals = () => {
 
   const pricingPlans = [
     {
-      name: 'VIP Silver',
-      badge: 'Popolare',
-      price: '€97',
-      period: '/mese',
+      name: 'VIP Trading Signals 1Y',
+      badge: 'Top Annuale',
+      price: '€1000',
+      period: '/anno',
       features: [
-        '8-12 segnali premium al mese',
-        'Analisi tecniche dettagliate',
+        'Accesso completo segnali VIP per 12 mesi',
+        'Bot trading automatico incluso',
+        'Analisi tecniche avanzate',
         'Community Telegram VIP',
-        'Supporto chat prioritario',
-        'Risk management incluso'
+        'Supporto priority 24/7',
+        'Webinar mensili esclusivi',
+        '€700 per chi ha già formazione trimestrale'
       ],
-      cta: 'Inizia Silver'
-    },
-    {
-      name: 'VIP Gold',
-      badge: 'Consigliato',
-      price: '€197',
-      period: '/mese',
-      features: [
-        '15-20 segnali premium al mese',
-        'Tutto di Silver +',
-        'Webinar live settimanali',
-        'App mobile dedicata',
-        'Segnali futures e spot',
-        'Portfolio tracker avanzato'
-      ],
-      cta: 'Inizia Gold',
+      cta: 'Richiedi Annuale',
       featured: true
     },
     {
-      name: 'VIP Platinum',
-      badge: 'Elite',
-      price: '€397',
+      name: 'Sala Segnali Mensile',
+      badge: 'Mensile',
+      price: '€70',
       period: '/mese',
       features: [
-        'Segnali illimitati',
-        'Tutto di Gold +',
-        'Call 1-on-1 mensile',
-        'Accesso anticipato ai segnali',
-        'Portfolio management',
-        'Strategie personalizzate'
+        'Segnali di trading in tempo reale',
+        'Analisi di mercato giornaliere',
+        'Community Telegram',
+        'Report settimanali'
       ],
-      cta: 'Inizia Platinum'
+      cta: 'Attiva Mensile'
     }
   ];
 
   return (
     <>
+      <SEO
+        title="VIP Trading Signals"
+        description="Accedi ai segnali di trading premium Coinologi con analisi avanzate, community riservata e supporto priority."
+        canonical="/vip-trading-signals"
+      />
       {/* Hero Section */}
       <section className="hero hero--vip" aria-labelledby="hero-heading">
         <div className="hero__container">
@@ -250,7 +240,6 @@ const VipTradingSignals = () => {
                   <span>TP1: $114,000 ✅</span>
                   <span>TP1: $118,000 ✅</span>
                   <span>TP1: $126,000 </span>
-
                   <span>SL: $79,100</span>
                 </div>
                 <div className="signal-profit">+{dashboardProfit.toFixed(1)}% PROFIT</div>
@@ -264,6 +253,7 @@ const VipTradingSignals = () => {
           </div>
         </div>
       </section>
+      {/* ...existing code... */}
 
       {/* Performance Section */}
       <section className="performance">

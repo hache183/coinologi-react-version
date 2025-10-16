@@ -152,7 +152,7 @@ npm run build
 npm test
 🔧 Configurazione
 Environment Variables
-envREACT_APP_API_URL=https://api.coinologi.com
+envREACT_APP_API_URL=https://api.coinologi.net
 REACT_APP_COINGECKO_API=https://api.coingecko.com/api/v3
 Proxy Setup
 Il progetto include proxy per CoinGecko API per evitare CORS issues:
