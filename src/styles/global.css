@@ -2476,6 +2476,44 @@ body {
   color: var(--color-gray-500);
 }
 
+.editor__upload {
+  margin-top: var(--space-3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.editor__upload label {
+  margin: 0;
+}
+
+.editor__image-preview {
+  margin-top: var(--space-3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.editor__image-preview img {
+  border-radius: var(--radius-lg);
+  max-height: 200px;
+  object-fit: cover;
+  box-shadow: var(--shadow-sm);
+}
+
+.empty-state {
+  padding: var(--space-8);
+  border-radius: var(--radius-2xl);
+  background: var(--color-white);
+  box-shadow: var(--shadow-sm);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  align-items: center;
+  justify-content: center;
+}
+
 @media (max-width: 991px) {
   .blog-controls {
     grid-template-columns: 1fr;

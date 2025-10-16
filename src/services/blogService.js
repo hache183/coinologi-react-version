@@ -20,5 +20,10 @@ export const blogService = {
   getAdminPost: (id, options) => apiClient.get(`/admin/posts/${id}`, options),
   createPost: (data, options) => apiClient.post('/admin/posts', data, options),
   updatePost: (id, data, options) => apiClient.put(`/admin/posts/${id}`, data, options),
-  deletePost: (id, options) => apiClient.delete(`/admin/posts/${id}`, options)
+  deletePost: (id, options) => apiClient.delete(`/admin/posts/${id}`, options),
+  uploadFeaturedImage: (file, options) => {
+    const formData = new FormData();
+    formData.append('image', file);
+    return apiClient.post('/admin/posts/upload', formData, options);
+  }
 };

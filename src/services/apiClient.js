@@ -17,43 +17,35 @@ const handleResponse = async (response) => {
   return data;
 };
 
+const buildRequestInit = (method, body, options = {}) => {
+  const { headers = {}, ...rest } = options;
+  const isFormData = typeof FormData !== 'undefined' && body instanceof FormData;
+  const resolvedHeaders = isFormData ? headers : { ...defaultHeaders, ...headers };
+
+  return {
+    method,
+    credentials: 'include',
+    headers: resolvedHeaders,
+    body: body === undefined ? undefined : (isFormData ? body : JSON.stringify(body)),
+    ...rest
+  };
+};
+
 export const apiClient = {
   get: async (path, options = {}) => {
-    const response = await fetch(`${API_BASE_URL}${path}`, {
-      method: 'GET',
-      credentials: 'include',
-      headers: options.headers || defaultHeaders,
-      ...options
-    });
+    const response = await fetch(`${API_BASE_URL}${path}`, buildRequestInit('GET', undefined, options));
     return handleResponse(response);
   },
   post: async (path, body, options = {}) => {
-    const response = await fetch(`${API_BASE_URL}${path}`, {
-      method: 'POST',
-      credentials: 'include',
-      headers: options.headers || defaultHeaders,
-      body: JSON.stringify(body),
-      ...options
-    });
+    const response = await fetch(`${API_BASE_URL}${path}`, buildRequestInit('POST', body, options));
     return handleResponse(response);
   },
   put: async (path, body, options = {}) => {
-    const response = await fetch(`${API_BASE_URL}${path}`, {
-      method: 'PUT',
-      credentials: 'include',
-      headers: options.headers || defaultHeaders,
-      body: JSON.stringify(body),
-      ...options
-    });
+    const response = await fetch(`${API_BASE_URL}${path}`, buildRequestInit('PUT', body, options));
     return handleResponse(response);
   },
   delete: async (path, options = {}) => {
-    const response = await fetch(`${API_BASE_URL}${path}`, {
-      method: 'DELETE',
-      credentials: 'include',
-      headers: options.headers || defaultHeaders,
-      ...options
-    });
+    const response = await fetch(`${API_BASE_URL}${path}`, buildRequestInit('DELETE', undefined, options));
     return handleResponse(response);
   }
 };

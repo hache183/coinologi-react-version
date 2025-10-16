@@ -129,7 +129,16 @@ const Blog = () => {
           ) : null}
 
           {!isLoading && !error && posts.length === 0 ? (
-            <p>Nessun articolo trovato con questi filtri.</p>
+            <div className="empty-state">
+              <p>Nessun articolo trovato con questi filtri.</p>
+              <button type="button" className="btn btn--secondary" onClick={() => {
+                setSearch('');
+                setCategory('');
+                setSort(INITIAL_SORT);
+              }}>
+                Reimposta filtri
+              </button>
+            </div>
           ) : null}
 
           <div className="blog-grid">

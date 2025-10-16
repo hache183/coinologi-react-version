@@ -63,6 +63,7 @@ const Header = () => {
   const navLinks = [
     { to: '/', label: 'Home' },
     { to: '/about', label: 'Chi siamo' },
+    { to: '/blog', label: 'Blog' },
     { to: '/crypto-academy', label: 'Crypto Academy' },
     { to: '/vip-trading-signals', label: 'VIP Trading Signals' },
     { to: '/web3-consulting', label: 'Web3 Consulting' },

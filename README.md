@@ -97,7 +97,7 @@ Accessibilità completa
 
 🔧 Tecnologie Utilizzate
 
-React 19.1.0 - Framework principale
+React 18.3.1 - Framework principale
 React Router 7.6.2 - Routing client-side
 React Helmet Async - SEO management
 CSS Modules - Styling isolato
@@ -150,10 +150,13 @@ npm run build
 
 # Test
 npm test
-🔧 Configurazione
-Environment Variables
 envREACT_APP_API_URL=https://api.coinologi.net
+🔧 Configurazione Frontend
+Environment Variables
+```
+REACT_APP_API_URL=https://api.coinologi.net
 REACT_APP_COINGECKO_API=https://api.coingecko.com/api/v3
+```
 Proxy Setup
 Il progetto include proxy per CoinGecko API per evitare CORS issues:
 javascript// setupProxy.js
@@ -173,6 +176,54 @@ Build & Deploy
 package.json - Dipendenze e scripts
 .gitignore - File da escludere
 Configurazione per hosting Apache
+
+🛠️ Backend API
+
+Il repository include un'API Express/MongoDB sotto `backend/` per autenticazione admin, CRUD articoli e upload immagini.
+
+1. **Installazione**
+  ```bash
+  cd backend
+  npm install
+  ```
+
+2. **Configura l'ambiente** copiando `.env.example` in `.env` e impostando i valori:
+  ```bash
+  PORT=5000
+  MONGO_URI=mongodb+srv://<username>:<password>@cluster-url/dbname
+  JWT_SECRET=change_me_super_secret
+  JWT_EXPIRY=7d
+  CLIENT_URL=http://localhost:3000
+  CORS_ORIGIN=http://localhost:3000
+  UPLOAD_DIR=uploads
+  FILE_BASE_URL=http://localhost:5000
+  ADMIN_NAME=Admin User
+  ADMIN_EMAIL=admin@coinologi.net
+  ADMIN_PASSWORD=change_me_super_secret
+  ```
+  > `UPLOAD_DIR` e `FILE_BASE_URL` determinano come vengono salvate/servite le immagini caricate dal CMS.
+
+3. **Seed dell'utente admin** (primo avvio):
+  ```bash
+  npm run seed:admin
+  ```
+
+4. **Avvio API**
+  ```bash
+  npm run dev
+  ```
+
+L'API espone endpoint su `http://localhost:5000/api`, tra cui `POST /api/admin/posts/upload` per le immagini.
+
+🧭 Flusso Admin & Blog
+
+- Login admin frontend: `http://localhost:3000/admin/login`
+- Dashboard articoli: `/admin/dashboard`
+- Creazione/modifica: `/admin/blog/new`, `/admin/blog/edit/:id`
+- Blog pubblico: `/blog` e `/blog/:slug`
+- Upload immagini: dal form editor usa "Carica immagine" (limite 2 MB), i file vengono serviti da `/uploads`.
+
+Suggerimento: avvia backend e frontend in terminal separati (`npm run dev` in `backend/`, `npm start` nella root) per lo sviluppo locale.
 
 🎯 Best Practices
 CSS

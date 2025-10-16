@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import SEO from '../components/SEO';
 
 const Home = () => {
@@ -69,8 +70,8 @@ const Home = () => {
               Coinologi nasce da un'idea di Ivan Epicoco, Dottore Commercialista e nerd affilato che dal 2014 offre supporto trasparente e sicuro a chiunque voglia avvicinarsi al mondo delle tecnologie decentralizzate.
             </p>
             <div className="hero__cta">
-              <button className="btn btn--primary">Inizia Oggi</button>
-              <button className="btn btn--secondary">Scopri di Più</button>
+              <Link to="/contact" className="btn btn--primary">Inizia Oggi</Link>
+              <Link to="/blog" className="btn btn--secondary">Leggi il Blog</Link>
             </div>
           </div>
           <div className="hero__visual">

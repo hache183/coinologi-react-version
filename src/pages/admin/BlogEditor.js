@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import SEO from '../../components/SEO';
 import RichTextEditor from '../../components/admin/RichTextEditor';
@@ -26,6 +26,8 @@ const BlogEditor = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [successMessage, setSuccessMessage] = useState(null);
+  const [isUploading, setIsUploading] = useState(false);
+  const fileInputRef = useRef(null);
 
   useEffect(() => {
     if (!isEditing) return;
@@ -75,6 +77,31 @@ const BlogEditor = () => {
 
   const handleContentChange = (value) => {
     setForm((prev) => ({ ...prev, content: value }));
+  };
+
+  const handleFeaturedImageUpload = async (event) => {
+    const file = event.target.files?.[0];
+    if (!file) {
+      return;
+    }
+
+    setIsUploading(true);
+    setError(null);
+
+    try {
+      const response = await blogService.uploadFeaturedImage(file);
+      if (response.success) {
+        setForm((prev) => ({ ...prev, featuredImage: response.file.url }));
+        setSuccessMessage('Immagine caricata con successo');
+      }
+    } catch (err) {
+      setError(err.message || 'Caricamento immagine non riuscito');
+    } finally {
+      setIsUploading(false);
+      if (fileInputRef.current) {
+        fileInputRef.current.value = '';
+      }
+    }
   };
 
   const buildPayload = () => ({
@@ -265,7 +292,38 @@ const BlogEditor = () => {
                     onChange={handleChange}
                     placeholder="https://..."
                   />
-                  <small>TODO: integra upload su Cloudinary/S3</small>
+                  <div className="editor__upload">
+                    <button
+                      type="button"
+                      className="btn btn--secondary"
+                      style={{ width: '100%' }}
+                      onClick={() => fileInputRef.current?.click()}
+                      disabled={isUploading}
+                    >
+                      {isUploading ? 'Caricamento…' : 'Carica immagine'}
+                    </button>
+                    <input
+                      ref={fileInputRef}
+                      type="file"
+                      accept="image/*"
+                      onChange={handleFeaturedImageUpload}
+                      style={{ display: 'none' }}
+                      disabled={isUploading}
+                    />
+                    <small>Supporto immagini fino a 2MB. Il file verrà ospitato dal backend.</small>
+                  </div>
+                  {form.featuredImage ? (
+                    <div className="editor__image-preview">
+                      <img src={form.featuredImage} alt="Anteprima immagine in evidenza" />
+                      <button
+                        type="button"
+                        className="btn btn--link btn--danger"
+                        onClick={() => setForm((prev) => ({ ...prev, featuredImage: '' }))}
+                      >
+                        Rimuovi immagine
+                      </button>
+                    </div>
+                  ) : null}
                 </label>
 
                 <fieldset className="editor__fieldset">

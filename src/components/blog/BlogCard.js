@@ -11,7 +11,11 @@ const BlogCard = ({ post }) => {
       <div className={styles.imageWrapper}>
         {post.featuredImage ? (
           <img src={post.featuredImage} alt={post.title} loading="lazy" />
-        ) : null}
+        ) : (
+          <div className={styles.imagePlaceholder} aria-hidden="true">
+            <i className="fas fa-newspaper" />
+          </div>
+        )}
       </div>
       <div className={styles.content}>
         <span className={styles.category}>{post.category || 'Senza categoria'}</span>
