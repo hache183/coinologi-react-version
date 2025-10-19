@@ -27,6 +27,7 @@ const BlogEditor = () => {
   const [error, setError] = useState(null);
   const [successMessage, setSuccessMessage] = useState(null);
   const [isUploading, setIsUploading] = useState(false);
+  const [previewUrl, setPreviewUrl] = useState(null);
   const fileInputRef = useRef(null);
 
   useEffect(() => {
@@ -85,17 +86,25 @@ const BlogEditor = () => {
       return;
     }
 
+    const supportsObjectURL = typeof URL !== 'undefined' && typeof URL.createObjectURL === 'function';
+    const objectUrl = supportsObjectURL ? URL.createObjectURL(file) : null;
+    if (objectUrl) {
+      setPreviewUrl(objectUrl);
+    }
     setIsUploading(true);
     setError(null);
+    setSuccessMessage(null);
 
     try {
       const response = await blogService.uploadFeaturedImage(file);
       if (response.success) {
         setForm((prev) => ({ ...prev, featuredImage: response.file.url }));
         setSuccessMessage('Immagine caricata con successo');
+        setPreviewUrl(null);
       }
     } catch (err) {
       setError(err.message || 'Caricamento immagine non riuscito');
+      setPreviewUrl(null);
     } finally {
       setIsUploading(false);
       if (fileInputRef.current) {
@@ -103,6 +112,14 @@ const BlogEditor = () => {
       }
     }
   };
+
+  useEffect(() => {
+    return () => {
+      if (previewUrl) {
+        URL.revokeObjectURL(previewUrl);
+      }
+    };
+  }, [previewUrl]);
 
   const buildPayload = () => ({
     title: form.title,
@@ -170,6 +187,8 @@ const BlogEditor = () => {
       setIsLoading(false);
     }
   };
+
+  const imagePreviewSrc = previewUrl || form.featuredImage;
 
   return (
     <>
@@ -312,13 +331,16 @@ const BlogEditor = () => {
                     />
                     <small>Supporto immagini fino a 2MB. Il file verrà ospitato dal backend.</small>
                   </div>
-                  {form.featuredImage ? (
+                  {imagePreviewSrc ? (
                     <div className="editor__image-preview">
-                      <img src={form.featuredImage} alt="Anteprima immagine in evidenza" />
+                      <img src={imagePreviewSrc} alt="Anteprima immagine in evidenza" />
                       <button
                         type="button"
                         className="btn btn--link btn--danger"
-                        onClick={() => setForm((prev) => ({ ...prev, featuredImage: '' }))}
+                        onClick={() => {
+                          setPreviewUrl(null);
+                          setForm((prev) => ({ ...prev, featuredImage: '' }));
+                        }}
                       >
                         Rimuovi immagine
                       </button>

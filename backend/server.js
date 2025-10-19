@@ -13,6 +13,7 @@ import authRoutes from './routes/auth.js';
 import postRoutes from './routes/posts.js';
 import adminPostRoutes from './routes/adminPosts.js';
 import { errorHandler, notFoundHandler } from './middleware/errorHandler.js';
+import { getUploadsDirectory } from './middleware/upload.js';
 
 const app = express();
 
@@ -20,7 +21,11 @@ const app = express();
 connectDB();
 
 // Global middlewares
-app.use(helmet());
+app.use(
+  helmet({
+    crossOriginResourcePolicy: { policy: 'cross-origin' }
+  })
+);
 app.use(
   cors({
     origin: process.env.CORS_ORIGIN || process.env.CLIENT_URL || '*',
@@ -37,12 +42,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // Static uploads directory
-if (process.env.UPLOAD_DIR) {
-  const uploadsPath = path.isAbsolute(process.env.UPLOAD_DIR)
-    ? process.env.UPLOAD_DIR
-    : path.join(__dirname, process.env.UPLOAD_DIR);
-  app.use('/uploads', express.static(uploadsPath));
-}
+app.use('/uploads', express.static(getUploadsDirectory()));
 
 // Routes
 app.use('/api/auth', authRoutes);

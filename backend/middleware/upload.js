@@ -47,3 +47,5 @@ export const getPublicFileUrl = (req, filename) => {
   const relativePath = path.relative(path.join(__dirname, '..'), absoluteUploadDir);
   return `${baseUrl}/${relativePath.replace(/\\/g, '/')}/${filename}`;
 };
+
+export const getUploadsDirectory = () => absoluteUploadDir;
