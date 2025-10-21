@@ -22,9 +22,18 @@ const run = async () => {
   logEnvDiagnostics();
 
   const mongoUri = process.env.MONGO_URI;
+  const mongoDbName = process.env.MONGO_DB_NAME;
 
   if (!mongoUri) {
     console.error('❌ Missing MONGO_URI. Verifica il file backend/.env.');
+    process.exit(1);
+  }
+
+  const [, afterNet] = mongoUri.split('.net/');
+  const uriHasDbName = Boolean(afterNet && afterNet.length && !afterNet.startsWith('?'));
+
+  if (!uriHasDbName && !mongoDbName) {
+    console.error('❌ Database name missing in MONGO_URI. Aggiungi il nome del database all\'URI o imposta MONGO_DB_NAME.');
     process.exit(1);
   }
 
@@ -33,8 +42,15 @@ const run = async () => {
     socketTimeoutMS: Number(process.env.MONGO_SOCKET_TIMEOUT ?? 45000)
   };
 
+  if (!uriHasDbName && mongoDbName) {
+    options.dbName = mongoDbName;
+  }
+
   console.log(`🔐 MongoDB URI (masked): ${maskMongoUri(mongoUri)}`);
   console.log(`⚙️  Options: ${JSON.stringify(options)}`);
+  if (!uriHasDbName && mongoDbName) {
+    console.log(`🗄️  Using dbName from env: ${mongoDbName}`);
+  }
 
   try {
     const connection = await mongoose.connect(mongoUri, options);

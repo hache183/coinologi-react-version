@@ -28,19 +28,23 @@ const seedAdmin = async () => {
     const existing = await User.findOne({ email: ADMIN_EMAIL });
 
     if (existing) {
-      console.log(`Admin user already exists with email ${ADMIN_EMAIL}`);
-      await mongoose.connection.close();
-      process.exit(0);
+      existing.name = ADMIN_NAME;
+      existing.password = ADMIN_PASSWORD;
+      existing.role = 'admin';
+      await existing.save();
+
+      console.log(`Admin user updated successfully for email ${ADMIN_EMAIL}`);
+    } else {
+      await User.create({
+        name: ADMIN_NAME,
+        email: ADMIN_EMAIL,
+        password: ADMIN_PASSWORD,
+        role: 'admin'
+      });
+
+      console.log('Admin user created successfully.');
     }
 
-    await User.create({
-      name: ADMIN_NAME,
-      email: ADMIN_EMAIL,
-      password: ADMIN_PASSWORD,
-      role: 'admin'
-    });
-
-    console.log('Admin user created successfully.');
     await mongoose.connection.close();
     process.exit(0);
   } catch (error) {

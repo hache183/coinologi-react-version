@@ -22,15 +22,20 @@ const logConnectionHints = (error) => {
 
 const connectDB = async () => {
   const mongoUri = process.env.MONGO_URI;
+  const mongoDbName = process.env.MONGO_DB_NAME;
 
   if (!mongoUri) {
     console.error('❌ MONGO_URI is not defined in environment variables');
     process.exit(1);
   }
 
-  if (!mongoUri.includes('.net/') || mongoUri.split('.net/')[1].startsWith('?')) {
+  const [, afterNet] = mongoUri.split('.net/');
+  const uriContainsDbName = Boolean(afterNet && afterNet.length && !afterNet.startsWith('?'));
+
+  if (!uriContainsDbName && !mongoDbName) {
     console.error('❌ Database name missing in MONGO_URI');
     console.error('   Format: mongodb+srv://<user>:<password>@cluster.mongodb.net/DATABASE?options');
+    console.error('   In alternativa imposta la variabile MONGO_DB_NAME nel file .env');
     process.exit(1);
   }
 
@@ -39,9 +44,17 @@ const connectDB = async () => {
     socketTimeoutMS: Number(process.env.MONGO_SOCKET_TIMEOUT ?? 45000)
   };
 
+  if (!uriContainsDbName && mongoDbName) {
+    options.dbName = mongoDbName;
+  }
+
   console.log('🚀 Attempting MongoDB connection');
   console.log(`🔐 URI (masked): ${redactMongoUri(mongoUri)}`);
   console.log(`⚙️  Options: ${JSON.stringify(options)}`);
+
+  if (!uriContainsDbName && mongoDbName) {
+    console.log(`🗄️  Using dbName from env: ${mongoDbName}`);
+  }
 
   mongoose.set('strictQuery', false);
 

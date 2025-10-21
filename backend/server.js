@@ -17,9 +17,6 @@ import { getUploadsDirectory } from './middleware/upload.js';
 
 const app = express();
 
-// Database connection
-connectDB();
-
 // Global middlewares
 app.use(
   helmet({
@@ -58,7 +55,27 @@ app.get('/api/health', (_req, res) => {
 app.use(notFoundHandler);
 app.use(errorHandler);
 
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+const PORT = process.env.PORT || 5001;
+const startServer = async () => {
+  try {
+    await connectDB();
+
+    const server = app.listen(PORT, () => {
+      console.log(`Server running on port ${PORT}`);
+    });
+
+    server.on('error', (err) => {
+      if (err.code === 'EADDRINUSE') {
+        console.error(`❌ Port ${PORT} is already in use. Modifica la variabile PORT nel file .env o chiudi il processo che la sta occupando.`);
+      } else {
+        console.error('❌ Server start error:', err);
+      }
+      process.exit(1);
+    });
+  } catch (error) {
+    console.error('❌ Unable to start server due to MongoDB connection failure:', error);
+    process.exit(1);
+  }
+};
+
+startServer();

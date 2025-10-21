@@ -106,7 +106,11 @@ export const getAdminPostById = async (req, res) => {
 export const createPost = async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    return res.status(422).json({ success: false, errors: errors.array() });
+    return res.status(422).json({
+      success: false,
+      message: 'Dati non validi',
+      errors: errors.array()
+    });
   }
 
   const {
@@ -143,7 +147,11 @@ export const createPost = async (req, res) => {
 export const updatePost = async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    return res.status(422).json({ success: false, errors: errors.array() });
+    return res.status(422).json({
+      success: false,
+      message: 'Dati non validi',
+      errors: errors.array()
+    });
   }
 
   const { id } = req.params;

@@ -18,6 +18,24 @@ const DEFAULT_FORM = {
   seoKeywords: ''
 };
 
+const extractErrorMessage = (err, fallback) => {
+  if (err?.data?.errors?.length) {
+    const messages = err.data.errors
+      .map((item) => item?.msg)
+      .filter(Boolean);
+
+    if (messages.length) {
+      return messages.join(', ');
+    }
+  }
+
+  if (typeof err?.message === 'string' && err.message.trim().length > 0) {
+    return err.message;
+  }
+
+  return fallback;
+};
+
 const BlogEditor = () => {
   const { id } = useParams();
   const isEditing = Boolean(id);
@@ -160,7 +178,7 @@ const BlogEditor = () => {
         setForm(DEFAULT_FORM);
       }
     } catch (err) {
-      setError(err.message || 'Salvataggio non riuscito');
+      setError(extractErrorMessage(err, 'Salvataggio non riuscito'));
     } finally {
       setIsLoading(false);
     }
@@ -182,7 +200,7 @@ const BlogEditor = () => {
       }
       navigate('/admin/dashboard');
     } catch (err) {
-      setError(err.message || 'Pubblicazione non riuscita');
+      setError(extractErrorMessage(err, 'Pubblicazione non riuscita'));
     } finally {
       setIsLoading(false);
     }
