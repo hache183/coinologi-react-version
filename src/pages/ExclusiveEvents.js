@@ -661,9 +661,10 @@ const ExclusiveEvents = () => {
         .events-showcase {
           display: grid;
           grid-template-columns: repeat(2, 1fr);
-          gap: var(--space-4);
+          gap: var(--space-6);
           width: 100%;
-          max-width: 400px;
+          max-width: 100%;
+          justify-items: center;
         }
 
         .showcase-item {
@@ -676,6 +677,8 @@ const ExclusiveEvents = () => {
           color: var(--color-white);
           transition: var(--transition-base);
           justify-self: center;
+          min-width: 140px;
+          min-height: 140px;
         }
 
         .showcase-item:hover {
@@ -684,15 +687,62 @@ const ExclusiveEvents = () => {
         }
 
         .showcase-item i {
-          font-size: var(--font-size-2xl);
+          font-size: 1.75rem;
           margin-bottom: var(--space-2);
           color: var(--color-primary);
         }
 
         .showcase-item span {
           display: block;
-          font-size: var(--font-size-xs);
+          font-size: 0.85rem;
           font-weight: var(--font-weight-medium);
+        }
+
+        @media (min-width: 992px) {
+          .events-showcase {
+            grid-template-columns: repeat(4, 1fr);
+            max-width: 600px;
+          }
+        }
+
+        @media (min-width: 768px) and (max-width: 991px) {
+          .events-showcase {
+            grid-template-columns: repeat(2, 1fr);
+            max-width: 400px;
+          }
+        }
+
+        @media (max-width: 767px) {
+          .events-showcase {
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--space-4);
+          }
+
+          .showcase-item {
+            min-width: 120px;
+            min-height: 120px;
+            padding: var(--space-4);
+          }
+
+          .showcase-item i {
+            font-size: 1.5rem;
+          }
+
+          .showcase-item span {
+            font-size: 0.75rem;
+          }
+        }
+
+        @media (max-width: 480px) {
+          .events-showcase {
+            grid-template-columns: 1fr;
+            max-width: 200px;
+            margin: 0 auto;
+          }
+
+          .showcase-item {
+            width: 100%;
+          }
         }
 
         /* Feature List */
@@ -862,11 +912,6 @@ const ExclusiveEvents = () => {
           .next-event-card {
             flex-direction: column;
             text-align: center;
-          }
-
-          .events-showcase {
-            //grid-template-columns: 1fr;
-            max-width: 300px;
           }
 
           .events-grid {

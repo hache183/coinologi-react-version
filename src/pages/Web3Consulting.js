@@ -693,10 +693,10 @@ const Web3Consulting = () => {
         /* Tablet piccolo (767px e meno) */
         @media (max-width: 767px) {
           .hero--web3 .hero__container {
-            padding: 3rem 1rem;
+            padding: 2.5rem 1rem;
             gap: 2rem;
           }
-          
+
           .hero__visual {
             overflow: visible;
             width: 100%;
@@ -706,55 +706,62 @@ const Web3Consulting = () => {
           }
 
           .web3-ecosystem {
-            max-width: 350px;
-            height: 350px;
+            max-width: 300px;
+            height: 300px;
           }
-          
+
           .ecosystem-center {
-            width: 100px;
-            height: 100px;
-          }
-          
-          .ecosystem-center i {
-            font-size: 1.5rem;
-            margin-bottom: 0.3rem;
-          }
-          
-          .ecosystem-center span {
-            font-size: 0.8rem;
-          }
-          
-          .node {
             width: 80px;
             height: 80px;
-            font-size: 0.7rem;
-            padding: 0.4rem;
           }
-          
+
+          .ecosystem-center i {
+            font-size: 1.25rem;
+            margin-bottom: 0.25rem;
+          }
+
+          .ecosystem-center span {
+            font-size: 0.75rem;
+          }
+
+          .node {
+            width: 65px;
+            height: 65px;
+            font-size: 0.6rem;
+            padding: 0.3rem;
+          }
+
           .node i {
-            font-size: 1rem;
-            margin-bottom: 0.3rem;
+            font-size: 0.9rem;
+            margin-bottom: 0.25rem;
           }
-          
-          /* Riposiziona i nodi per evitare overflow su tablet */
+
+          .node--blockchain {
+            top: 5%;
+          }
+
           .node--defi {
-            right: 8%;
-            top: 18%;
+            right: 5%;
+            top: 20%;
           }
-          
+
           .node--nft {
-            right: 8%;
-            bottom: 18%;
+            right: 5%;
+            bottom: 20%;
           }
-          
+
+          .node--dao {
+            bottom: 5%;
+          }
+
           .node--smart {
-            left: 8%;
-            bottom: 18%;
+            left: 5%;
+            bottom: 20%;
           }
-          
+
           .node--tokens {
-            left: 8%;
-            top: 18%;
+            left: 5%;
+            top: 20%;
           }
 
           .case-study__metrics {
@@ -765,38 +772,38 @@ const Web3Consulting = () => {
         /* Mobile large (575px e meno) */
         @media (max-width: 575px) {
           .web3-ecosystem {
-            max-width: 320px;
-            height: 320px;
+            max-width: 260px;
+            height: 260px;
           }
-          
+
           .ecosystem-center {
-            width: 90px;
-            height: 90px;
+            width: 70px;
+            height: 70px;
           }
-          
+
           .ecosystem-center i {
-            font-size: 1.375rem;
-            margin-bottom: 0.25rem;
-          }
-          
-          .ecosystem-center span {
-            font-size: 0.75rem;
-            line-height: 1.2;
-          }
-          
-          .node {
-            width: 75px;
-            height: 75px;
-            font-size: 0.65rem;
-            padding: 0.3rem;
-            line-height: 1.1;
-          }
-          
-          .node i {
-            font-size: 0.95rem;
+            font-size: 1.15rem;
             margin-bottom: 0.2rem;
           }
-          
+
+          .ecosystem-center span {
+            font-size: 0.7rem;
+            line-height: 1.2;
+          }
+
+          .node {
+            width: 60px;
+            height: 60px;
+            font-size: 0.58rem;
+            padding: 0.25rem;
+            line-height: 1.1;
+          }
+
+          .node i {
+            font-size: 0.85rem;
+            margin-bottom: 0.2rem;
+          }
+
           .node span {
             line-height: 1.1;
           }
@@ -806,6 +813,7 @@ const Web3Consulting = () => {
             gap: 1rem;
             align-items: center;
           }
+
           .btn {
             width: 100%;
             font-size: 1rem;
@@ -816,96 +824,96 @@ const Web3Consulting = () => {
         /* Mobile standard (480px e meno) */
         @media (max-width: 480px) {
           .web3-ecosystem {
-            max-width: 300px;
-            height: 300px;
+            max-width: 220px;
+            height: 220px;
           }
-          
+
           .ecosystem-center {
-            width: 85px;
-            height: 85px;
+            width: 65px;
+            height: 65px;
           }
-          
+
           .ecosystem-center i {
-            font-size: 1.25rem;
-            margin-bottom: 0.2rem;
-          }
-          
-          .ecosystem-center span {
-            font-size: 0.7rem;
-            line-height: 1.1;
-          }
-          
-          .node {
-            width: 70px;
-            height: 70px;
-            font-size: 0.6rem;
-            padding: 0.25rem;
-          }
-          
-          .node i {
-            font-size: 0.875rem;
+            font-size: 1rem;
             margin-bottom: 0.15rem;
           }
-          
+
+          .ecosystem-center span {
+            font-size: 0.65rem;
+            line-height: 1.1;
+          }
+
+          .node {
+            width: 55px;
+            height: 55px;
+            font-size: 0.55rem;
+            padding: 0.2rem;
+          }
+
+          .node i {
+            font-size: 0.75rem;
+            margin-bottom: 0.1rem;
+          }
+
           /* Posizionamento più compatto per mobile */
           .node--blockchain {
-            top: 6%;
+            top: 5%;
           }
-          
+
           .node--defi {
-            right: 6%;
-            top: 16%;
+            right: 5%;
+            top: 18%;
           }
-          
+
           .node--nft {
-            right: 6%;
-            bottom: 16%;
+            right: 5%;
+            bottom: 18%;
           }
-          
+
           .node--dao {
-            bottom: 6%;
+            bottom: 5%;
           }
-          
+
           .node--smart {
-            left: 6%;
-            bottom: 16%;
+            left: 5%;
+            bottom: 18%;
           }
-          
+
           .node--tokens {
-            left: 6%;
-            top: 16%;
+            left: 5%;
+            top: 18%;
           }
         }
 
         /* Mobile molto piccolo (400px e meno) */
         @media (max-width: 400px) {
           .web3-ecosystem {
-            max-width: 280px;
-            height: 280px;
+            max-width: 200px;
+            height: 200px;
           }
-          
+
           .ecosystem-center {
-            width: 80px;
-            height: 80px;
+            width: 60px;
+            height: 60px;
           }
-          
+
           .ecosystem-center i {
-            font-size: 1.125rem;
+            font-size: 0.9rem;
           }
-          
+
           .ecosystem-center span {
-            font-size: 0.65rem;
+            font-size: 0.6rem;
           }
-          
+
           .node {
-            width: 65px;
-            height: 65px;
-            font-size: 0.55rem;
-            padding: 0.2rem;
+            width: 50px;
+            height: 50px;
+            font-size: 0.5rem;
+            padding: 0.15rem;
           }
-          
+
           .node i {
-            font-size: 0.8rem;
+            font-size: 0.7rem;
           }
         }
 

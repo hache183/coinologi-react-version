@@ -1,6 +1,6 @@
 .container {
   display: flex;
-  gap: var(--space-3);
+  gap: var(--space-4);
   flex-wrap: wrap;
 }
 
@@ -8,11 +8,16 @@
   border: 1px solid var(--color-gray-200);
   background: #fff;
   color: var(--color-gray-700);
-  padding: 0.5rem 1rem;
+  padding: calc(var(--space-2) + 2px) var(--space-4);
   border-radius: 999px;
   font-size: 0.875rem;
   cursor: pointer;
   transition: var(--transition-base);
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1.2;
 }
 
 .button:hover {

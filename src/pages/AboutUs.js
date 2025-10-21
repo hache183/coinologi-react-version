@@ -397,10 +397,11 @@ const AboutUs = () => {
         /* About Showcase */
         .about-showcase {
           display: grid;
-          grid-template-columns: auto;
+          grid-template-columns: repeat(2, 1fr);
           gap: var(--space-6);
           width: 100%;
-          max-width: 400px;
+          max-width: 100%;
+          justify-items: center;
         }
 
         .showcase-circle {
@@ -774,8 +775,8 @@ const AboutUs = () => {
         /* Responsive */
         @media (max-width: 991px) {
           .about-showcase {
-            grid-template-columns: 1fr;
-            max-width: 300px;
+            grid-template-columns: repeat(2, 1fr);
+            max-width: 360px;
           }
 
           .mission-grid {
@@ -814,6 +815,10 @@ const AboutUs = () => {
             height: 100px;
           }
 
+          .about-showcase {
+            gap: var(--space-4);
+          }
+
           .team-grid {
             grid-template-columns: 1fr;
           }
@@ -838,6 +843,14 @@ const AboutUs = () => {
           .value-item {
             flex-direction: column;
             text-align: center;
+          }
+        }
+
+        @media (max-width: 480px) {
+          .about-showcase {
+            grid-template-columns: 1fr;
+            max-width: 220px;
+            margin: 0 auto;
           }
         }
       `}</style>

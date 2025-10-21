@@ -332,8 +332,7 @@ const BlogEditor = () => {
                   <div className="editor__upload">
                     <button
                       type="button"
-                      className="btn btn--secondary"
-                      style={{ width: '100%' }}
+                      className="btn btn--secondary editor__upload-button"
                       onClick={() => fileInputRef.current?.click()}
                       disabled={isUploading}
                     >

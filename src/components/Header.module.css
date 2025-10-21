@@ -1,7 +1,4 @@
 /* CSS Module per Header */
-.header {
-  /* ...stili da migrare qui... */
-}
 .cryptoTickerFixed {
   position: fixed;
   top: 0;
@@ -118,6 +115,7 @@
   cursor: pointer;
   transition: transform 0.2s ease;
   text-decoration: none;
+  padding: 0.25rem 0.75rem 0.25rem 0;
 }
 .logoBtn:hover {
   transform: scale(1.05);
@@ -133,13 +131,13 @@
 .navMenu {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: var(--space-3);
   list-style: none;
   margin: 0;
-  padding: 0.5rem;
-  background: rgba(0, 0, 0, 0.05);
-  border-radius: 16px;
-  box-shadow: 0 2px 8px rgba(255,107,53,0.05);
+  padding: var(--space-3) var(--space-4);
+  background: rgba(0, 0, 0, 0.04);
+  border-radius: 20px;
+  box-shadow: 0 2px 8px rgba(255,107,53,0.08);
 }
 .navItem {
   margin: 0;
@@ -147,12 +145,12 @@
 .navLink {
   display: flex;
   align-items: center;
-  padding: 0.75rem 1rem;
+  padding: var(--space-3) var(--space-5);
   font-size: 0.95rem;
   font-weight: 500;
   color: #4a5568;
   text-decoration: none;
-  border-radius: 12px;
+  border-radius: 14px;
   transition: all 0.2s ease;
   white-space: nowrap;
 }
@@ -164,6 +162,7 @@
 .navLinkActive {
   color: white;
   background: linear-gradient(135deg, #ff6b35 0%, #ff8a5c 100%);
+  box-shadow: 0 2px 8px rgba(255,107,53,0.2);
 }
 .navLinkActive:hover {
   color: white;

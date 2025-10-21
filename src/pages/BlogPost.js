@@ -84,7 +84,7 @@ const BlogPost = () => {
 
   if (error) {
     return (
-      <div className="container" style={{ padding: '4rem 0' }}>
+      <div className="container blog-post__error">
         <div className="alert alert--error" role="alert">
           {error}
         </div>

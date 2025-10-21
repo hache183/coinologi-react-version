@@ -410,6 +410,26 @@ const VipTradingSignals = () => {
           min-height: calc(90vh - 140px);
         }
 
+        .hero--vip .hero__container {
+          align-items: stretch;
+        }
+
+        .hero--vip .hero__content {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+        }
+
+        .hero--vip .hero__visual {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: auto;
+          min-height: 100%;
+          overflow: visible;
+          padding: 1rem 0;
+        }
+
         .hero--vip::before {
           content: '';
           position: absolute;
@@ -451,35 +471,38 @@ const VipTradingSignals = () => {
 
         .hero__stat {
           text-align: center;
-          background: rgba(255, 255, 255, 0.1);
+          background: rgba(255, 255, 255, 0.18);
           padding: 1rem 1.5rem;
           border-radius: 0.75rem;
-          backdrop-filter: blur(10px);
-          border: 1px solid rgba(255, 255, 255, 0.2);
+          backdrop-filter: blur(12px);
+          border: 2px solid rgba(255, 255, 255, 0.3);
+          box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
         }
 
-        .stat-number {
+        .hero__stat .stat-number {
           display: block;
-          font-size: 1.5rem;
+          font-size: 1.875rem;
           font-weight: 700;
           color: #ffd700;
-          margin-bottom: 0.25rem;
+          margin-bottom: 0.5rem;
+          text-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
         }
 
-        .stat-label {
+        .hero__stat .stat-label {
           font-size: 0.875rem;
-          color: rgba(255, 255, 255, 0.9);
-          font-weight: 500;
+          color: rgba(255, 255, 255, 0.95);
+          font-weight: 600;
         }
 
         .trading-dashboard {
-          background: rgba(255, 255, 255, 0.95);
+          background: #ffffff;
           border-radius: 1rem;
           padding: 1.5rem;
-          box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-          backdrop-filter: blur(20px);
-          border: 1px solid rgba(255, 255, 255, 0.3);
+          box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.25);
+          border: 1px solid rgba(226, 232, 240, 0.9);
           animation: float 6s ease-in-out infinite;
+          width: 100%;
+          max-width: 420px;
         }
 
         @keyframes float {
@@ -501,10 +524,9 @@ const VipTradingSignals = () => {
           color: #2d3436;
           margin: 0;
         }
-
         .status-live {
           background: #10b981;
-          color: white;
+          color: #ffffff;
           padding: 0.25rem 0.75rem;
           border-radius: 9999px;
           font-size: 0.75rem;
@@ -514,9 +536,10 @@ const VipTradingSignals = () => {
 
         .signal-card {
           background: #f7fafc;
-          border-radius: 0.5rem;
+          border-radius: 0.75rem;
           padding: 1rem;
           margin-bottom: 1rem;
+          border: 1px solid #e2e8f0;
         }
 
         .signal-pair {
@@ -556,17 +579,18 @@ const VipTradingSignals = () => {
 
         .signal-targets span {
           font-size: 0.875rem;
-          color: #718096;
+          color: #475569;
         }
 
         .signal-profit {
           background: #10b981;
-          color: white;
+          color: #ffffff;
           padding: 0.5rem 0.75rem;
           border-radius: 0.5rem;
           font-size: 0.875rem;
           font-weight: 700;
           text-align: center;
+          box-shadow: 0 10px 15px -3px rgba(16, 185, 129, 0.35);
         }
 
         .recent-signals {
@@ -576,13 +600,14 @@ const VipTradingSignals = () => {
         }
 
         .mini-signal {
-          background: #f0f9ff;
-          color: #0ea5e9;
+          background: #ecfdf5;
+          color: #047857;
           padding: 0.5rem 0.75rem;
           border-radius: 0.5rem;
           font-size: 0.875rem;
           font-weight: 500;
           border-left: 3px solid #10b981;
+          box-shadow: inset 0 0 0 1px rgba(16, 185, 129, 0.2);
         }
 
         .performance {
