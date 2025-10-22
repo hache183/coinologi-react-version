@@ -11,36 +11,40 @@ const AboutUs = () => {
   const statsDashboardRef = useRef(null);
 
   useEffect(() => {
+    if (!statsVisible) return;
+
     const animateNumber = (target, key, duration = 2000) => {
       const startTime = Date.now();
-      const endValue = target;
-      
+      let frameId;
+
       const updateNumber = () => {
         const now = Date.now();
         const progress = Math.min((now - startTime) / duration, 1);
-        const currentValue = Math.floor(progress * endValue);
-        
-        setAnimatedNumbers(prev => ({
+        const currentValue = Math.floor(progress * target);
+
+        setAnimatedNumbers((prev) => ({
           ...prev,
           [key]: currentValue
         }));
-        
+
         if (progress < 1) {
-          requestAnimationFrame(updateNumber);
+          frameId = requestAnimationFrame(updateNumber);
         }
       };
-      
-      updateNumber();
+
+      frameId = requestAnimationFrame(updateNumber);
+
+      return () => cancelAnimationFrame(frameId);
     };
 
-    // Simulate intersection observer trigger
-    const timer = setTimeout(() => {
-      animateNumber(10, 'experience');
-      animateNumber(1000, 'clients');
-    }, 500);
+    const cancelExperience = animateNumber(10, 'experience');
+    const cancelClients = animateNumber(1000, 'clients');
 
-    return () => clearTimeout(timer);
-  }, []);
+    return () => {
+      cancelExperience?.();
+      cancelClients?.();
+    };
+  }, [statsVisible]);
 
   useEffect(() => {
     const node = statsDashboardRef.current;
@@ -165,37 +169,6 @@ const AboutUs = () => {
     { number: '24/7', label: 'Supporto Community' }
   ];
 
-  const companyStats = [
-    {
-      id: 'experience',
-      icon: 'fas fa-calendar-check',
-      value: '10+',
-      label: 'Anni',
-      description: 'Esperienza nel settore'
-    },
-    {
-      id: 'clients',
-      icon: 'fas fa-users',
-      value: '1000+',
-      label: 'Clienti',
-      description: 'Clienti soddisfatti'
-    },
-    {
-      id: 'satisfaction',
-      icon: 'fas fa-star',
-      value: '98%',
-      label: 'Soddisfazione',
-      description: 'Feedback positivo'
-    },
-    {
-      id: 'support',
-      icon: 'fas fa-headset',
-      value: '24/7',
-      label: 'Supporto',
-      description: 'Assistenza continua'
-    }
-  ];
-
   const TimelineItem = ({ item, index }) => (
     <div className="timeline-item">
       <div className="timeline-marker">
@@ -316,31 +289,46 @@ const AboutUs = () => {
 
           <div className="hero__visual">
             <div
-              className={`company-dashboard ${statsVisible ? 'company-dashboard--visible' : ''}`}
+              className={`stats-dashboard ${statsVisible ? 'stats-dashboard--visible' : ''}`}
               ref={statsDashboardRef}
             >
-              <header className="company-dashboard__header">
-                <span className="company-dashboard__title">🏆 STATS AZIENDALI</span>
-                <span className="company-dashboard__subtitle">Insight aggiornati</span>
-              </header>
-              <div className="company-dashboard__grid" role="list">
-                {companyStats.map((stat, index) => (
-                  <div
-                    key={stat.id}
-                    className="company-dashboard__card"
-                    role="listitem"
-                    style={{ '--card-index': index }}
-                  >
-                    <div className="company-dashboard__icon">
-                      <i className={stat.icon} aria-hidden="true"></i>
-                    </div>
-                    <div className="company-dashboard__details">
-                      <span className="company-dashboard__value">{stat.value}</span>
-                      <span className="company-dashboard__label">{stat.label}</span>
-                    </div>
-                    <span className="company-dashboard__description">{stat.description}</span>
+              <div className="dashboard-header">
+                <h3>🏆 STATS AZIENDALI</h3>
+                <span className="status-badge status-badge--verified">VERIFICATO</span>
+              </div>
+
+              <div className="stats-grid">
+                <div className="stat-card">
+                  <div className="stat-icon stat-icon--primary">
+                    <i className="fas fa-calendar-check"></i>
                   </div>
-                ))}
+                  <span className="stat-number">{`${animatedNumbers.experience}+`}</span>
+                  <span className="stat-label">Anni di Esperienza</span>
+                </div>
+
+                <div className="stat-card">
+                  <div className="stat-icon stat-icon--success">
+                    <i className="fas fa-users"></i>
+                  </div>
+                  <span className="stat-number">{`${animatedNumbers.clients.toLocaleString('it-IT')}+`}</span>
+                  <span className="stat-label">Clienti Serviti</span>
+                </div>
+
+                <div className="stat-card">
+                  <div className="stat-icon stat-icon--warning">
+                    <i className="fas fa-star"></i>
+                  </div>
+                  <span className="stat-number">98%</span>
+                  <span className="stat-label">Soddisfazione</span>
+                </div>
+
+                <div className="stat-card">
+                  <div className="stat-icon stat-icon--info">
+                    <i className="fas fa-headset"></i>
+                  </div>
+                  <span className="stat-number">24/7</span>
+                  <span className="stat-label">Supporto Attivo</span>
+                </div>
               </div>
             </div>
           </div>
@@ -454,125 +442,151 @@ const AboutUs = () => {
       </section>
 
       <style jsx>{`
-        /* Company Stats Dashboard */
-        .company-dashboard {
-          width: 100%;
-          max-width: 420px;
+        /* Stats Dashboard */
+        .stats-dashboard {
           background: rgba(255, 255, 255, 0.95);
-          border-radius: 1rem;
-          padding: 1.5rem;
-          box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.25);
-          backdrop-filter: blur(16px);
-          display: flex;
-          flex-direction: column;
-          gap: 1.5rem;
-          animation: dashboardFloat 6s ease-in-out infinite;
-          transform: translateY(14px);
+          backdrop-filter: blur(20px);
+          border-radius: 16px;
+          padding: 24px;
+          box-shadow: 0 25px 50px rgba(15, 23, 42, 0.25);
+          max-width: 420px;
+          width: 100%;
+          border: 1px solid rgba(255, 255, 255, 0.3);
+          animation: float 6s ease-in-out infinite;
+          animation-play-state: paused;
           opacity: 0;
+          transform: translateY(16px);
           transition: opacity 0.6s ease, transform 0.6s ease;
         }
 
-        .company-dashboard--visible {
+        .stats-dashboard--visible {
           opacity: 1;
           transform: translateY(0);
+          animation-play-state: running;
         }
 
-        .company-dashboard__header {
+        .dashboard-header {
           display: flex;
-          flex-direction: column;
-          gap: 0.35rem;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 24px;
+          padding-bottom: 16px;
+          border-bottom: 2px solid rgba(226, 232, 240, 0.6);
         }
 
-        .company-dashboard__title {
-          font-size: 1rem;
+        .dashboard-header h3 {
+          font-size: 1.125rem;
           font-weight: 700;
           color: #2d3436;
-          letter-spacing: 0.04em;
+          margin: 0;
+          letter-spacing: 0.025em;
+          line-height: 1.2;
+        }
+
+        .status-badge {
+          padding: 4px 12px;
+          border-radius: 999px;
+          font-size: 0.75rem;
+          font-weight: 700;
           text-transform: uppercase;
+          letter-spacing: 0.05em;
         }
 
-        .company-dashboard__subtitle {
-          font-size: 0.875rem;
-          color: #718096;
-          letter-spacing: 0.02em;
+        .status-badge--verified {
+          background: #10b981;
+          color: #ffffff;
         }
 
-        .company-dashboard__grid {
+        .stats-grid {
           display: grid;
-          grid-template-columns: repeat(2, minmax(0, 1fr));
-          gap: 1rem;
+          grid-template-columns: repeat(2, 1fr);
+          gap: 16px;
         }
 
-        .company-dashboard__card {
-          position: relative;
-          background: linear-gradient(180deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 246, 242, 0.95) 100%);
-          border-radius: 0.75rem;
-          padding: 1rem 1.25rem;
-          display: grid;
-          grid-template-columns: auto 1fr;
-          grid-template-rows: auto auto;
-          gap: 0.5rem 0.75rem;
+        .stat-card {
+          display: flex;
+          flex-direction: column;
           align-items: center;
-          border: 1px solid rgba(255, 107, 53, 0.08);
-          box-shadow: 0 18px 30px -24px rgba(15, 23, 42, 0.3);
+          text-align: center;
+          background: #ffffff;
+          padding: 20px 12px;
+          border-radius: 12px;
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+          transition: transform 0.2s ease, box-shadow 0.2s ease;
           opacity: 0;
-          transform: translateY(18px);
-          transition: transform 0.25s ease, box-shadow 0.25s ease;
+          transform: translateY(20px);
+          animation: fadeInUp 0.6s ease forwards;
+          animation-play-state: paused;
         }
 
-        .company-dashboard--visible .company-dashboard__card {
-          animation: cardFadeUp 0.5s ease forwards;
-          animation-delay: calc(0.1s * var(--card-index));
+        .stats-dashboard--visible .stat-card {
+          animation-play-state: running;
         }
 
-        .company-dashboard__card:hover {
+        .stat-card:nth-child(1) {
+          animation-delay: 0.1s;
+        }
+
+        .stat-card:nth-child(2) {
+          animation-delay: 0.2s;
+        }
+
+        .stat-card:nth-child(3) {
+          animation-delay: 0.3s;
+        }
+
+        .stat-card:nth-child(4) {
+          animation-delay: 0.4s;
+        }
+
+        .stat-card:hover {
           transform: translateY(-4px);
-          box-shadow: 0 24px 40px -22px rgba(15, 23, 42, 0.35);
+          box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
         }
 
-        .company-dashboard__icon {
-          grid-row: span 2;
+        .stat-icon {
           width: 48px;
           height: 48px;
-          border-radius: 0.75rem;
           display: flex;
           align-items: center;
           justify-content: center;
-          background: linear-gradient(135deg, #ff6b35 0%, #ff8a5c 100%);
+          border-radius: 12px;
+          margin-bottom: 12px;
+          font-size: 1.25rem;
           color: #ffffff;
+        }
+
+        .stat-icon--primary {
+          background: linear-gradient(135deg, #ff6b35 0%, #ff8a5c 100%);
+        }
+
+        .stat-icon--success {
+          background: linear-gradient(135deg, #10b981 0%, #34d399 100%);
+        }
+
+        .stat-icon--warning {
+          background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
+        }
+
+        .stat-icon--info {
+          background: linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%);
+        }
+
+        .stat-number {
           font-size: 1.5rem;
-          box-shadow: 0 12px 24px -16px rgba(255, 107, 53, 0.65);
-        }
-
-        .company-dashboard__details {
-          display: flex;
-          flex-direction: column;
-          gap: 0.25rem;
-        }
-
-        .company-dashboard__value {
-          font-size: 1.8rem;
           font-weight: 700;
           color: #2d3436;
+          margin-bottom: 4px;
           line-height: 1;
-          font-feature-settings: 'tnum' 1;
-          font-variant-numeric: tabular-nums;
         }
 
-        .company-dashboard__label {
-          font-size: 0.9rem;
-          font-weight: 600;
-          color: #2d3436;
-          letter-spacing: 0.02em;
-        }
-
-        .company-dashboard__description {
+        .stat-label {
           font-size: 0.75rem;
-          font-weight: 500;
-          color: #94a3b8;
-          letter-spacing: 0.06em;
+          font-weight: 600;
+          color: #718096;
           text-transform: uppercase;
-          justify-self: start;
+          letter-spacing: 0.05em;
+          line-height: 1.4;
         }
 
         /* Mission Grid */
@@ -892,15 +906,15 @@ const AboutUs = () => {
         }
 
         /* Float Animation */
-        @keyframes dashboardFloat {
+        @keyframes float {
           0%, 100% { transform: translateY(0); }
           50% { transform: translateY(-10px); }
         }
 
-        @keyframes cardFadeUp {
+        @keyframes fadeInUp {
           from {
             opacity: 0;
-            transform: translateY(18px);
+            transform: translateY(20px);
           }
           to {
             opacity: 1;
@@ -910,7 +924,7 @@ const AboutUs = () => {
 
         /* Responsive */
         @media (max-width: 991px) {
-          .company-dashboard {
+          .stats-dashboard {
             max-width: 380px;
           }
 
@@ -945,17 +959,31 @@ const AboutUs = () => {
         }
 
         @media (max-width: 767px) {
-          .company-dashboard {
-            max-width: 100%;
-            padding: 1.25rem;
+          .stats-dashboard {
+            padding: 16px;
           }
 
-          .company-dashboard__grid {
-            grid-template-columns: 1fr;
+          .stats-grid {
+            gap: 12px;
           }
 
-          .company-dashboard__card {
-            padding: 1rem;
+          .stat-card {
+            padding: 16px 8px;
+          }
+
+          .stat-icon {
+            width: 40px;
+            height: 40px;
+            font-size: 1rem;
+            margin-bottom: 8px;
+          }
+
+          .stat-number {
+            font-size: 1.25rem;
+          }
+
+          .stat-label {
+            font-size: 0.625rem;
           }
 
           .team-grid {
@@ -986,23 +1014,20 @@ const AboutUs = () => {
         }
 
         @media (max-width: 480px) {
-          .company-dashboard {
-            padding: 1rem;
+          .stats-dashboard {
+            padding: 12px;
           }
         }
 
         @media (prefers-reduced-motion: reduce) {
-          .company-dashboard,
-          .company-dashboard__card {
+          .stats-dashboard {
             animation: none !important;
-          }
-
-          .company-dashboard {
             transform: none !important;
             opacity: 1 !important;
           }
 
-          .company-dashboard__card {
+          .stat-card {
+            animation: none !important;
             opacity: 1 !important;
             transform: none !important;
           }

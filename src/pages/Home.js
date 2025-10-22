@@ -4,9 +4,9 @@ import SEO from '../components/SEO';
 
 const Home = () => {
   const dashboardRef = useRef(null);
-  const btcCounterRef = useRef(null);
-  const ethCounterRef = useRef(null);
-  const totalCounterRef = useRef(null);
+  const btcChangeRef = useRef(null);
+  const ethChangeRef = useRef(null);
+  const totalValueRef = useRef(null);
 
   useEffect(() => {
     const animateCounter = (ref, target, formatter) => {
@@ -39,9 +39,9 @@ const Home = () => {
       const [entry] = entries;
       if (!entry || !entry.isIntersecting) return;
 
-      animateCounter(btcCounterRef, 24.5, (value) => `+${value.toFixed(1)}%`);
-      animateCounter(ethCounterRef, 18.3, (value) => `+${value.toFixed(1)}%`);
-      animateCounter(totalCounterRef, 45.2, (value) => `€${value.toFixed(1)}K`);
+    animateCounter(btcChangeRef, 24.5, (value) => `+${value.toFixed(1)}%`);
+    animateCounter(ethChangeRef, 18.3, (value) => `+${value.toFixed(1)}%`);
+    animateCounter(totalValueRef, 45250, (value) => `€${Math.round(value).toLocaleString('it-IT')}`);
 
       obs.disconnect();
     }, { threshold: 0.45 });
@@ -111,43 +111,38 @@ const Home = () => {
           </div>
           <div className="hero__visual">
             <div className="portfolio-dashboard" ref={dashboardRef}>
-              <header className="portfolio-dashboard__header">
-                <span className="portfolio-dashboard__title">📊 PORTFOLIO LIVE</span>
-                <span className="portfolio-dashboard__badge">LIVE</span>
-              </header>
+              <div className="dashboard-header">
+                <h3>📊 PORTFOLIO LIVE</h3>
+                <span className="status-badge status-badge--live">ATTIVO</span>
+              </div>
 
-              <div className="portfolio-dashboard__metrics" role="list">
-                <div className="portfolio-metric portfolio-metric--btc" role="listitem">
-                  <span className="portfolio-metric__label">BTC</span>
-                  <span className="portfolio-metric__value" ref={btcCounterRef}>+0.0%</span>
-                  <span className="portfolio-metric__caption">Performance 24h</span>
+              <div className="portfolio-grid">
+                <div className="portfolio-item">
+                  <div className="portfolio-icon">
+                    <span style={{ color: '#f7931a' }}>₿</span>
+                  </div>
+                  <div className="portfolio-info">
+                    <span className="portfolio-label">Bitcoin</span>
+                    <span className="portfolio-value">€32.450</span>
+                  </div>
+                  <span className="portfolio-change portfolio-change--positive" ref={btcChangeRef}>+0.0%</span>
                 </div>
-                <div className="portfolio-metric portfolio-metric--eth" role="listitem">
-                  <span className="portfolio-metric__label">ETH</span>
-                  <span className="portfolio-metric__value" ref={ethCounterRef}>+0.0%</span>
-                  <span className="portfolio-metric__caption">Performance 24h</span>
-                </div>
-                <div className="portfolio-metric portfolio-metric--total" role="listitem">
-                  <span className="portfolio-metric__label">Total Value</span>
-                  <span className="portfolio-metric__value" ref={totalCounterRef}>€0.0K</span>
-                  <span className="portfolio-metric__caption">Aggiornato ora</span>
+
+                <div className="portfolio-item">
+                  <div className="portfolio-icon">
+                    <span style={{ color: '#627eea' }}>Ξ</span>
+                  </div>
+                  <div className="portfolio-info">
+                    <span className="portfolio-label">Ethereum</span>
+                    <span className="portfolio-value">€12.800</span>
+                  </div>
+                  <span className="portfolio-change portfolio-change--positive" ref={ethChangeRef}>+0.0%</span>
                 </div>
               </div>
 
-              <div className="portfolio-dashboard__chart" aria-hidden="true">
-                <div className="portfolio-dashboard__chart-header">
-                  <span className="portfolio-dashboard__chart-title">Crypto Portfolio Tracker</span>
-                  <span className="portfolio-dashboard__chart-status">ATTIVO</span>
-                </div>
-                <div className="portfolio-dashboard__sparkline">
-                  {[68, 92, 56, 88, 74, 97].map((height, index) => (
-                    <span
-                      key={`bar-${index}`}
-                      className="portfolio-dashboard__bar"
-                      style={{ '--bar-index': index, '--bar-height': `${height}%` }}
-                    ></span>
-                  ))}
-                </div>
+              <div className="portfolio-total">
+                <span className="total-label">Valore Totale</span>
+                <span className="total-value" ref={totalValueRef}>€0</span>
               </div>
             </div>
           </div>
@@ -297,183 +292,136 @@ const Home = () => {
         }
 
         .portfolio-dashboard {
-          width: 100%;
-          max-width: 420px;
           background: #ffffff;
-          border-radius: 1rem;
-          padding: 1.5rem;
-          box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.25);
-          display: flex;
-          flex-direction: column;
-          gap: 1.25rem;
-          animation: dashboardFloat 6s ease-in-out infinite;
+          border-radius: 16px;
+          padding: 24px;
+          box-shadow: 0 25px 50px rgba(15, 23, 42, 0.25);
+          max-width: 420px;
+          width: 100%;
+          animation: float 6s ease-in-out infinite;
+          border: 1px solid rgba(226, 232, 240, 0.8);
         }
 
-        .portfolio-dashboard__header {
+        .dashboard-header {
           display: flex;
-          align-items: center;
           justify-content: space-between;
+          align-items: center;
+          margin-bottom: 24px;
+          padding-bottom: 16px;
+          border-bottom: 2px solid #f7fafc;
         }
 
-        .portfolio-dashboard__title {
-          display: inline-flex;
-          align-items: center;
-          gap: 0.5rem;
-          font-size: 1rem;
+        .dashboard-header h3 {
+          font-size: 1.125rem;
           font-weight: 700;
           color: #2d3436;
-          letter-spacing: 0.04em;
-          text-transform: uppercase;
+          margin: 0;
+          letter-spacing: 0.025em;
+          line-height: 1.2;
         }
 
-        .portfolio-dashboard__title::before {
-          content: '';
-          width: 14px;
-          height: 14px;
-          border-radius: 4px;
-          background: linear-gradient(135deg, #ff6b35 0%, #ff8a5c 50%, #6366f1 100%);
-          box-shadow: 0 8px 18px -10px rgba(99, 102, 241, 0.45);
-        }
-
-        .portfolio-dashboard__badge {
-          font-size: 0.75rem;
-          font-weight: 700;
-          color: #ffffff;
-          background: linear-gradient(135deg, #10b981 0%, #34d399 100%);
+        .status-badge {
+          padding: 4px 12px;
           border-radius: 999px;
-          padding: 0.3rem 0.85rem;
-          text-transform: uppercase;
-          letter-spacing: 0.08em;
-          box-shadow: 0 12px 24px -14px rgba(16, 185, 129, 0.65);
-        }
-
-        .portfolio-dashboard__metrics {
-          display: grid;
-          grid-template-columns: repeat(3, minmax(0, 1fr));
-          gap: 1rem;
-        }
-
-        .portfolio-metric {
-          background: linear-gradient(180deg, rgba(255, 255, 255, 0.96) 0%, rgba(255, 246, 242, 1) 100%);
-          border-radius: 0.75rem;
-          padding: 1.15rem;
-          display: flex;
-          flex-direction: column;
-          gap: 0.45rem;
-          border: 1px solid rgba(255, 107, 53, 0.08);
-          box-shadow: 0 18px 32px -24px rgba(15, 23, 42, 0.3);
-          transition: transform 0.25s ease, box-shadow 0.25s ease;
-          animation: metricFade 0.6s ease forwards;
-          min-height: 120px;
-        }
-
-        .portfolio-metric:nth-of-type(1) {
-          animation-delay: 0.1s;
-        }
-
-        .portfolio-metric:nth-of-type(2) {
-          animation-delay: 0.2s;
-        }
-
-        .portfolio-metric:nth-of-type(3) {
-          animation-delay: 0.3s;
-        }
-
-        .portfolio-metric:hover {
-          transform: translateY(-6px);
-          box-shadow: 0 30px 48px -22px rgba(15, 23, 42, 0.35);
-        }
-
-        .portfolio-metric__label {
-          font-size: 0.8rem;
-          font-weight: 600;
-          color: #94a3b8;
-          letter-spacing: 0.08em;
-          text-transform: uppercase;
-        }
-
-        .portfolio-metric__value {
-          font-size: 1.85rem;
+          font-size: 0.75rem;
           font-weight: 700;
-          color: #2d3436;
-          font-feature-settings: 'tnum' 1;
-          font-variant-numeric: tabular-nums;
-          letter-spacing: -0.02em;
-          font-size: 0.75rem;
-          font-weight: 500;
-          color: #718096;
-          font-size: 0.75rem;
-          font-weight: 500;
-    letter-spacing: -0.02em;
-    display: block;
-    width: 100%;
-    line-height: 1.1;
-    min-height: 2.2rem;
-          letter-spacing: 0.08em;
           text-transform: uppercase;
-          background: rgba(255, 255, 255, 0.9);
-          border-radius: 0.75rem;
-          padding: 1.25rem;
-          background: rgba(255, 255, 255, 0.94);
-          border-radius: 0.75rem;
-          padding: 1.25rem;
-          border: 1px solid rgba(226, 232, 240, 0.6);
+          letter-spacing: 0.05em;
+        }
+
+        .status-badge--live {
+          background: #10b981;
+          color: #ffffff;
+          animation: pulse 2s infinite;
+        }
+
+        .portfolio-grid {
           display: flex;
           flex-direction: column;
-          gap: 1rem;
-          box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6);
+          gap: 16px;
+          margin-bottom: 24px;
+        }
+
+        .portfolio-item {
+          display: grid;
+          grid-template-columns: 40px 1fr auto;
+          gap: 12px;
+          align-items: center;
+          background: #f7fafc;
+          padding: 12px;
+          border-radius: 12px;
+          transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .portfolio-item:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .portfolio-icon {
+          width: 40px;
+          height: 40px;
           display: flex;
           align-items: center;
-          justify-content: space-between;
+          justify-content: center;
+          background: #ffffff;
+          border-radius: 50%;
+          font-size: 1.5rem;
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
         }
 
-        .portfolio-dashboard__chart-title {
+        .portfolio-info {
+          display: flex;
+          flex-direction: column;
+          gap: 4px;
+        }
+
+        .portfolio-label {
           font-size: 0.875rem;
           font-weight: 600;
+          color: #4a5568;
+        }
+
+        .portfolio-value {
+          font-size: 1.125rem;
+          font-weight: 700;
           color: #2d3436;
         }
 
-        .portfolio-dashboard__chart-status {
-          font-size: 0.75rem;
+        .portfolio-change {
+          font-size: 0.875rem;
           font-weight: 700;
+          padding: 4px 8px;
+          border-radius: 6px;
+        }
+
+        .portfolio-change--positive {
           color: #10b981;
-          background: rgba(16, 185, 129, 0.16);
-          border-radius: 999px;
-          padding: 0.2rem 0.75rem;
-          text-transform: uppercase;
-          letter-spacing: 0.08em;
-          animation: badgePulse 2.5s ease-in-out infinite;
+          background: rgba(16, 185, 129, 0.1);
         }
 
-        .portfolio-dashboard__sparkline {
+        .portfolio-total {
           display: flex;
-          align-items: flex-end;
-          gap: 0.75rem;
-          height: 120px;
-          width: 100%;
-          background: linear-gradient(180deg, rgba(255, 107, 53, 0.09) 0%, rgba(255, 138, 92, 0.18) 100%);
-          border-radius: 0.75rem;
-          padding: 1rem 1.25rem;
+          justify-content: space-between;
+          align-items: center;
+          background: linear-gradient(135deg, #ff6b35 0%, #ff8a5c 100%);
+          padding: 16px;
+          border-radius: 12px;
+          box-shadow: 0 8px 16px rgba(255, 107, 53, 0.25);
         }
 
-        .portfolio-dashboard__bar {
-          flex: 1;
-          max-width: 12px;
-          border-radius: 999px;
-          background: linear-gradient(180deg, #ff6b35 0%, #ff8a5c 85%);
-          height: 0;
-          opacity: 0;
-          animation: barGrow 1s ease-out forwards;
-          animation-delay: calc(0.12s * var(--bar-index));
+        .total-label {
+          font-size: 0.875rem;
+          font-weight: 600;
+          color: rgba(255, 255, 255, 0.9);
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
         }
 
-        .portfolio-dashboard__bar::after {
-          content: '';
-          display: block;
-          width: 100%;
-          height: 100%;
-          border-radius: inherit;
-          background: linear-gradient(180deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0) 100%);
+        .total-value {
+          font-size: 1.5rem;
+          font-weight: 700;
+          color: #ffffff;
         }
 
         /* Services Styles */
@@ -822,45 +770,21 @@ const Home = () => {
           }
         }
 
-        @keyframes dashboardFloat {
+        @keyframes float {
           0%, 100% {
-            transform: translateY(0);
+            transform: translateY(0px);
           }
           50% {
             transform: translateY(-10px);
           }
         }
 
-        @keyframes badgePulse {
+        @keyframes pulse {
           0%, 100% {
-            transform: scale(1);
-            box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.3);
+            opacity: 1;
           }
           50% {
-            transform: scale(1.05);
-            box-shadow: 0 0 0 6px rgba(16, 185, 129, 0);
-          }
-        }
-
-        @keyframes barGrow {
-          0% {
-            height: 0;
-            opacity: 0;
-          }
-          100% {
-            height: var(--bar-height);
-            opacity: 1;
-          }
-        }
-
-        @keyframes metricFade {
-          0% {
-            opacity: 0;
-            transform: translateY(15px);
-          }
-          100% {
-            opacity: 1;
-            transform: translateY(0);
+            opacity: 0.8;
           }
         }
 
@@ -900,10 +824,6 @@ const Home = () => {
             max-width: 380px;
           }
 
-          .portfolio-metric {
-            padding: 1rem;
-          }
-
           .services__grid {
             grid-template-columns: 1fr;
           }
@@ -924,35 +844,28 @@ const Home = () => {
           }
 
           .portfolio-dashboard {
-            padding: 1rem;
+            padding: 16px;
             max-width: 100%;
-            gap: 1rem;
           }
 
-          .portfolio-dashboard__title {
-            font-size: 0.875rem;
+          .portfolio-item {
+            grid-template-columns: 32px 1fr auto;
+            gap: 8px;
+            padding: 10px;
           }
 
-          .portfolio-dashboard__metrics {
-            grid-template-columns: 1fr;
+          .portfolio-icon {
+            width: 32px;
+            height: 32px;
+            font-size: 1.25rem;
           }
 
-          .portfolio-metric {
-            padding: 0.9rem;
-            min-height: auto;
+          .portfolio-value {
+            font-size: 1rem;
           }
 
-          .portfolio-metric__value {
-            font-size: 1.55rem;
-          }
-
-          .portfolio-dashboard__sparkline {
-            height: 100px;
-            gap: 0.5rem;
-          }
-
-          .portfolio-dashboard__bar {
-            max-width: 12px;
+          .total-value {
+            font-size: 1.25rem;
           }
 
           .services {
@@ -974,20 +887,13 @@ const Home = () => {
 
         @media (prefers-reduced-motion: reduce) {
           .portfolio-dashboard,
-          .portfolio-dashboard__badge {
+          .status-badge--live {
             animation: none !important;
           }
 
-          .portfolio-metric {
-            animation: none !important;
-            opacity: 1 !important;
+          .portfolio-item:hover {
             transform: none !important;
-          }
-
-          .portfolio-dashboard__bar {
-            animation: none !important;
-            height: var(--bar-height);
-            opacity: 1;
+            box-shadow: none !important;
           }
         }
       `}</style>

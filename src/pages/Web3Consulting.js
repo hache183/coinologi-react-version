@@ -50,15 +50,6 @@ const Web3Consulting = () => {
     { value: '300%', label: 'ROI Medio' }
   ];
 
-  const servicesOverview = [
-    { icon: 'fas fa-link', name: 'Blockchain' },
-    { icon: 'fas fa-coins', name: 'DeFi' },
-    { icon: 'fas fa-image', name: 'NFT' },
-    { icon: 'fas fa-users', name: 'DAO' },
-    { icon: 'fas fa-code', name: 'Smart Contracts' },
-    { icon: 'fas fa-certificate', name: 'Tokenomics' }
-  ];
-
   const services = [
     {
       icon: 'fas fa-lightbulb',
@@ -198,31 +189,41 @@ const Web3Consulting = () => {
           </div>
           <div className="hero__visual">
             <div
-              className={`services-dashboard ${servicesDashboardVisible ? 'services-dashboard--visible' : ''}`}
+              className={`services-dashboard ${servicesDashboardVisible ? 'services-dashboard--visible' : 'no-animation'}`}
               ref={servicesDashboardRef}
             >
-              <header className="services-dashboard__header">
-                <span className="services-dashboard__title">🚀 SERVIZI ATTIVI</span>
-                <span className="services-dashboard__timestamp">Aggiornamento live</span>
-              </header>
-              <div className="services-dashboard__list" role="list">
-                {servicesOverview.map((service, index) => (
+              <div className="dashboard-header">
+                <h3>🚀 SERVIZI ATTIVI</h3>
+                <span className="status-badge status-badge--live">6 ATTIVI</span>
+              </div>
+
+              <div className="services-list">
+                {[
+                  { icon: 'fas fa-link', name: 'Blockchain', progress: 100 },
+                  { icon: 'fas fa-coins', name: 'DeFi', progress: 100 },
+                  { icon: 'fas fa-image', name: 'NFT', progress: 100 },
+                  { icon: 'fas fa-users', name: 'DAO', progress: 100 },
+                  { icon: 'fas fa-code', name: 'Smart Contracts', progress: 100 },
+                  { icon: 'fas fa-certificate', name: 'Tokenomics', progress: 100 }
+                ].map((service, index) => (
                   <div
                     key={service.name}
-                    className="services-dashboard__item"
-                    role="listitem"
-                    style={{ '--item-index': index, '--progress-delay': `${index * 120}ms` }}
+                    className="service-item"
+                    style={{ animationDelay: `${index * 0.1}s` }}
                   >
-                    <div className="services-dashboard__icon">
-                      <i className={service.icon} aria-hidden="true"></i>
+                    <div className="service-icon">
+                      <i className={service.icon}></i>
                     </div>
-                    <div className="services-dashboard__info">
-                      <div className="services-dashboard__title-row">
-                        <span className="services-dashboard__name">{service.name}</span>
-                        <span className="services-dashboard__badge">ATTIVO</span>
+                    <div className="service-content">
+                      <div className="service-header">
+                        <span className="service-name">{service.name}</span>
+                        <span className="service-badge">ATTIVO</span>
                       </div>
-                      <div className="services-dashboard__progress">
-                        <span className="services-dashboard__progress-bar"></span>
+                      <div className="progress-bar">
+                        <div
+                          className="progress-fill"
+                          style={{ '--progress-width': `${service.progress}%` }}
+                        ></div>
                       </div>
                     </div>
                   </div>
@@ -404,197 +405,159 @@ const Web3Consulting = () => {
           font-weight: 500;
         }
 
-        /* Services Dashboard */
         .services-dashboard {
-          width: 100%;
-          max-width: 420px;
           background: #ffffff;
-          border-radius: 1rem;
-          padding: 1.5rem;
-          box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.25);
-          display: flex;
-          flex-direction: column;
-          gap: 1.5rem;
-          animation: dashboardFloat 6s ease-in-out infinite;
-          transform: translateY(14px);
+          border-radius: 16px;
+          padding: 24px;
+          box-shadow: 0 25px 50px rgba(15, 23, 42, 0.25);
+          max-width: 420px;
+          width: 100%;
+          animation: float 6s ease-in-out infinite;
+          border: 1px solid rgba(226, 232, 240, 0.8);
           opacity: 0;
+          transform: translateY(16px);
           transition: opacity 0.6s ease, transform 0.6s ease;
+          animation-play-state: paused;
         }
 
         .services-dashboard--visible {
           opacity: 1;
           transform: translateY(0);
+          animation-play-state: running;
         }
 
-        .services-dashboard__header {
+        .services-dashboard.no-animation {
+          animation: none;
+        }
+
+        .dashboard-header {
           display: flex;
-          flex-direction: column;
-          gap: 0.35rem;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 24px;
+          padding-bottom: 16px;
+          border-bottom: 2px solid #f7fafc;
         }
 
-        .services-dashboard__title {
-          font-size: 1rem;
+        .dashboard-header h3 {
+          font-size: 1.125rem;
           font-weight: 700;
           color: #2d3436;
-          letter-spacing: 0.04em;
+          margin: 0;
+          letter-spacing: 0.025em;
+          line-height: 1.2;
+        }
+
+        .status-badge {
+          padding: 4px 12px;
+          border-radius: 999px;
+          font-size: 0.75rem;
+          font-weight: 700;
           text-transform: uppercase;
+          letter-spacing: 0.05em;
         }
 
-        .services-dashboard__timestamp {
-          font-size: 0.875rem;
-          font-weight: 500;
-          color: #718096;
-          letter-spacing: 0.02em;
+        .status-badge--live {
+          background: #10b981;
+          color: #ffffff;
+          animation: pulse 2s infinite;
         }
 
-        .services-dashboard__list {
+        .services-list {
           display: flex;
           flex-direction: column;
-          gap: 1rem;
+          gap: 12px;
         }
 
-        .services-dashboard__item {
+        .service-item {
           display: flex;
-          gap: 1rem;
           align-items: center;
-          background: rgba(255, 255, 255, 0.95);
-          border-radius: 0.75rem;
-          padding: 1rem 1.25rem;
-          border: 1px solid rgba(226, 232, 240, 0.7);
-          position: relative;
-          overflow: hidden;
+          gap: 12px;
+          padding: 12px;
+          background: #f7fafc;
+          border-radius: 12px;
+          transition: all 0.2s ease;
+          border: 1px solid transparent;
+          animation: slideInRight 0.5s ease both;
           opacity: 0;
-          transform: translateY(18px);
-          transition: transform 0.25s ease, box-shadow 0.25s ease;
+          animation-play-state: paused;
         }
 
-        .services-dashboard__item::before {
-          content: '';
-          position: absolute;
-          inset: 0;
-          background: linear-gradient(135deg, rgba(255, 107, 53, 0.05) 0%, rgba(255, 138, 92, 0.18) 100%);
-          opacity: 0;
-          transition: opacity 0.3s ease;
-          pointer-events: none;
-        }
-
-        .services-dashboard--visible .services-dashboard__item {
-          animation: serviceRowFade 0.5s ease forwards;
-          animation-delay: calc(0.08s * var(--item-index));
-        }
-
-        .services-dashboard__item:hover {
-          transform: translateY(-4px);
-          box-shadow: 0 22px 40px -24px rgba(15, 23, 42, 0.35);
-        }
-
-        .services-dashboard__item:hover::before {
+        .services-dashboard--visible .service-item {
+          animation-play-state: running;
           opacity: 1;
+          transform: translateX(0);
         }
 
-        .services-dashboard__icon {
-          width: 46px;
-          height: 46px;
-          border-radius: 0.75rem;
+        .service-item:hover {
+          background: #ffffff;
+          border-color: #ff6b35;
+          transform: translateX(4px);
+          box-shadow: 0 4px 12px rgba(255, 107, 53, 0.15);
+        }
+
+        .service-icon {
+          width: 40px;
+          height: 40px;
           display: flex;
           align-items: center;
           justify-content: center;
           background: linear-gradient(135deg, #ff6b35 0%, #ff8a5c 100%);
+          border-radius: 10px;
           color: #ffffff;
-          font-size: 1.3rem;
+          font-size: 1.125rem;
           flex-shrink: 0;
-          box-shadow: 0 12px 22px -14px rgba(255, 107, 53, 0.65);
+          box-shadow: 0 4px 8px rgba(255, 107, 53, 0.25);
         }
 
-        .services-dashboard__info {
+        .service-content {
           flex: 1;
           display: flex;
           flex-direction: column;
-          gap: 0.5rem;
+          gap: 8px;
         }
 
-        .services-dashboard__title-row {
+        .service-header {
           display: flex;
-          align-items: center;
           justify-content: space-between;
-          gap: 0.75rem;
+          align-items: center;
         }
 
-        .services-dashboard__name {
-          font-size: 1rem;
+        .service-name {
+          font-size: 0.875rem;
           font-weight: 600;
           color: #2d3436;
         }
 
-        .services-dashboard__badge {
-          font-size: 0.75rem;
+        .service-badge {
+          font-size: 0.625rem;
           font-weight: 700;
-          color: #ffffff;
-          background: #10b981;
+          color: #10b981;
+          background: rgba(16, 185, 129, 0.1);
+          padding: 2px 8px;
           border-radius: 999px;
-          padding: 0.2rem 0.75rem;
-          letter-spacing: 0.08em;
           text-transform: uppercase;
-          animation: badgePulse 2.5s ease-in-out infinite;
+          letter-spacing: 0.05em;
         }
 
-        .services-dashboard__progress {
-          position: relative;
+        .progress-bar {
           height: 6px;
-          background: rgba(226, 232, 240, 0.8);
+          background: #e2e8f0;
           border-radius: 999px;
           overflow: hidden;
         }
 
-        .services-dashboard__progress-bar {
-          position: absolute;
-          top: 0;
-          left: 0;
+        .progress-fill {
           height: 100%;
+          background: linear-gradient(90deg, #ff6b35 0%, #ff8a5c 100%);
+          border-radius: 999px;
           width: 0;
-          background: linear-gradient(135deg, #ff6b35 0%, #ff8a5c 100%);
-          border-radius: inherit;
-          transition: width 1s ease-out;
-          transition-delay: var(--progress-delay, 0ms);
+          box-shadow: 0 0 8px rgba(255, 107, 53, 0.5);
+          transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .services-dashboard--visible .services-dashboard__progress-bar {
-          width: 100%;
-        }
-
-        .services-dashboard__progress-bar::after {
-          content: '';
-          position: absolute;
-          inset: 0;
-          background: linear-gradient(180deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0) 100%);
-          border-radius: inherit;
-        }
-
-        @keyframes dashboardFloat {
-          0%, 100% { transform: translateY(0); }
-          50% { transform: translateY(-10px); }
-        }
-
-        @keyframes badgePulse {
-          0%, 100% {
-            transform: scale(1);
-            box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.35);
-          }
-          50% {
-            transform: scale(1.05);
-            box-shadow: 0 0 0 8px rgba(16, 185, 129, 0);
-          }
-        }
-
-        @keyframes serviceRowFade {
-          from {
-            opacity: 0;
-            transform: translateY(18px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
+        .services-dashboard:not(.no-animation) .progress-fill {
+          animation: fillProgress 1.5s ease-out forwards;
         }
 
         .case-studies {
@@ -728,7 +691,37 @@ const Web3Consulting = () => {
           justify-content: center;
           width: 100%;
           max-width: 100%;
-          overflow: hidden;
+          overflow: visible;
+        }
+
+        @keyframes float {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-10px); }
+        }
+
+        @keyframes slideInRight {
+          from {
+            opacity: 0;
+            transform: translateX(-20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateX(0);
+          }
+        }
+
+        @keyframes fillProgress {
+          from {
+            width: 0;
+          }
+          to {
+            width: var(--progress-width, 100%);
+          }
+        }
+
+        @keyframes pulse {
+          0%, 100% { opacity: 1; }
+          50% { opacity: 0.8; }
         }
 
         /* RESPONSIVE BREAKPOINTS MIGLIORATI */
@@ -775,7 +768,22 @@ const Web3Consulting = () => {
 
           .services-dashboard {
             max-width: 100%;
-            padding: 1.25rem;
+            padding: 16px;
+          }
+
+          .service-item {
+            padding: 10px;
+            gap: 10px;
+          }
+
+          .service-icon {
+            width: 36px;
+            height: 36px;
+            font-size: 1rem;
+          }
+
+          .service-name {
+            font-size: 0.8125rem;
           }
         }
 
@@ -796,12 +804,12 @@ const Web3Consulting = () => {
 
         /* Mobile standard (480px e meno) */
         @media (max-width: 480px) {
-          .services-dashboard__item {
+          .service-item {
             flex-direction: column;
             align-items: flex-start;
           }
 
-          .services-dashboard__title-row {
+          .service-header {
             width: 100%;
           }
         }
@@ -822,7 +830,7 @@ const Web3Consulting = () => {
 
         /* Miglioramenti hover per dispositivi touch */
         @media (hover: none) and (pointer: coarse) {
-          .services-dashboard__item:hover {
+          .service-item:hover {
             transform: translateY(-2px) scale(1.01);
           }
         }
@@ -830,19 +838,20 @@ const Web3Consulting = () => {
         /* Disabilita le animazioni su dispositivi che preferiscono movimento ridotto */
         @media (prefers-reduced-motion: reduce) {
           .services-dashboard,
-          .services-dashboard__badge {
+          .status-badge--live {
             animation: none !important;
           }
 
-          .services-dashboard__item,
-          .services-dashboard__progress-bar {
-            transition: none !important;
-          }
-
-          .services-dashboard__item {
+          .service-item {
             opacity: 1 !important;
             transform: none !important;
             animation: none !important;
+          }
+
+          .progress-fill {
+            animation: none !important;
+            transition: none !important;
+            width: var(--progress-width, 100%) !important;
           }
         }
 

@@ -96,29 +96,6 @@ const ExclusiveEvents = () => {
     }
   ];
 
-  const eventFeatures = [
-    {
-      icon: 'fas fa-microphone',
-      title: 'Speaker Internazionali',
-      badge: '50+ Speaker'
-    },
-    {
-      icon: 'fas fa-network-wired',
-      title: 'Networking Premium',
-      badge: '500+ Attendees'
-    },
-    {
-      icon: 'fas fa-certificate',
-      title: 'Certificazioni',
-      badge: 'Riconosciute'
-    },
-    {
-      icon: 'fas fa-handshake',
-      title: 'Partnership',
-      badge: 'Esclusive'
-    }
-  ];
-
   const eventTypes = [
     {
       icon: 'users',
@@ -304,28 +281,36 @@ const ExclusiveEvents = () => {
           
           <div className="hero__visual">
             <div
-              className={`event-dashboard ${featuresVisible ? 'event-dashboard--visible' : ''}`}
+              className={`features-dashboard ${featuresVisible ? 'features-dashboard--visible' : ''}`}
               ref={featureDashboardRef}
             >
-              <header className="event-dashboard__header">
-                <span className="event-dashboard__title">✨ CARATTERISTICHE EVENTI</span>
-                <span className="event-dashboard__subtitle">Esperienze premium garantite</span>
-              </header>
-              <div className="event-dashboard__list" role="list">
-                {eventFeatures.map((feature, index) => (
+              <div className="dashboard-header">
+                <h3>✨ CARATTERISTICHE EVENTI</h3>
+              </div>
+
+              <div className="features-list">
+                {[
+                  { icon: 'fas fa-microphone', title: 'Speaker Internazionali', badge: '50+ Speaker', color: '#ff6b35' },
+                  { icon: 'fas fa-network-wired', title: 'Networking Premium', badge: '500+ Attendees', color: '#10b981' },
+                  { icon: 'fas fa-certificate', title: 'Certificazioni', badge: 'Riconosciute', color: '#f59e0b' },
+                  { icon: 'fas fa-handshake', title: 'Partnership', badge: 'Esclusive', color: '#8b5cf6' }
+                ].map((feature, index) => (
                   <div
-                    key={feature.title}
-                    className="event-dashboard__item"
-                    role="listitem"
-                    style={{ '--feature-index': index }}
+                    key={index}
+                    className="feature-item"
+                    style={{ animationDelay: `${index * 0.1}s` }}
                   >
-                    <div className="event-dashboard__icon">
-                      <i className={feature.icon} aria-hidden="true"></i>
+                    <div
+                      className="feature-icon"
+                      style={{ background: `linear-gradient(135deg, ${feature.color} 0%, ${feature.color}dd 100%)` }}
+                    >
+                      <i className={feature.icon}></i>
                     </div>
-                    <div className="event-dashboard__info">
-                      <span className="event-dashboard__name">{feature.title}</span>
-                      <span className="event-dashboard__badge">{feature.badge}</span>
+                    <div className="feature-content">
+                      <span className="feature-title">{feature.title}</span>
+                      <span className="feature-badge">{feature.badge}</span>
                     </div>
+                    <i className="fas fa-chevron-right feature-arrow"></i>
                   </div>
                 ))}
               </div>
@@ -708,172 +693,142 @@ const ExclusiveEvents = () => {
           text-transform: uppercase;
         }
 
-        /* Event Features Dashboard */
-        .event-dashboard {
-          width: 100%;
-          max-width: 420px;
+        /* Features Dashboard */
+        .features-dashboard {
           background: rgba(255, 255, 255, 0.95);
-          border-radius: 1rem;
-          padding: 1.5rem;
-          box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.25);
-          backdrop-filter: blur(16px);
-          display: flex;
-          flex-direction: column;
-          gap: 1.5rem;
-          animation: eventDashboardFloat 6s ease-in-out infinite;
-          transform: translateY(14px);
+          backdrop-filter: blur(20px);
+          border-radius: 16px;
+          padding: 24px;
+          box-shadow: 0 25px 50px rgba(15, 23, 42, 0.25);
+          max-width: 420px;
+          width: 100%;
+          border: 1px solid rgba(255, 255, 255, 0.3);
+          animation: float 6s ease-in-out infinite;
           opacity: 0;
+          transform: translateY(16px);
           transition: opacity 0.6s ease, transform 0.6s ease;
+          animation-play-state: paused;
         }
 
-        .event-dashboard--visible {
+        .features-dashboard--visible {
+          opacity: 1;
+          transform: translateY(0);
+          animation-play-state: running;
+        }
+
+        .dashboard-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 24px;
+          padding-bottom: 16px;
+          border-bottom: 2px solid rgba(226, 232, 240, 0.4);
+        }
+
+        .dashboard-header h3 {
+          font-size: 1.125rem;
+          font-weight: 700;
+          color: #2d3436;
+          margin: 0;
+          letter-spacing: 0.025em;
+          line-height: 1.2;
+        }
+
+        .features-list {
+          display: flex;
+          flex-direction: column;
+          gap: 12px;
+        }
+
+        .feature-item {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          padding: 14px;
+          background: #ffffff;
+          border-radius: 12px;
+          border: 1px solid #e2e8f0;
+          transition: all 0.2s ease;
+          cursor: pointer;
+          animation: fadeInUp 0.5s ease both;
+          opacity: 0;
+          animation-play-state: paused;
+        }
+
+        .features-dashboard--visible .feature-item {
+          animation-play-state: running;
           opacity: 1;
           transform: translateY(0);
         }
 
-        .event-dashboard__header {
-          display: flex;
-          flex-direction: column;
-          gap: 0.35rem;
+        .feature-item:hover {
+          border-color: #ff6b35;
+          transform: translateY(-2px);
+          box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
         }
 
-        .event-dashboard__title {
-          font-size: 1rem;
-          font-weight: 700;
-          color: #2d3436;
-          letter-spacing: 0.04em;
-          text-transform: uppercase;
-        }
-
-        .event-dashboard__subtitle {
-          font-size: 0.875rem;
-          color: #718096;
-          letter-spacing: 0.02em;
-        }
-
-        .event-dashboard__list {
-          display: flex;
-          flex-direction: column;
-          gap: 1rem;
-        }
-
-        .event-dashboard__item {
-          display: flex;
-          align-items: center;
-          gap: 1rem;
-          background: rgba(255, 255, 255, 0.95);
-          border-radius: 0.75rem;
-          padding: 1rem 1.25rem;
-          border: 1px solid rgba(226, 232, 240, 0.7);
-          box-shadow: 0 14px 34px -22px rgba(15, 23, 42, 0.3);
-          position: relative;
-          overflow: hidden;
-          opacity: 0;
-          transform: translateY(18px);
-          transition: transform 0.25s ease, box-shadow 0.25s ease;
-        }
-
-        .event-dashboard__item::before {
-          content: '';
-          position: absolute;
-          inset: 0;
-          background: linear-gradient(135deg, rgba(255, 107, 53, 0.05) 0%, rgba(255, 138, 92, 0.16) 100%);
-          opacity: 0;
-          transition: opacity 0.3s ease;
-          pointer-events: none;
-        }
-
-        .event-dashboard--visible .event-dashboard__item {
-          animation: eventFeatureFade 0.55s ease forwards;
-          animation-delay: calc(0.1s * var(--feature-index));
-        }
-
-        .event-dashboard--visible .event-dashboard__item:hover {
-          transform: translateY(-4px);
-          box-shadow: 0 24px 42px -24px rgba(15, 23, 42, 0.35);
-        }
-
-        .event-dashboard--visible .event-dashboard__item:hover::before {
-          opacity: 1;
-        }
-
-        .event-dashboard__icon {
-          width: 48px;
-          height: 48px;
-          border-radius: 0.75rem;
+        .feature-icon {
+          width: 44px;
+          height: 44px;
           display: flex;
           align-items: center;
           justify-content: center;
-          background: linear-gradient(135deg, #ff6b35 0%, #ff8a5c 100%);
+          border-radius: 10px;
           color: #ffffff;
-          font-size: 1.5rem;
+          font-size: 1.125rem;
           flex-shrink: 0;
-          box-shadow: 0 12px 20px -12px rgba(255, 107, 53, 0.65);
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
         }
 
-        .event-dashboard__info {
+        .feature-content {
+          flex: 1;
           display: flex;
           flex-direction: column;
-          gap: 0.4rem;
-          width: 100%;
+          gap: 4px;
         }
 
-        .event-dashboard__name {
-          font-size: 1rem;
+        .feature-title {
+          font-size: 0.875rem;
           font-weight: 600;
           color: #2d3436;
+          line-height: 1.4;
         }
 
-        .event-dashboard__badge {
+        .feature-badge {
+          font-size: 0.75rem;
+          font-weight: 500;
+          color: #718096;
+          background: #f7fafc;
+          padding: 2px 8px;
+          border-radius: 4px;
           align-self: flex-start;
-          font-size: 0.8rem;
-          font-weight: 600;
-          color: #ffffff;
-          background: linear-gradient(135deg, #ff6b35 0%, #ff8a5c 100%);
-          border-radius: 999px;
-          padding: 0.25rem 0.85rem;
-          letter-spacing: 0.06em;
-          text-transform: uppercase;
         }
 
-        @keyframes eventDashboardFloat {
+        .feature-arrow {
+          font-size: 0.875rem;
+          color: #cbd5e0;
+          transition: all 0.2s ease;
+        }
+
+        .feature-item:hover .feature-arrow {
+          color: #ff6b35;
+          transform: translateX(4px);
+        }
+
+        @keyframes float {
           0%, 100% { transform: translateY(0); }
           50% { transform: translateY(-10px); }
         }
 
-        @keyframes eventFeatureFade {
+        @keyframes fadeInUp {
           from {
             opacity: 0;
-            transform: translateY(18px);
+            transform: translateY(20px);
           }
           to {
             opacity: 1;
             transform: translateY(0);
           }
-        }
-
-        /* Feature List */
-        .feature-list {
-          list-style: none;
-          padding: 0;
-          margin: 0;
-          display: flex;
-          flex-direction: column;
-          gap: var(--space-2);
-        }
-
-        .feature-list li {
-          display: flex;
-          align-items: center;
-          gap: var(--space-2);
-          font-size: var(--font-size-sm);
-          color: var(--color-gray-600);
-          margin-bottom: 0;
-        }
-
-        .feature-list i {
-          color: var(--color-primary);
-          font-size: var(--font-size-xs);
         }
 
         /* Timeline */
@@ -1025,7 +980,7 @@ const ExclusiveEvents = () => {
             grid-template-columns: 1fr;
           }
 
-          .event-dashboard {
+          .features-dashboard {
             max-width: 380px;
           }
 
@@ -1055,29 +1010,38 @@ const ExclusiveEvents = () => {
             grid-template-columns: 1fr;
           }
 
-          .event-dashboard {
+          .features-dashboard {
             max-width: 100%;
-            padding: 1.25rem;
+            padding: 16px;
           }
 
-          .event-dashboard__item {
+          .feature-item {
+            padding: 12px;
+            gap: 10px;
             flex-direction: column;
             align-items: flex-start;
+          }
+
+          .feature-icon {
+            width: 40px;
+            height: 40px;
+            font-size: 1rem;
+          }
+
+          .feature-title {
+            font-size: 0.8125rem;
           }
         }
 
         @media (prefers-reduced-motion: reduce) {
-          .event-dashboard,
-          .event-dashboard__item {
+          .features-dashboard {
             animation: none !important;
-          }
-
-          .event-dashboard {
             transform: none !important;
             opacity: 1 !important;
           }
 
-          .event-dashboard__item {
+          .feature-item {
+            animation: none !important;
             opacity: 1 !important;
             transform: none !important;
           }

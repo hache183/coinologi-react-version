@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import SEO from '../components/SEO';
 
 const Contact = () => {
@@ -18,6 +18,12 @@ const Contact = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [openFaq, setOpenFaq] = useState(null);
+  const supportDashboardRef = useRef(null);
+  const responseTimeRef = useRef(null);
+  const satisfactionRef = useRef(null);
+  const solvedTicketsRef = useRef(null);
+  const activeTicketsRef = useRef(null);
+  const [supportDashboardVisible, setSupportDashboardVisible] = useState(false);
 
   const services = [
     { value: '', label: 'Seleziona un servizio' },
@@ -54,6 +60,37 @@ const Contact = () => {
       value: '@coinologi_official',
       subtitle: 'Supporto istantaneo',
       isBrand: true
+    }
+  ];
+
+  const supportChannels = [
+    {
+      icon: 'fas fa-envelope-open-text',
+      label: 'Email Support',
+      response: 'Media 2h',
+      status: '24/7',
+      color: '#ff6b35'
+    },
+    {
+      icon: 'fab fa-telegram-plane',
+      label: 'Telegram Priority',
+      response: 'Risposta immediata',
+      status: 'Live',
+      color: '#10b981'
+    },
+    {
+      icon: 'fas fa-phone-alt',
+      label: 'Linea Diretta',
+      response: 'Lun-Ven 9:00-18:00',
+      status: 'On call',
+      color: '#3b82f6'
+    },
+    {
+      icon: 'fas fa-video',
+      label: 'Video Call',
+      response: 'Su prenotazione',
+      status: 'Disponibile',
+      color: '#8b5cf6'
     }
   ];
 
@@ -97,6 +134,66 @@ const Contact = () => {
       answer: 'Assolutamente sì. Tutti i dati sono trattati secondo il GDPR e utilizzati esclusivamente per rispondere alle tue richieste. Non condividiamo mai informazioni con terze parti senza il tuo consenso esplicito.'
     }
   ];
+
+  useEffect(() => {
+    const node = supportDashboardRef.current;
+    if (!node) return;
+
+    const observer = new IntersectionObserver((entries, obs) => {
+      const [entry] = entries;
+      if (!entry || !entry.isIntersecting) return;
+
+      setSupportDashboardVisible(true);
+      obs.disconnect();
+    }, { threshold: 0.45 });
+
+    observer.observe(node);
+
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!supportDashboardVisible) return;
+
+    const animateCounter = (ref, target, formatter) => {
+      if (!ref.current) return () => {};
+
+      const duration = 1700;
+      const start = performance.now();
+      let frameId = null;
+
+      const step = (now) => {
+        if (!ref.current) return;
+
+        const progress = Math.min((now - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        const value = target * eased;
+
+        ref.current.textContent = formatter ? formatter(value) : Math.round(value);
+
+        if (progress < 1) {
+          frameId = requestAnimationFrame(step);
+        }
+      };
+
+      frameId = requestAnimationFrame(step);
+
+      return () => {
+        if (frameId) cancelAnimationFrame(frameId);
+      };
+    };
+
+    const cleanupFns = [
+  animateCounter(responseTimeRef, 2.4, (value) => `${value.toFixed(1)}h`),
+  animateCounter(satisfactionRef, 98, (value) => `${Math.round(value)}%`),
+  animateCounter(solvedTicketsRef, 284, (value) => `${Math.round(value).toLocaleString('it-IT')}`),
+  animateCounter(activeTicketsRef, 12, (value) => `${Math.round(value)} attivi`)
+    ];
+
+    return () => {
+      cleanupFns.forEach((cleanup) => cleanup?.());
+    };
+  }, [supportDashboardVisible]);
 
   const validateField = (name, value) => {
     let error = '';
@@ -241,22 +338,65 @@ const Contact = () => {
           </div>
 
           <div className="hero__visual">
-            <div className="contact-showcase">
-              <div className="contact-method">
-                <i className="fas fa-envelope"></i>
-                <span>Email</span>
+            <div
+              className={`support-dashboard ${supportDashboardVisible ? 'support-dashboard--visible' : ''}`}
+              ref={supportDashboardRef}
+            >
+              <div className="dashboard-header">
+                <h3>📞 SUPPORTO LIVE</h3>
+                <span className="status-badge status-badge--online">Online</span>
               </div>
-              <div className="contact-method">
-                <i className="fas fa-phone"></i>
-                <span>Telefono</span>
+
+              <div className="support-metrics">
+                <div className="metric-card">
+                  <span className="metric-label">Tempo di risposta</span>
+                  <span className="metric-value" ref={responseTimeRef}>0h</span>
+                  <span className="metric-helper">Media ultime 24h</span>
+                </div>
+                <div className="metric-card">
+                  <span className="metric-label">Soddisfazione</span>
+                  <span className="metric-value" ref={satisfactionRef}>0%</span>
+                  <span className="metric-helper">Feedback clienti</span>
+                </div>
+                <div className="metric-card">
+                  <span className="metric-label">Ticket risolti</span>
+                  <span className="metric-value" ref={solvedTicketsRef}>0</span>
+                  <span className="metric-helper">Settimana corrente</span>
+                </div>
               </div>
-              <div className="contact-method">
-                <i className="fab fa-telegram"></i>
-                <span>Telegram</span>
+
+              <div className="support-divider" aria-hidden="true"></div>
+
+              <div className="support-channels">
+                {supportChannels.map((channel, index) => (
+                  <div
+                    key={channel.label}
+                    className="channel-item"
+                    style={{ animationDelay: `${index * 0.1}s` }}
+                  >
+                    <div
+                      className="channel-icon"
+                      style={{ background: `linear-gradient(135deg, ${channel.color} 0%, ${channel.color}cc 100%)` }}
+                    >
+                      <i className={channel.icon}></i>
+                    </div>
+                    <div className="channel-content">
+                      <span className="channel-label">{channel.label}</span>
+                      <span className="channel-response">{channel.response}</span>
+                    </div>
+                    <span className="channel-status">{channel.status}</span>
+                  </div>
+                ))}
               </div>
-              <div className="contact-method">
-                <i className="fas fa-video"></i>
-                <span>Video Call</span>
+
+              <div className="support-queue">
+                <div className="queue-info">
+                  <span className="queue-label">Ticket attivi</span>
+                  <span className="queue-value" ref={activeTicketsRef}>0 attivi</span>
+                </div>
+                <div className="queue-bar" aria-hidden="true">
+                  <div className="queue-progress" style={{ width: '65%' }}></div>
+                </div>
               </div>
             </div>
           </div>
@@ -555,54 +695,251 @@ const Contact = () => {
       </section>
 
       <style jsx>{`
-        /* Contact Showcase */
-        .contact-showcase {
-          display: grid;
-          grid-template-columns: repeat(2, 1fr);
-          gap: var(--space-4);
+        /* Support Dashboard */
+        .hero--contact .hero__visual {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          height: auto;
+          overflow: visible;
+        }
+
+        .support-dashboard {
+          background: rgba(255, 255, 255, 0.95);
+          backdrop-filter: blur(20px);
+          border-radius: 16px;
+          padding: 24px;
+          box-shadow: 0 25px 50px rgba(15, 23, 42, 0.25);
+          max-width: 420px;
           width: 100%;
-          max-width: 400px;
-        }
-
-        .contact-method {
-          background: rgba(255, 255, 255, 0.1);
-          backdrop-filter: blur(10px);
-          border: 1px solid rgba(255, 255, 255, 0.2);
-          border-radius: var(--radius-lg);
-          padding: var(--space-6);
-          text-align: center;
-          color: var(--color-white);
-          transition: var(--transition-base);
+          border: 1px solid rgba(255, 255, 255, 0.3);
           animation: float 6s ease-in-out infinite;
+          animation-play-state: paused;
+          opacity: 0;
+          transform: translateY(16px);
+          transition: opacity 0.6s ease, transform 0.6s ease;
         }
 
-        .contact-method:nth-child(2) {
-          animation-delay: 1.5s;
+        .support-dashboard--visible {
+          opacity: 1;
+          transform: translateY(0);
+          animation-play-state: running;
         }
 
-        .contact-method:nth-child(3) {
-          animation-delay: 3s;
+        .dashboard-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 24px;
+          padding-bottom: 16px;
+          border-bottom: 2px solid rgba(226, 232, 240, 0.4);
         }
 
-        .contact-method:nth-child(4) {
-          animation-delay: 4.5s;
+        .dashboard-header h3 {
+          font-size: 1.125rem;
+          font-weight: 700;
+          color: #2d3436;
+          margin: 0;
+          letter-spacing: 0.025em;
         }
 
-        .contact-method:hover {
-          transform: scale(1.05);
-          background: rgba(255, 255, 255, 0.2);
+        .status-badge {
+          padding: 4px 12px;
+          border-radius: 999px;
+          font-size: 0.75rem;
+          font-weight: 700;
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
         }
 
-        .contact-method i {
-          font-size: var(--font-size-2xl);
-          margin-bottom: var(--space-2);
-          color: var(--color-primary);
+        .status-badge--online {
+          background: #10b981;
+          color: #ffffff;
+          animation: pulse 2s infinite;
         }
 
-        .contact-method span {
-          display: block;
-          font-size: var(--font-size-sm);
-          font-weight: var(--font-weight-medium);
+        .support-metrics {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 12px;
+        }
+
+        .metric-card {
+          background: #ffffff;
+          border-radius: 12px;
+          padding: 16px;
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+          display: flex;
+          flex-direction: column;
+          gap: 6px;
+          opacity: 0;
+          transform: translateY(12px);
+          animation: fadeInUp 0.6s ease forwards;
+          animation-play-state: paused;
+        }
+
+        .support-dashboard--visible .metric-card {
+          animation-play-state: running;
+        }
+
+        .metric-card:nth-child(1) {
+          animation-delay: 0.1s;
+        }
+
+        .metric-card:nth-child(2) {
+          animation-delay: 0.2s;
+        }
+
+        .metric-card:nth-child(3) {
+          animation-delay: 0.3s;
+        }
+
+        .metric-label {
+          font-size: 0.75rem;
+          font-weight: 600;
+          color: #718096;
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
+        }
+
+        .metric-value {
+          font-size: 1.5rem;
+          font-weight: 700;
+          color: #2d3436;
+          line-height: 1;
+        }
+
+        .metric-helper {
+          font-size: 0.75rem;
+          color: #a0aec0;
+        }
+
+        .support-divider {
+          height: 1px;
+          background: linear-gradient(90deg, rgba(226, 232, 240, 0), rgba(226, 232, 240, 0.85), rgba(226, 232, 240, 0));
+          margin: 20px 0;
+        }
+
+        .support-channels {
+          display: flex;
+          flex-direction: column;
+          gap: 12px;
+          margin-bottom: 20px;
+        }
+
+        .channel-item {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          padding: 14px;
+          background: #ffffff;
+          border-radius: 12px;
+          border: 1px solid #e2e8f0;
+          transition: all 0.2s ease;
+          animation: fadeInUp 0.5s ease both;
+          opacity: 0;
+          animation-play-state: paused;
+        }
+
+        .support-dashboard--visible .channel-item {
+          animation-play-state: running;
+        }
+
+        .channel-item:hover {
+          border-color: #ff6b35;
+          transform: translateY(-2px);
+          box-shadow: 0 8px 20px rgba(255, 107, 53, 0.15);
+        }
+
+        .channel-icon {
+          width: 44px;
+          height: 44px;
+          border-radius: 12px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: #ffffff;
+          font-size: 1.125rem;
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+          flex-shrink: 0;
+        }
+
+        .channel-content {
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+          gap: 4px;
+        }
+
+        .channel-label {
+          font-size: 0.9375rem;
+          font-weight: 600;
+          color: #2d3436;
+        }
+
+        .channel-response {
+          font-size: 0.8125rem;
+          color: #718096;
+        }
+
+        .channel-status {
+          font-size: 0.75rem;
+          font-weight: 700;
+          color: #10b981;
+          background: rgba(16, 185, 129, 0.12);
+          padding: 4px 10px;
+          border-radius: 999px;
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
+        }
+
+        .support-queue {
+          background: #f7fafc;
+          border-radius: 12px;
+          padding: 16px;
+          border: 1px solid #e2e8f0;
+          display: flex;
+          flex-direction: column;
+          gap: 12px;
+        }
+
+        .queue-info {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+
+        .queue-label {
+          font-size: 0.8125rem;
+          font-weight: 600;
+          color: #4a5568;
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
+        }
+
+        .queue-value {
+          font-size: 1rem;
+          font-weight: 700;
+          color: #2d3436;
+        }
+
+        .queue-bar {
+          position: relative;
+          width: 100%;
+          height: 6px;
+          background: #e2e8f0;
+          border-radius: 999px;
+          overflow: hidden;
+        }
+
+        .queue-progress {
+          position: absolute;
+          left: 0;
+          top: 0;
+          bottom: 0;
+          background: linear-gradient(90deg, #ff6b35 0%, #ff8a5c 100%);
+          border-radius: 999px;
+          box-shadow: 0 0 12px rgba(255, 107, 53, 0.35);
         }
 
         /* Hero Contact Features */
@@ -1040,16 +1377,54 @@ const Contact = () => {
         }
 
         /* Float Animation */
+        @keyframes pulse {
+          0%, 100% { opacity: 1; }
+          50% { opacity: 0.75; }
+        }
+
         @keyframes float {
           0%, 100% { transform: translateY(0px); }
           50% { transform: translateY(-10px); }
         }
 
+        @keyframes fadeInUp {
+          from {
+            opacity: 0;
+            transform: translateY(16px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .support-dashboard {
+            animation: none !important;
+            transform: none !important;
+            opacity: 1 !important;
+          }
+
+          .metric-card,
+          .channel-item {
+            animation: none !important;
+            opacity: 1 !important;
+            transform: none !important;
+          }
+
+          .status-badge--online {
+            animation: none !important;
+          }
+        }
+
         /* Responsive */
         @media (max-width: 991px) {
-          .contact-showcase {
-            grid-template-columns: 1fr;
-            max-width: 300px;
+          .support-dashboard {
+            max-width: 360px;
+          }
+
+          .support-metrics {
+            grid-template-columns: repeat(2, 1fr);
           }
 
           .hero__contact-features {
@@ -1069,8 +1444,22 @@ const Contact = () => {
         }
 
         @media (max-width: 767px) {
-          .contact-method {
-            padding: var(--space-4);
+          .support-dashboard {
+            max-width: 100%;
+            padding: 18px;
+          }
+
+          .support-metrics {
+            grid-template-columns: 1fr;
+          }
+
+          .channel-item {
+            flex-direction: column;
+            align-items: flex-start;
+          }
+
+          .channel-status {
+            align-self: flex-start;
           }
 
           .form-card {
