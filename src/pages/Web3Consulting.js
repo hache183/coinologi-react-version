@@ -416,7 +416,7 @@ const Web3Consulting = () => {
           flex-direction: column;
           gap: 1.5rem;
           animation: dashboardFloat 6s ease-in-out infinite;
-          transform: translateY(12px);
+          transform: translateY(14px);
           opacity: 0;
           transition: opacity 0.6s ease, transform 0.6s ease;
         }
@@ -457,39 +457,38 @@ const Web3Consulting = () => {
           display: flex;
           gap: 1rem;
           align-items: center;
-          background: rgba(248, 250, 252, 0.95);
+          background: rgba(255, 255, 255, 0.95);
           border-radius: 0.75rem;
           padding: 1rem 1.25rem;
           border: 1px solid rgba(226, 232, 240, 0.7);
           position: relative;
           overflow: hidden;
-          transform: translateY(12px);
           opacity: 0;
-          transition: transform 0.45s ease, opacity 0.45s ease, box-shadow 0.45s ease;
-          transition-delay: calc(0.08s * var(--item-index));
+          transform: translateY(18px);
+          transition: transform 0.25s ease, box-shadow 0.25s ease;
         }
 
-        .services-dashboard__item::after {
+        .services-dashboard__item::before {
           content: '';
           position: absolute;
           inset: 0;
-          background: linear-gradient(135deg, rgba(255, 107, 53, 0.04) 0%, rgba(255, 138, 92, 0.12) 100%);
+          background: linear-gradient(135deg, rgba(255, 107, 53, 0.05) 0%, rgba(255, 138, 92, 0.18) 100%);
           opacity: 0;
           transition: opacity 0.3s ease;
           pointer-events: none;
         }
 
         .services-dashboard--visible .services-dashboard__item {
-          opacity: 1;
-          transform: translateY(0);
+          animation: serviceRowFade 0.5s ease forwards;
+          animation-delay: calc(0.08s * var(--item-index));
         }
 
         .services-dashboard__item:hover {
-          transform: translateY(-4px) scale(1.01);
-          box-shadow: 0 18px 35px -18px rgba(15, 23, 42, 0.35);
+          transform: translateY(-4px);
+          box-shadow: 0 22px 40px -24px rgba(15, 23, 42, 0.35);
         }
 
-        .services-dashboard__item:hover::after {
+        .services-dashboard__item:hover::before {
           opacity: 1;
         }
 
@@ -504,7 +503,7 @@ const Web3Consulting = () => {
           color: #ffffff;
           font-size: 1.3rem;
           flex-shrink: 0;
-          box-shadow: 0 12px 20px -12px rgba(255, 107, 53, 0.7);
+          box-shadow: 0 12px 22px -14px rgba(255, 107, 53, 0.65);
         }
 
         .services-dashboard__info {
@@ -584,6 +583,17 @@ const Web3Consulting = () => {
           50% {
             transform: scale(1.05);
             box-shadow: 0 0 0 8px rgba(16, 185, 129, 0);
+          }
+        }
+
+        @keyframes serviceRowFade {
+          from {
+            opacity: 0;
+            transform: translateY(18px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
           }
         }
 
@@ -827,6 +837,12 @@ const Web3Consulting = () => {
           .services-dashboard__item,
           .services-dashboard__progress-bar {
             transition: none !important;
+          }
+
+          .services-dashboard__item {
+            opacity: 1 !important;
+            transform: none !important;
+            animation: none !important;
           }
         }
 

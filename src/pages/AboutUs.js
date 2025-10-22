@@ -467,7 +467,7 @@ const AboutUs = () => {
           flex-direction: column;
           gap: 1.5rem;
           animation: dashboardFloat 6s ease-in-out infinite;
-          transform: translateY(12px);
+          transform: translateY(14px);
           opacity: 0;
           transition: opacity 0.6s ease, transform 0.6s ease;
         }
@@ -505,7 +505,7 @@ const AboutUs = () => {
 
         .company-dashboard__card {
           position: relative;
-          background: linear-gradient(135deg, rgba(255, 107, 53, 0.12) 0%, rgba(255, 138, 92, 0.18) 100%);
+          background: linear-gradient(180deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 246, 242, 0.95) 100%);
           border-radius: 0.75rem;
           padding: 1rem 1.25rem;
           display: grid;
@@ -513,20 +513,21 @@ const AboutUs = () => {
           grid-template-rows: auto auto;
           gap: 0.5rem 0.75rem;
           align-items: center;
-          transform: translateY(12px) scale(0.98);
+          border: 1px solid rgba(255, 107, 53, 0.08);
+          box-shadow: 0 18px 30px -24px rgba(15, 23, 42, 0.3);
           opacity: 0;
-          transition: transform 0.35s ease, box-shadow 0.35s ease, opacity 0.35s ease;
-          transition-delay: calc(0.1s * var(--card-index));
+          transform: translateY(18px);
+          transition: transform 0.25s ease, box-shadow 0.25s ease;
         }
 
         .company-dashboard--visible .company-dashboard__card {
-          opacity: 1;
-          transform: translateY(0) scale(1);
+          animation: cardFadeUp 0.5s ease forwards;
+          animation-delay: calc(0.1s * var(--card-index));
         }
 
         .company-dashboard__card:hover {
-          transform: translateY(-4px) scale(1.02);
-          box-shadow: 0 18px 35px -18px rgba(15, 23, 42, 0.35);
+          transform: translateY(-4px);
+          box-shadow: 0 24px 40px -22px rgba(15, 23, 42, 0.35);
         }
 
         .company-dashboard__icon {
@@ -540,7 +541,7 @@ const AboutUs = () => {
           background: linear-gradient(135deg, #ff6b35 0%, #ff8a5c 100%);
           color: #ffffff;
           font-size: 1.5rem;
-          box-shadow: 0 10px 20px -10px rgba(255, 107, 53, 0.7);
+          box-shadow: 0 12px 24px -16px rgba(255, 107, 53, 0.65);
         }
 
         .company-dashboard__details {
@@ -550,10 +551,12 @@ const AboutUs = () => {
         }
 
         .company-dashboard__value {
-          font-size: 1.75rem;
+          font-size: 1.8rem;
           font-weight: 700;
           color: #2d3436;
           line-height: 1;
+          font-feature-settings: 'tnum' 1;
+          font-variant-numeric: tabular-nums;
         }
 
         .company-dashboard__label {
@@ -566,8 +569,8 @@ const AboutUs = () => {
         .company-dashboard__description {
           font-size: 0.75rem;
           font-weight: 500;
-          color: #718096;
-          letter-spacing: 0.04em;
+          color: #94a3b8;
+          letter-spacing: 0.06em;
           text-transform: uppercase;
           justify-self: start;
         }
@@ -894,6 +897,17 @@ const AboutUs = () => {
           50% { transform: translateY(-10px); }
         }
 
+        @keyframes cardFadeUp {
+          from {
+            opacity: 0;
+            transform: translateY(18px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
         /* Responsive */
         @media (max-width: 991px) {
           .company-dashboard {
@@ -974,6 +988,23 @@ const AboutUs = () => {
         @media (max-width: 480px) {
           .company-dashboard {
             padding: 1rem;
+          }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .company-dashboard,
+          .company-dashboard__card {
+            animation: none !important;
+          }
+
+          .company-dashboard {
+            transform: none !important;
+            opacity: 1 !important;
+          }
+
+          .company-dashboard__card {
+            opacity: 1 !important;
+            transform: none !important;
           }
         }
       `}</style>

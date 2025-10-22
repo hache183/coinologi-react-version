@@ -761,25 +761,40 @@ const ExclusiveEvents = () => {
           display: flex;
           align-items: center;
           gap: 1rem;
-          background: rgba(248, 250, 252, 0.95);
+          background: rgba(255, 255, 255, 0.95);
           border-radius: 0.75rem;
           padding: 1rem 1.25rem;
           border: 1px solid rgba(226, 232, 240, 0.7);
-          box-shadow: 0 12px 30px -18px rgba(15, 23, 42, 0.3);
-          transform: translateX(24px);
+          box-shadow: 0 14px 34px -22px rgba(15, 23, 42, 0.3);
+          position: relative;
+          overflow: hidden;
           opacity: 0;
-          transition: transform 0.45s ease, opacity 0.45s ease, box-shadow 0.45s ease;
-          transition-delay: calc(0.1s * var(--feature-index));
+          transform: translateY(18px);
+          transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .event-dashboard__item::before {
+          content: '';
+          position: absolute;
+          inset: 0;
+          background: linear-gradient(135deg, rgba(255, 107, 53, 0.05) 0%, rgba(255, 138, 92, 0.16) 100%);
+          opacity: 0;
+          transition: opacity 0.3s ease;
+          pointer-events: none;
         }
 
         .event-dashboard--visible .event-dashboard__item {
-          transform: translateX(0);
-          opacity: 1;
+          animation: eventFeatureFade 0.55s ease forwards;
+          animation-delay: calc(0.1s * var(--feature-index));
         }
 
         .event-dashboard--visible .event-dashboard__item:hover {
-          transform: translateX(0) scale(1.02);
-          box-shadow: 0 20px 45px -18px rgba(15, 23, 42, 0.35);
+          transform: translateY(-4px);
+          box-shadow: 0 24px 42px -24px rgba(15, 23, 42, 0.35);
+        }
+
+        .event-dashboard--visible .event-dashboard__item:hover::before {
+          opacity: 1;
         }
 
         .event-dashboard__icon {
@@ -824,6 +839,17 @@ const ExclusiveEvents = () => {
         @keyframes eventDashboardFloat {
           0%, 100% { transform: translateY(0); }
           50% { transform: translateY(-10px); }
+        }
+
+        @keyframes eventFeatureFade {
+          from {
+            opacity: 0;
+            transform: translateY(18px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
         }
 
         /* Feature List */
@@ -1037,6 +1063,23 @@ const ExclusiveEvents = () => {
           .event-dashboard__item {
             flex-direction: column;
             align-items: flex-start;
+          }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .event-dashboard,
+          .event-dashboard__item {
+            animation: none !important;
+          }
+
+          .event-dashboard {
+            transform: none !important;
+            opacity: 1 !important;
+          }
+
+          .event-dashboard__item {
+            opacity: 1 !important;
+            transform: none !important;
           }
         }
       `}</style>

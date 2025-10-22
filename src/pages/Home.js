@@ -316,21 +316,35 @@ const Home = () => {
         }
 
         .portfolio-dashboard__title {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.5rem;
           font-size: 1rem;
-          font-weight: 600;
+          font-weight: 700;
           color: #2d3436;
-          letter-spacing: 0.02em;
+          letter-spacing: 0.04em;
+          text-transform: uppercase;
+        }
+
+        .portfolio-dashboard__title::before {
+          content: '';
+          width: 14px;
+          height: 14px;
+          border-radius: 4px;
+          background: linear-gradient(135deg, #ff6b35 0%, #ff8a5c 50%, #6366f1 100%);
+          box-shadow: 0 8px 18px -10px rgba(99, 102, 241, 0.45);
         }
 
         .portfolio-dashboard__badge {
           font-size: 0.75rem;
           font-weight: 700;
           color: #ffffff;
-          background: #10b981;
+          background: linear-gradient(135deg, #10b981 0%, #34d399 100%);
           border-radius: 999px;
-          padding: 0.25rem 0.75rem;
+          padding: 0.3rem 0.85rem;
           text-transform: uppercase;
           letter-spacing: 0.08em;
+          box-shadow: 0 12px 24px -14px rgba(16, 185, 129, 0.65);
         }
 
         .portfolio-dashboard__metrics {
@@ -340,14 +354,17 @@ const Home = () => {
         }
 
         .portfolio-metric {
-          background: linear-gradient(135deg, rgba(255, 107, 53, 0.08) 0%, rgba(255, 138, 92, 0.12) 100%);
+          background: linear-gradient(180deg, rgba(255, 255, 255, 0.96) 0%, rgba(255, 246, 242, 1) 100%);
           border-radius: 0.75rem;
-          padding: 1rem;
+          padding: 1.15rem;
           display: flex;
           flex-direction: column;
-          gap: 0.35rem;
-          transition: transform 0.2s ease, box-shadow 0.2s ease;
+          gap: 0.45rem;
+          border: 1px solid rgba(255, 107, 53, 0.08);
+          box-shadow: 0 18px 32px -24px rgba(15, 23, 42, 0.3);
+          transition: transform 0.25s ease, box-shadow 0.25s ease;
           animation: metricFade 0.6s ease forwards;
+          min-height: 120px;
         }
 
         .portfolio-metric:nth-of-type(1) {
@@ -363,43 +380,48 @@ const Home = () => {
         }
 
         .portfolio-metric:hover {
-          transform: translateY(-2px) scale(1.02);
-          box-shadow: 0 18px 35px -18px rgba(15, 23, 42, 0.35);
+          transform: translateY(-6px);
+          box-shadow: 0 30px 48px -22px rgba(15, 23, 42, 0.35);
         }
 
         .portfolio-metric__label {
-          font-size: 0.875rem;
+          font-size: 0.8rem;
           font-weight: 600;
-          color: #2d3436;
-          letter-spacing: 0.04em;
+          color: #94a3b8;
+          letter-spacing: 0.08em;
           text-transform: uppercase;
         }
 
         .portfolio-metric__value {
-          font-size: 1.75rem;
+          font-size: 1.85rem;
           font-weight: 700;
           color: #2d3436;
-        }
-
-        .portfolio-metric__caption {
+          font-feature-settings: 'tnum' 1;
+          font-variant-numeric: tabular-nums;
+          letter-spacing: -0.02em;
           font-size: 0.75rem;
           font-weight: 500;
           color: #718096;
-          letter-spacing: 0.02em;
+          font-size: 0.75rem;
+          font-weight: 500;
+    letter-spacing: -0.02em;
+    display: block;
+    width: 100%;
+    line-height: 1.1;
+    min-height: 2.2rem;
+          letter-spacing: 0.08em;
           text-transform: uppercase;
-        }
-
-        .portfolio-dashboard__chart {
           background: rgba(255, 255, 255, 0.9);
+          border-radius: 0.75rem;
+          padding: 1.25rem;
+          background: rgba(255, 255, 255, 0.94);
           border-radius: 0.75rem;
           padding: 1.25rem;
           border: 1px solid rgba(226, 232, 240, 0.6);
           display: flex;
           flex-direction: column;
           gap: 1rem;
-        }
-
-        .portfolio-dashboard__chart-header {
+          box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6);
           display: flex;
           align-items: center;
           justify-content: space-between;
@@ -415,7 +437,7 @@ const Home = () => {
           font-size: 0.75rem;
           font-weight: 700;
           color: #10b981;
-          background: rgba(16, 185, 129, 0.12);
+          background: rgba(16, 185, 129, 0.16);
           border-radius: 999px;
           padding: 0.2rem 0.75rem;
           text-transform: uppercase;
@@ -429,13 +451,16 @@ const Home = () => {
           gap: 0.75rem;
           height: 120px;
           width: 100%;
+          background: linear-gradient(180deg, rgba(255, 107, 53, 0.09) 0%, rgba(255, 138, 92, 0.18) 100%);
+          border-radius: 0.75rem;
+          padding: 1rem 1.25rem;
         }
 
         .portfolio-dashboard__bar {
           flex: 1;
-          max-width: 14px;
+          max-width: 12px;
           border-radius: 999px;
-          background: linear-gradient(180deg, #ff6b35 0%, #ff8a5c 80%);
+          background: linear-gradient(180deg, #ff6b35 0%, #ff8a5c 85%);
           height: 0;
           opacity: 0;
           animation: barGrow 1s ease-out forwards;
@@ -875,6 +900,10 @@ const Home = () => {
             max-width: 380px;
           }
 
+          .portfolio-metric {
+            padding: 1rem;
+          }
+
           .services__grid {
             grid-template-columns: 1fr;
           }
@@ -909,11 +938,12 @@ const Home = () => {
           }
 
           .portfolio-metric {
-            padding: 0.875rem;
+            padding: 0.9rem;
+            min-height: auto;
           }
 
           .portfolio-metric__value {
-            font-size: 1.5rem;
+            font-size: 1.55rem;
           }
 
           .portfolio-dashboard__sparkline {
@@ -923,20 +953,6 @@ const Home = () => {
 
           .portfolio-dashboard__bar {
             max-width: 12px;
-          }
-          .hero__visual {
-            height: 200px;
-          }
-          
-          .hero__crypto-icons {
-            width: 180px;
-            height: 180px;
-          }
-          
-          .crypto-icon {
-            width: 45px;
-            height: 45px;
-            font-size: 1rem;
           }
 
           .services {
@@ -953,6 +969,25 @@ const Home = () => {
 
           .cta__title {
             font-size: 1.5rem;
+          }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .portfolio-dashboard,
+          .portfolio-dashboard__badge {
+            animation: none !important;
+          }
+
+          .portfolio-metric {
+            animation: none !important;
+            opacity: 1 !important;
+            transform: none !important;
+          }
+
+          .portfolio-dashboard__bar {
+            animation: none !important;
+            height: var(--bar-height);
+            opacity: 1;
           }
         }
       `}</style>
