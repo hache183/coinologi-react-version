@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import SEO from '../components/SEO';
 
 function useAnimatedMetric(value, options = {}) {
@@ -48,6 +48,15 @@ const Web3Consulting = () => {
     { value: '€45M', label: 'Valore Progetti' },
     { value: '50+', label: 'Aziende Clienti' },
     { value: '300%', label: 'ROI Medio' }
+  ];
+
+  const servicesOverview = [
+    { icon: 'fas fa-link', name: 'Blockchain' },
+    { icon: 'fas fa-coins', name: 'DeFi' },
+    { icon: 'fas fa-image', name: 'NFT' },
+    { icon: 'fas fa-users', name: 'DAO' },
+    { icon: 'fas fa-code', name: 'Smart Contracts' },
+    { icon: 'fas fa-certificate', name: 'Tokenomics' }
   ];
 
   const services = [
@@ -125,6 +134,26 @@ const Web3Consulting = () => {
   const animatedStat1 = useAnimatedMetric(stats[1].value);
   const animatedStat2 = useAnimatedMetric(stats[2].value);
 
+  const servicesDashboardRef = useRef(null);
+  const [servicesDashboardVisible, setServicesDashboardVisible] = useState(false);
+
+  useEffect(() => {
+    const node = servicesDashboardRef.current;
+    if (!node) return;
+
+    const observer = new IntersectionObserver((entries, obs) => {
+      const [entry] = entries;
+      if (!entry || !entry.isIntersecting) return;
+
+      setServicesDashboardVisible(true);
+      obs.disconnect();
+    }, { threshold: 0.4 });
+
+    observer.observe(node);
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <>
       <SEO
@@ -168,34 +197,36 @@ const Web3Consulting = () => {
             </div>
           </div>
           <div className="hero__visual">
-            <div className="web3-ecosystem">
-              <div className="ecosystem-center">
-                <i className="fas fa-cube"></i>
-                <span>WEB3</span>
-              </div>
-              <div className="node node--blockchain">
-                <i className="fas fa-link"></i>
-                <span>Blockchain</span>
-              </div>
-              <div className="node node--defi">
-                <i className="fas fa-coins"></i>
-                <span>DeFi</span>
-              </div>
-              <div className="node node--nft">
-                <i className="fas fa-image"></i>
-                <span>NFT</span>
-              </div>
-              <div className="node node--dao">
-                <i className="fas fa-users"></i>
-                <span>DAO</span>
-              </div>
-              <div className="node node--smart">
-                <i className="fas fa-code"></i>
-                <span>Smart Contracts</span>
-              </div>
-              <div className="node node--tokens">
-                <i className="fas fa-certificate"></i>
-                <span>Tokenomics</span>
+            <div
+              className={`services-dashboard ${servicesDashboardVisible ? 'services-dashboard--visible' : ''}`}
+              ref={servicesDashboardRef}
+            >
+              <header className="services-dashboard__header">
+                <span className="services-dashboard__title">🚀 SERVIZI ATTIVI</span>
+                <span className="services-dashboard__timestamp">Aggiornamento live</span>
+              </header>
+              <div className="services-dashboard__list" role="list">
+                {servicesOverview.map((service, index) => (
+                  <div
+                    key={service.name}
+                    className="services-dashboard__item"
+                    role="listitem"
+                    style={{ '--item-index': index, '--progress-delay': `${index * 120}ms` }}
+                  >
+                    <div className="services-dashboard__icon">
+                      <i className={service.icon} aria-hidden="true"></i>
+                    </div>
+                    <div className="services-dashboard__info">
+                      <div className="services-dashboard__title-row">
+                        <span className="services-dashboard__name">{service.name}</span>
+                        <span className="services-dashboard__badge">ATTIVO</span>
+                      </div>
+                      <div className="services-dashboard__progress">
+                        <span className="services-dashboard__progress-bar"></span>
+                      </div>
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
@@ -373,132 +404,187 @@ const Web3Consulting = () => {
           font-weight: 500;
         }
 
-        /* Web3 Ecosystem con dimensioni migliorate */
-        .web3-ecosystem {
-          position: relative;
+        /* Services Dashboard */
+        .services-dashboard {
           width: 100%;
-          max-width: 400px;
-          height: 400px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          animation: float 6s ease-in-out infinite;
-          margin: 0 auto;
-        }
-
-        .ecosystem-center {
-          width: 120px;
-          height: 120px;
-          background: rgba(255, 255, 255, 0.1);
-          backdrop-filter: blur(20px);
-          border: 3px solid rgba(255, 255, 255, 0.3);
-          border-radius: 50%;
+          max-width: 420px;
+          background: #ffffff;
+          border-radius: 1rem;
+          padding: 1.5rem;
+          box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.25);
           display: flex;
           flex-direction: column;
-          align-items: center;
-          justify-content: center;
-          color: white;
+          gap: 1.5rem;
+          animation: dashboardFloat 6s ease-in-out infinite;
+          transform: translateY(12px);
+          opacity: 0;
+          transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .services-dashboard--visible {
+          opacity: 1;
+          transform: translateY(0);
+        }
+
+        .services-dashboard__header {
+          display: flex;
+          flex-direction: column;
+          gap: 0.35rem;
+        }
+
+        .services-dashboard__title {
+          font-size: 1rem;
           font-weight: 700;
-          position: relative;
-          z-index: 10;
+          color: #2d3436;
+          letter-spacing: 0.04em;
+          text-transform: uppercase;
         }
 
-        .ecosystem-center i {
-          font-size: 1.875rem;
-          margin-bottom: 0.5rem;
+        .services-dashboard__timestamp {
+          font-size: 0.875rem;
+          font-weight: 500;
+          color: #718096;
+          letter-spacing: 0.02em;
         }
 
-        .ecosystem-center span {
-          font-size: 0.9rem;
-          font-weight: 600;
-        }
-
-        .node {
-          position: absolute;
-          width: 90px;
-          height: 90px;
-          background: rgba(255, 255, 255, 0.1);
-          backdrop-filter: blur(10px);
-          border: 2px solid rgba(255, 255, 255, 0.3);
-          border-radius: 50%;
+        .services-dashboard__list {
           display: flex;
           flex-direction: column;
+          gap: 1rem;
+        }
+
+        .services-dashboard__item {
+          display: flex;
+          gap: 1rem;
+          align-items: center;
+          background: rgba(248, 250, 252, 0.95);
+          border-radius: 0.75rem;
+          padding: 1rem 1.25rem;
+          border: 1px solid rgba(226, 232, 240, 0.7);
+          position: relative;
+          overflow: hidden;
+          transform: translateY(12px);
+          opacity: 0;
+          transition: transform 0.45s ease, opacity 0.45s ease, box-shadow 0.45s ease;
+          transition-delay: calc(0.08s * var(--item-index));
+        }
+
+        .services-dashboard__item::after {
+          content: '';
+          position: absolute;
+          inset: 0;
+          background: linear-gradient(135deg, rgba(255, 107, 53, 0.04) 0%, rgba(255, 138, 92, 0.12) 100%);
+          opacity: 0;
+          transition: opacity 0.3s ease;
+          pointer-events: none;
+        }
+
+        .services-dashboard--visible .services-dashboard__item {
+          opacity: 1;
+          transform: translateY(0);
+        }
+
+        .services-dashboard__item:hover {
+          transform: translateY(-4px) scale(1.01);
+          box-shadow: 0 18px 35px -18px rgba(15, 23, 42, 0.35);
+        }
+
+        .services-dashboard__item:hover::after {
+          opacity: 1;
+        }
+
+        .services-dashboard__icon {
+          width: 46px;
+          height: 46px;
+          border-radius: 0.75rem;
+          display: flex;
           align-items: center;
           justify-content: center;
-          color: white;
-          font-size: 0.8rem;
+          background: linear-gradient(135deg, #ff6b35 0%, #ff8a5c 100%);
+          color: #ffffff;
+          font-size: 1.3rem;
+          flex-shrink: 0;
+          box-shadow: 0 12px 20px -12px rgba(255, 107, 53, 0.7);
+        }
+
+        .services-dashboard__info {
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+          gap: 0.5rem;
+        }
+
+        .services-dashboard__title-row {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 0.75rem;
+        }
+
+        .services-dashboard__name {
+          font-size: 1rem;
           font-weight: 600;
-          text-align: center;
-          animation: float 4s ease-in-out infinite;
-          transition: all 0.15s ease-out;
-          cursor: pointer;
-          padding: 0.5rem;
-          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+          color: #2d3436;
         }
 
-        .node:hover {
-          transform: scale(1.1);
-          z-index: 20;
-          border-color: rgba(255, 255, 255, 0.5);
-          box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        .services-dashboard__badge {
+          font-size: 0.75rem;
+          font-weight: 700;
+          color: #ffffff;
+          background: #10b981;
+          border-radius: 999px;
+          padding: 0.2rem 0.75rem;
+          letter-spacing: 0.08em;
+          text-transform: uppercase;
+          animation: badgePulse 2.5s ease-in-out infinite;
         }
 
-        .node i {
-          font-size: 1.25rem;
-          margin-bottom: 0.4rem;
+        .services-dashboard__progress {
+          position: relative;
+          height: 6px;
+          background: rgba(226, 232, 240, 0.8);
+          border-radius: 999px;
+          overflow: hidden;
         }
 
-        .node span {
-          font-weight: 600;
-          text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-          display: block;
-          word-wrap: break-word;
-          hyphens: auto;
-          line-height: 1.2;
+        .services-dashboard__progress-bar {
+          position: absolute;
+          top: 0;
+          left: 0;
+          height: 100%;
+          width: 0;
+          background: linear-gradient(135deg, #ff6b35 0%, #ff8a5c 100%);
+          border-radius: inherit;
+          transition: width 1s ease-out;
+          transition-delay: var(--progress-delay, 0ms);
         }
 
-        /* Posizionamento responsive dei nodi */
-        .node--blockchain {
-          top: 10%;
-          left: 50%;
-          transform: translateX(-50%);
-          animation-delay: 0s;
+        .services-dashboard--visible .services-dashboard__progress-bar {
+          width: 100%;
         }
 
-        .node--defi {
-          top: 25%;
-          right: 15%;
-          animation-delay: 0.7s;
+        .services-dashboard__progress-bar::after {
+          content: '';
+          position: absolute;
+          inset: 0;
+          background: linear-gradient(180deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0) 100%);
+          border-radius: inherit;
         }
 
-        .node--nft {
-          bottom: 25%;
-          right: 15%;
-          animation-delay: 1.4s;
+        @keyframes dashboardFloat {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-10px); }
         }
 
-        .node--dao {
-          bottom: 10%;
-          left: 50%;
-          transform: translateX(-50%);
-          animation-delay: 2.1s;
-        }
-
-        .node--smart {
-          bottom: 25%;
-          left: 15%;
-          animation-delay: 2.8s;
-        }
-
-        .node--tokens {
-          top: 25%;
-          left: 15%;
-          animation-delay: 3.5s;
-        }
-
-        @keyframes float {
-          0%, 100% { transform: translateY(0px); }
-          50% { transform: translateY(-20px); }
+        @keyframes badgePulse {
+          0%, 100% {
+            transform: scale(1);
+            box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.35);
+          }
+          50% {
+            transform: scale(1.05);
+            box-shadow: 0 0 0 8px rgba(16, 185, 129, 0);
+          }
         }
 
         .case-studies {
@@ -657,32 +743,8 @@ const Web3Consulting = () => {
             align-items: center;
           }
 
-          .web3-ecosystem {
+          .services-dashboard {
             max-width: 380px;
-            height: 380px;
-          }
-          
-          .ecosystem-center {
-            width: 110px;
-            height: 110px;
-          }
-          
-          .ecosystem-center i {
-            font-size: 1.75rem;
-          }
-          
-          .ecosystem-center span {
-            font-size: 0.85rem;
-          }
-          
-          .node {
-            width: 85px;
-            height: 85px;
-            font-size: 0.75rem;
-          }
-          
-          .node i {
-            font-size: 1.125rem;
           }
 
           .case-studies__grid {
@@ -697,117 +759,18 @@ const Web3Consulting = () => {
             gap: 2rem;
           }
 
-          .hero__visual {
-            overflow: visible;
-            width: 100%;
-            max-width: 100%;
-            display: flex;
-            justify-content: center;
-          }
-
-          .web3-ecosystem {
-            max-width: 300px;
-            height: 300px;
-          }
-
-          .ecosystem-center {
-            width: 80px;
-            height: 80px;
-          }
-
-          .ecosystem-center i {
-            font-size: 1.25rem;
-            margin-bottom: 0.25rem;
-          }
-
-          .ecosystem-center span {
-            font-size: 0.75rem;
-          }
-
-          .node {
-            width: 65px;
-            height: 65px;
-            font-size: 0.6rem;
-            padding: 0.3rem;
-          }
-
-          .node i {
-            font-size: 0.9rem;
-            margin-bottom: 0.25rem;
-          }
-
-          .node--blockchain {
-            top: 5%;
-          }
-
-          .node--defi {
-            right: 5%;
-            top: 20%;
-          }
-
-          .node--nft {
-            right: 5%;
-            bottom: 20%;
-          }
-
-          .node--dao {
-            bottom: 5%;
-          }
-
-          .node--smart {
-            left: 5%;
-            bottom: 20%;
-          }
-
-          .node--tokens {
-            left: 5%;
-            top: 20%;
-          }
-
           .case-study__metrics {
             grid-template-columns: 1fr;
+          }
+
+          .services-dashboard {
+            max-width: 100%;
+            padding: 1.25rem;
           }
         }
 
         /* Mobile large (575px e meno) */
         @media (max-width: 575px) {
-          .web3-ecosystem {
-            max-width: 260px;
-            height: 260px;
-          }
-
-          .ecosystem-center {
-            width: 70px;
-            height: 70px;
-          }
-
-          .ecosystem-center i {
-            font-size: 1.15rem;
-            margin-bottom: 0.2rem;
-          }
-
-          .ecosystem-center span {
-            font-size: 0.7rem;
-            line-height: 1.2;
-          }
-
-          .node {
-            width: 60px;
-            height: 60px;
-            font-size: 0.58rem;
-            padding: 0.25rem;
-            line-height: 1.1;
-          }
-
-          .node i {
-            font-size: 0.85rem;
-            margin-bottom: 0.2rem;
-          }
-
-          .node span {
-            line-height: 1.1;
-          }
-
           .hero__cta {
             flex-direction: column;
             gap: 1rem;
@@ -823,153 +786,47 @@ const Web3Consulting = () => {
 
         /* Mobile standard (480px e meno) */
         @media (max-width: 480px) {
-          .web3-ecosystem {
-            max-width: 220px;
-            height: 220px;
+          .services-dashboard__item {
+            flex-direction: column;
+            align-items: flex-start;
           }
 
-          .ecosystem-center {
-            width: 65px;
-            height: 65px;
-          }
-
-          .ecosystem-center i {
-            font-size: 1rem;
-            margin-bottom: 0.15rem;
-          }
-
-          .ecosystem-center span {
-            font-size: 0.65rem;
-            line-height: 1.1;
-          }
-
-          .node {
-            width: 55px;
-            height: 55px;
-            font-size: 0.55rem;
-            padding: 0.2rem;
-          }
-
-          .node i {
-            font-size: 0.75rem;
-            margin-bottom: 0.1rem;
-          }
-
-          /* Posizionamento più compatto per mobile */
-          .node--blockchain {
-            top: 5%;
-          }
-
-          .node--defi {
-            right: 5%;
-            top: 18%;
-          }
-
-          .node--nft {
-            right: 5%;
-            bottom: 18%;
-          }
-
-          .node--dao {
-            bottom: 5%;
-          }
-
-          .node--smart {
-            left: 5%;
-            bottom: 18%;
-          }
-
-          .node--tokens {
-            left: 5%;
-            top: 18%;
+          .services-dashboard__title-row {
+            width: 100%;
           }
         }
 
         /* Mobile molto piccolo (400px e meno) */
         @media (max-width: 400px) {
-          .web3-ecosystem {
-            max-width: 200px;
-            height: 200px;
-          }
-
-          .ecosystem-center {
-            width: 60px;
-            height: 60px;
-          }
-
-          .ecosystem-center i {
-            font-size: 0.9rem;
-          }
-
-          .ecosystem-center span {
-            font-size: 0.6rem;
-          }
-
-          .node {
-            width: 50px;
-            height: 50px;
-            font-size: 0.5rem;
-            padding: 0.15rem;
-          }
-
-          .node i {
-            font-size: 0.7rem;
+          .services-dashboard {
+            padding: 1rem;
           }
         }
 
         /* Fix per orientamento landscape su mobile */
         @media screen and (max-height: 500px) and (orientation: landscape) {
-          .web3-ecosystem {
-            max-width: 250px;
-            height: 250px;
-          }
-          
-          .ecosystem-center {
-            width: 70px;
-            height: 70px;
-          }
-          
-          .ecosystem-center i {
-            font-size: 1rem;
-          }
-          
-          .ecosystem-center span {
-            font-size: 0.6rem;
-          }
-          
-          .node {
-            width: 60px;
-            height: 60px;
-            font-size: 0.5rem;
-            padding: 0.15rem;
-          }
-          
-          .node i {
-            font-size: 0.7rem;
+          .services-dashboard {
+            max-width: 320px;
           }
         }
 
         /* Miglioramenti hover per dispositivi touch */
         @media (hover: none) and (pointer: coarse) {
-          .node:hover {
-            transform: scale(1.05);
-          }
-          
-          .node:active {
-            transform: scale(1.1);
-            z-index: 20;
+          .services-dashboard__item:hover {
+            transform: translateY(-2px) scale(1.01);
           }
         }
 
         /* Disabilita le animazioni su dispositivi che preferiscono movimento ridotto */
         @media (prefers-reduced-motion: reduce) {
-          .web3-ecosystem,
-          .node {
+          .services-dashboard,
+          .services-dashboard__badge {
             animation: none !important;
           }
-          
-          .node:hover {
-            transform: scale(1.05);
+
+          .services-dashboard__item,
+          .services-dashboard__progress-bar {
+            transition: none !important;
           }
         }
 

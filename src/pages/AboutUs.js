@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import SEO from '../components/SEO';
 
 const AboutUs = () => {
@@ -7,6 +7,8 @@ const AboutUs = () => {
     clients: 0,
     support: '24/7'
   });
+  const [statsVisible, setStatsVisible] = useState(false);
+  const statsDashboardRef = useRef(null);
 
   useEffect(() => {
     const animateNumber = (target, key, duration = 2000) => {
@@ -38,6 +40,23 @@ const AboutUs = () => {
     }, 500);
 
     return () => clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    const node = statsDashboardRef.current;
+    if (!node) return;
+
+    const observer = new IntersectionObserver((entries, obs) => {
+      const [entry] = entries;
+      if (!entry || !entry.isIntersecting) return;
+
+      setStatsVisible(true);
+      obs.disconnect();
+    }, { threshold: 0.4 });
+
+    observer.observe(node);
+
+    return () => observer.disconnect();
   }, []);
 
   const timeline = [
@@ -144,6 +163,37 @@ const AboutUs = () => {
     { number: '10+', label: 'Anni di Esperienza' },
     { number: '1000+', label: 'Clienti Soddisfatti' },
     { number: '24/7', label: 'Supporto Community' }
+  ];
+
+  const companyStats = [
+    {
+      id: 'experience',
+      icon: 'fas fa-calendar-check',
+      value: '10+',
+      label: 'Anni',
+      description: 'Esperienza nel settore'
+    },
+    {
+      id: 'clients',
+      icon: 'fas fa-users',
+      value: '1000+',
+      label: 'Clienti',
+      description: 'Clienti soddisfatti'
+    },
+    {
+      id: 'satisfaction',
+      icon: 'fas fa-star',
+      value: '98%',
+      label: 'Soddisfazione',
+      description: 'Feedback positivo'
+    },
+    {
+      id: 'support',
+      icon: 'fas fa-headset',
+      value: '24/7',
+      label: 'Supporto',
+      description: 'Assistenza continua'
+    }
   ];
 
   const TimelineItem = ({ item, index }) => (
@@ -265,22 +315,32 @@ const AboutUs = () => {
           </div>
 
           <div className="hero__visual">
-            <div className="about-showcase">
-              <div className="showcase-circle">
-                <i className="fas fa-rocket"></i>
-                <span>Innovazione</span>
-              </div>
-              <div className="showcase-circle">
-                <i className="fas fa-shield-alt"></i>
-                <span>Sicurezza</span>
-              </div>
-              <div className="showcase-circle">
-                <i className="fas fa-users"></i>
-                <span>Community</span>
-              </div>
-              <div className="showcase-circle">
-                <i className="fas fa-graduation-cap"></i>
-                <span>Formazione</span>
+            <div
+              className={`company-dashboard ${statsVisible ? 'company-dashboard--visible' : ''}`}
+              ref={statsDashboardRef}
+            >
+              <header className="company-dashboard__header">
+                <span className="company-dashboard__title">🏆 STATS AZIENDALI</span>
+                <span className="company-dashboard__subtitle">Insight aggiornati</span>
+              </header>
+              <div className="company-dashboard__grid" role="list">
+                {companyStats.map((stat, index) => (
+                  <div
+                    key={stat.id}
+                    className="company-dashboard__card"
+                    role="listitem"
+                    style={{ '--card-index': index }}
+                  >
+                    <div className="company-dashboard__icon">
+                      <i className={stat.icon} aria-hidden="true"></i>
+                    </div>
+                    <div className="company-dashboard__details">
+                      <span className="company-dashboard__value">{stat.value}</span>
+                      <span className="company-dashboard__label">{stat.label}</span>
+                    </div>
+                    <span className="company-dashboard__description">{stat.description}</span>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
@@ -394,60 +454,122 @@ const AboutUs = () => {
       </section>
 
       <style jsx>{`
-        /* About Showcase */
-        .about-showcase {
-          display: grid;
-          grid-template-columns: repeat(2, 1fr);
-          gap: var(--space-6);
+        /* Company Stats Dashboard */
+        .company-dashboard {
           width: 100%;
-          max-width: 100%;
-          justify-items: center;
-        }
-
-        .showcase-circle {
-          justify-self: center;
-          width: 120px;
-          height: 120px;
-          background: rgba(255, 255, 255, 0.1);
-          backdrop-filter: blur(10px);
-          border: 2px solid rgba(255, 255, 255, 0.2);
-          border-radius: var(--radius-full);
+          max-width: 420px;
+          background: rgba(255, 255, 255, 0.95);
+          border-radius: 1rem;
+          padding: 1.5rem;
+          box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.25);
+          backdrop-filter: blur(16px);
           display: flex;
           flex-direction: column;
+          gap: 1.5rem;
+          animation: dashboardFloat 6s ease-in-out infinite;
+          transform: translateY(12px);
+          opacity: 0;
+          transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .company-dashboard--visible {
+          opacity: 1;
+          transform: translateY(0);
+        }
+
+        .company-dashboard__header {
+          display: flex;
+          flex-direction: column;
+          gap: 0.35rem;
+        }
+
+        .company-dashboard__title {
+          font-size: 1rem;
+          font-weight: 700;
+          color: #2d3436;
+          letter-spacing: 0.04em;
+          text-transform: uppercase;
+        }
+
+        .company-dashboard__subtitle {
+          font-size: 0.875rem;
+          color: #718096;
+          letter-spacing: 0.02em;
+        }
+
+        .company-dashboard__grid {
+          display: grid;
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          gap: 1rem;
+        }
+
+        .company-dashboard__card {
+          position: relative;
+          background: linear-gradient(135deg, rgba(255, 107, 53, 0.12) 0%, rgba(255, 138, 92, 0.18) 100%);
+          border-radius: 0.75rem;
+          padding: 1rem 1.25rem;
+          display: grid;
+          grid-template-columns: auto 1fr;
+          grid-template-rows: auto auto;
+          gap: 0.5rem 0.75rem;
+          align-items: center;
+          transform: translateY(12px) scale(0.98);
+          opacity: 0;
+          transition: transform 0.35s ease, box-shadow 0.35s ease, opacity 0.35s ease;
+          transition-delay: calc(0.1s * var(--card-index));
+        }
+
+        .company-dashboard--visible .company-dashboard__card {
+          opacity: 1;
+          transform: translateY(0) scale(1);
+        }
+
+        .company-dashboard__card:hover {
+          transform: translateY(-4px) scale(1.02);
+          box-shadow: 0 18px 35px -18px rgba(15, 23, 42, 0.35);
+        }
+
+        .company-dashboard__icon {
+          grid-row: span 2;
+          width: 48px;
+          height: 48px;
+          border-radius: 0.75rem;
+          display: flex;
           align-items: center;
           justify-content: center;
-          color: var(--color-white);
-          transition: var(--transition-base);
-          animation: float 6s ease-in-out infinite;
+          background: linear-gradient(135deg, #ff6b35 0%, #ff8a5c 100%);
+          color: #ffffff;
+          font-size: 1.5rem;
+          box-shadow: 0 10px 20px -10px rgba(255, 107, 53, 0.7);
         }
 
-        .showcase-circle:nth-child(2) {
-          animation-delay: 1.5s;
+        .company-dashboard__details {
+          display: flex;
+          flex-direction: column;
+          gap: 0.25rem;
         }
 
-        .showcase-circle:nth-child(3) {
-          animation-delay: 3s;
+        .company-dashboard__value {
+          font-size: 1.75rem;
+          font-weight: 700;
+          color: #2d3436;
+          line-height: 1;
         }
 
-        .showcase-circle:nth-child(4) {
-          animation-delay: 4.5s;
+        .company-dashboard__label {
+          font-size: 0.9rem;
+          font-weight: 600;
+          color: #2d3436;
+          letter-spacing: 0.02em;
         }
 
-        .showcase-circle:hover {
-          transform: scale(1.1);
-          background: rgba(255, 255, 255, 0.2);
-        }
-
-        .showcase-circle i {
-          font-size: var(--font-size-2xl);
-          margin-bottom: var(--space-2);
-          color: var(--color-primary);
-        }
-
-        .showcase-circle span {
-          font-size: var(--font-size-xs);
-          font-weight: var(--font-weight-medium);
-          text-align: center;
+        .company-dashboard__description {
+          font-size: 0.75rem;
+          font-weight: 500;
+          color: #718096;
+          letter-spacing: 0.04em;
+          text-transform: uppercase;
+          justify-self: start;
         }
 
         /* Mission Grid */
@@ -767,16 +889,15 @@ const AboutUs = () => {
         }
 
         /* Float Animation */
-        @keyframes float {
-          0%, 100% { transform: translateY(0px); }
+        @keyframes dashboardFloat {
+          0%, 100% { transform: translateY(0); }
           50% { transform: translateY(-10px); }
         }
 
         /* Responsive */
         @media (max-width: 991px) {
-          .about-showcase {
-            grid-template-columns: repeat(2, 1fr);
-            max-width: 360px;
+          .company-dashboard {
+            max-width: 380px;
           }
 
           .mission-grid {
@@ -810,13 +931,17 @@ const AboutUs = () => {
         }
 
         @media (max-width: 767px) {
-          .showcase-circle {
-            width: 100px;
-            height: 100px;
+          .company-dashboard {
+            max-width: 100%;
+            padding: 1.25rem;
           }
 
-          .about-showcase {
-            gap: var(--space-4);
+          .company-dashboard__grid {
+            grid-template-columns: 1fr;
+          }
+
+          .company-dashboard__card {
+            padding: 1rem;
           }
 
           .team-grid {
@@ -847,10 +972,8 @@ const AboutUs = () => {
         }
 
         @media (max-width: 480px) {
-          .about-showcase {
-            grid-template-columns: 1fr;
-            max-width: 220px;
-            margin: 0 auto;
+          .company-dashboard {
+            padding: 1rem;
           }
         }
       `}</style>

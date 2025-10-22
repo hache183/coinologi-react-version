@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import SEO from '../components/SEO';
 
 const ExclusiveEvents = () => {
   const [nextEventCountdown, setNextEventCountdown] = useState('');
+  const [featuresVisible, setFeaturesVisible] = useState(false);
+  const featureDashboardRef = useRef(null);
 
   useEffect(() => {
     const eventDate = new Date('2025-02-15T09:00:00');
@@ -23,6 +25,23 @@ const ExclusiveEvents = () => {
     const interval = setInterval(updateCountdown, 60000);
     
     return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    const node = featureDashboardRef.current;
+    if (!node) return;
+
+    const observer = new IntersectionObserver((entries, obs) => {
+      const [entry] = entries;
+      if (!entry || !entry.isIntersecting) return;
+
+      setFeaturesVisible(true);
+      obs.disconnect();
+    }, { threshold: 0.4 });
+
+    observer.observe(node);
+
+    return () => observer.disconnect();
   }, []);
 
   const upcomingEvents = [
@@ -74,6 +93,29 @@ const ExclusiveEvents = () => {
       participants: '50 partecipanti',
       speakers: 'Solo per membri VIP Trading Signals',
       currentPrice: 'Incluso VIP'
+    }
+  ];
+
+  const eventFeatures = [
+    {
+      icon: 'fas fa-microphone',
+      title: 'Speaker Internazionali',
+      badge: '50+ Speaker'
+    },
+    {
+      icon: 'fas fa-network-wired',
+      title: 'Networking Premium',
+      badge: '500+ Attendees'
+    },
+    {
+      icon: 'fas fa-certificate',
+      title: 'Certificazioni',
+      badge: 'Riconosciute'
+    },
+    {
+      icon: 'fas fa-handshake',
+      title: 'Partnership',
+      badge: 'Esclusive'
     }
   ];
 
@@ -261,22 +303,31 @@ const ExclusiveEvents = () => {
           </div>
           
           <div className="hero__visual">
-            <div className="events-showcase">
-              <div className="showcase-item">
-                <i className="fas fa-microphone"></i>
-                <span>Speaker Internazionali</span>
-              </div>
-              <div className="showcase-item">
-                <i className="fas fa-network-wired"></i>
-                <span>Networking Premium</span>
-              </div>
-              <div className="showcase-item">
-                <i className="fas fa-certificate"></i>
-                <span>Certificazioni</span>
-              </div>
-              <div className="showcase-item">
-                <i className="fas fa-handshake"></i>
-                <span>Partnership</span>
+            <div
+              className={`event-dashboard ${featuresVisible ? 'event-dashboard--visible' : ''}`}
+              ref={featureDashboardRef}
+            >
+              <header className="event-dashboard__header">
+                <span className="event-dashboard__title">✨ CARATTERISTICHE EVENTI</span>
+                <span className="event-dashboard__subtitle">Esperienze premium garantite</span>
+              </header>
+              <div className="event-dashboard__list" role="list">
+                {eventFeatures.map((feature, index) => (
+                  <div
+                    key={feature.title}
+                    className="event-dashboard__item"
+                    role="listitem"
+                    style={{ '--feature-index': index }}
+                  >
+                    <div className="event-dashboard__icon">
+                      <i className={feature.icon} aria-hidden="true"></i>
+                    </div>
+                    <div className="event-dashboard__info">
+                      <span className="event-dashboard__name">{feature.title}</span>
+                      <span className="event-dashboard__badge">{feature.badge}</span>
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
@@ -657,92 +708,122 @@ const ExclusiveEvents = () => {
           text-transform: uppercase;
         }
 
-        /* Events Showcase */
-        .events-showcase {
-          display: grid;
-          grid-template-columns: repeat(2, 1fr);
-          gap: var(--space-6);
+        /* Event Features Dashboard */
+        .event-dashboard {
           width: 100%;
-          max-width: 100%;
-          justify-items: center;
+          max-width: 420px;
+          background: rgba(255, 255, 255, 0.95);
+          border-radius: 1rem;
+          padding: 1.5rem;
+          box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.25);
+          backdrop-filter: blur(16px);
+          display: flex;
+          flex-direction: column;
+          gap: 1.5rem;
+          animation: eventDashboardFloat 6s ease-in-out infinite;
+          transform: translateY(14px);
+          opacity: 0;
+          transition: opacity 0.6s ease, transform 0.6s ease;
         }
 
-        .showcase-item {
-          background: rgba(255, 255, 255, 0.1);
-          backdrop-filter: blur(10px);
-          border: 1px solid rgba(255, 255, 255, 0.2);
-          border-radius: var(--radius-lg);
-          padding: var(--space-4);
-          text-align: center;
-          color: var(--color-white);
-          transition: var(--transition-base);
-          justify-self: center;
-          min-width: 140px;
-          min-height: 140px;
+        .event-dashboard--visible {
+          opacity: 1;
+          transform: translateY(0);
         }
 
-        .showcase-item:hover {
-          transform: scale(1.05);
-          background: rgba(255, 255, 255, 0.2);
+        .event-dashboard__header {
+          display: flex;
+          flex-direction: column;
+          gap: 0.35rem;
         }
 
-        .showcase-item i {
-          font-size: 1.75rem;
-          margin-bottom: var(--space-2);
-          color: var(--color-primary);
+        .event-dashboard__title {
+          font-size: 1rem;
+          font-weight: 700;
+          color: #2d3436;
+          letter-spacing: 0.04em;
+          text-transform: uppercase;
         }
 
-        .showcase-item span {
-          display: block;
-          font-size: 0.85rem;
-          font-weight: var(--font-weight-medium);
+        .event-dashboard__subtitle {
+          font-size: 0.875rem;
+          color: #718096;
+          letter-spacing: 0.02em;
         }
 
-        @media (min-width: 992px) {
-          .events-showcase {
-            grid-template-columns: repeat(4, 1fr);
-            max-width: 600px;
-          }
+        .event-dashboard__list {
+          display: flex;
+          flex-direction: column;
+          gap: 1rem;
         }
 
-        @media (min-width: 768px) and (max-width: 991px) {
-          .events-showcase {
-            grid-template-columns: repeat(2, 1fr);
-            max-width: 400px;
-          }
+        .event-dashboard__item {
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+          background: rgba(248, 250, 252, 0.95);
+          border-radius: 0.75rem;
+          padding: 1rem 1.25rem;
+          border: 1px solid rgba(226, 232, 240, 0.7);
+          box-shadow: 0 12px 30px -18px rgba(15, 23, 42, 0.3);
+          transform: translateX(24px);
+          opacity: 0;
+          transition: transform 0.45s ease, opacity 0.45s ease, box-shadow 0.45s ease;
+          transition-delay: calc(0.1s * var(--feature-index));
         }
 
-        @media (max-width: 767px) {
-          .events-showcase {
-            grid-template-columns: repeat(2, 1fr);
-            gap: var(--space-4);
-          }
-
-          .showcase-item {
-            min-width: 120px;
-            min-height: 120px;
-            padding: var(--space-4);
-          }
-
-          .showcase-item i {
-            font-size: 1.5rem;
-          }
-
-          .showcase-item span {
-            font-size: 0.75rem;
-          }
+        .event-dashboard--visible .event-dashboard__item {
+          transform: translateX(0);
+          opacity: 1;
         }
 
-        @media (max-width: 480px) {
-          .events-showcase {
-            grid-template-columns: 1fr;
-            max-width: 200px;
-            margin: 0 auto;
-          }
+        .event-dashboard--visible .event-dashboard__item:hover {
+          transform: translateX(0) scale(1.02);
+          box-shadow: 0 20px 45px -18px rgba(15, 23, 42, 0.35);
+        }
 
-          .showcase-item {
-            width: 100%;
-          }
+        .event-dashboard__icon {
+          width: 48px;
+          height: 48px;
+          border-radius: 0.75rem;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background: linear-gradient(135deg, #ff6b35 0%, #ff8a5c 100%);
+          color: #ffffff;
+          font-size: 1.5rem;
+          flex-shrink: 0;
+          box-shadow: 0 12px 20px -12px rgba(255, 107, 53, 0.65);
+        }
+
+        .event-dashboard__info {
+          display: flex;
+          flex-direction: column;
+          gap: 0.4rem;
+          width: 100%;
+        }
+
+        .event-dashboard__name {
+          font-size: 1rem;
+          font-weight: 600;
+          color: #2d3436;
+        }
+
+        .event-dashboard__badge {
+          align-self: flex-start;
+          font-size: 0.8rem;
+          font-weight: 600;
+          color: #ffffff;
+          background: linear-gradient(135deg, #ff6b35 0%, #ff8a5c 100%);
+          border-radius: 999px;
+          padding: 0.25rem 0.85rem;
+          letter-spacing: 0.06em;
+          text-transform: uppercase;
+        }
+
+        @keyframes eventDashboardFloat {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-10px); }
         }
 
         /* Feature List */
@@ -918,6 +999,10 @@ const ExclusiveEvents = () => {
             grid-template-columns: 1fr;
           }
 
+          .event-dashboard {
+            max-width: 380px;
+          }
+
           .timeline::before {
             left: var(--space-4);
           }
@@ -942,6 +1027,16 @@ const ExclusiveEvents = () => {
 
           .testimonials-grid {
             grid-template-columns: 1fr;
+          }
+
+          .event-dashboard {
+            max-width: 100%;
+            padding: 1.25rem;
+          }
+
+          .event-dashboard__item {
+            flex-direction: column;
+            align-items: flex-start;
           }
         }
       `}</style>

@@ -3,17 +3,52 @@ import { Link } from 'react-router-dom';
 import SEO from '../components/SEO';
 
 const Home = () => {
-  const cryptoIconsRef = useRef(null);
+  const dashboardRef = useRef(null);
+  const btcCounterRef = useRef(null);
+  const ethCounterRef = useRef(null);
+  const totalCounterRef = useRef(null);
 
   useEffect(() => {
-    // Animate crypto icons on mount
-    const icons = cryptoIconsRef.current?.querySelectorAll('.crypto-icon');
-    if (icons) {
-      icons.forEach((icon, index) => {
-        const delay = Math.random() * 2;
-        icon.style.animationDelay = `${delay}s`;
-      });
-    }
+    const animateCounter = (ref, target, formatter) => {
+      if (!ref.current) return;
+
+      const duration = 1600;
+      const start = performance.now();
+
+      const step = (now) => {
+        if (!ref.current) return;
+
+        const progress = Math.min((now - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        const value = target * eased;
+
+        ref.current.textContent = formatter(value);
+
+        if (progress < 1) {
+          requestAnimationFrame(step);
+        }
+      };
+
+      requestAnimationFrame(step);
+    };
+
+    const node = dashboardRef.current;
+    if (!node) return;
+
+    const observer = new IntersectionObserver((entries, obs) => {
+      const [entry] = entries;
+      if (!entry || !entry.isIntersecting) return;
+
+      animateCounter(btcCounterRef, 24.5, (value) => `+${value.toFixed(1)}%`);
+      animateCounter(ethCounterRef, 18.3, (value) => `+${value.toFixed(1)}%`);
+      animateCounter(totalCounterRef, 45.2, (value) => `€${value.toFixed(1)}K`);
+
+      obs.disconnect();
+    }, { threshold: 0.45 });
+
+    observer.observe(node);
+
+    return () => observer.disconnect();
   }, []);
 
   const services = [
@@ -75,15 +110,44 @@ const Home = () => {
             </div>
           </div>
           <div className="hero__visual">
-            <div className="hero__crypto-icons" ref={cryptoIconsRef}>
-              <div className="crypto-icon crypto-icon--bitcoin">
-                <span>₿</span>
+            <div className="portfolio-dashboard" ref={dashboardRef}>
+              <header className="portfolio-dashboard__header">
+                <span className="portfolio-dashboard__title">📊 PORTFOLIO LIVE</span>
+                <span className="portfolio-dashboard__badge">LIVE</span>
+              </header>
+
+              <div className="portfolio-dashboard__metrics" role="list">
+                <div className="portfolio-metric portfolio-metric--btc" role="listitem">
+                  <span className="portfolio-metric__label">BTC</span>
+                  <span className="portfolio-metric__value" ref={btcCounterRef}>+0.0%</span>
+                  <span className="portfolio-metric__caption">Performance 24h</span>
+                </div>
+                <div className="portfolio-metric portfolio-metric--eth" role="listitem">
+                  <span className="portfolio-metric__label">ETH</span>
+                  <span className="portfolio-metric__value" ref={ethCounterRef}>+0.0%</span>
+                  <span className="portfolio-metric__caption">Performance 24h</span>
+                </div>
+                <div className="portfolio-metric portfolio-metric--total" role="listitem">
+                  <span className="portfolio-metric__label">Total Value</span>
+                  <span className="portfolio-metric__value" ref={totalCounterRef}>€0.0K</span>
+                  <span className="portfolio-metric__caption">Aggiornato ora</span>
+                </div>
               </div>
-              <div className="crypto-icon crypto-icon--ethereum">
-                <span>Ξ</span>
-              </div>
-              <div className="crypto-icon crypto-icon--litecoin">
-                <span>Ł</span>
+
+              <div className="portfolio-dashboard__chart" aria-hidden="true">
+                <div className="portfolio-dashboard__chart-header">
+                  <span className="portfolio-dashboard__chart-title">Crypto Portfolio Tracker</span>
+                  <span className="portfolio-dashboard__chart-status">ATTIVO</span>
+                </div>
+                <div className="portfolio-dashboard__sparkline">
+                  {[68, 92, 56, 88, 74, 97].map((height, index) => (
+                    <span
+                      key={`bar-${index}`}
+                      className="portfolio-dashboard__bar"
+                      style={{ '--bar-index': index, '--bar-height': `${height}%` }}
+                    ></span>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
@@ -232,50 +296,159 @@ const Home = () => {
           height: 500px;
         }
 
-        .hero__crypto-icons {
-          position: relative;
-          width: 400px;
-          height: 400px;
-          animation: float 6s ease-in-out infinite;
+        .portfolio-dashboard {
+          width: 100%;
+          max-width: 420px;
+          background: #ffffff;
+          border-radius: 1rem;
+          padding: 1.5rem;
+          box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.25);
+          display: flex;
+          flex-direction: column;
+          gap: 1.25rem;
+          animation: dashboardFloat 6s ease-in-out infinite;
         }
 
-        .crypto-icon {
-          position: absolute;
-          width: 80px;
-          height: 80px;
-          border-radius: 50%;
+        .portfolio-dashboard__header {
           display: flex;
           align-items: center;
-          justify-content: center;
-          background: rgba(255, 255, 255, 0.1);
-          backdrop-filter: blur(10px);
-          box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
-          animation: float 6s ease-in-out infinite;
-          overflow: hidden;
-          color: white;
-          font-size: 2rem;
-          font-weight: bold;
+          justify-content: space-between;
         }
 
-        .crypto-icon--bitcoin {
-          top: 20%;
-          left: 10%;
-          animation-delay: 0s;
-          color: #f7931a;
+        .portfolio-dashboard__title {
+          font-size: 1rem;
+          font-weight: 600;
+          color: #2d3436;
+          letter-spacing: 0.02em;
         }
 
-        .crypto-icon--ethereum {
-          top: 40%;
-          right: 15%;
-          animation-delay: 0.7s;
-          color: #627eea;
+        .portfolio-dashboard__badge {
+          font-size: 0.75rem;
+          font-weight: 700;
+          color: #ffffff;
+          background: #10b981;
+          border-radius: 999px;
+          padding: 0.25rem 0.75rem;
+          text-transform: uppercase;
+          letter-spacing: 0.08em;
         }
 
-        .crypto-icon--litecoin {
-          bottom: 30%;
-          left: 30%;
-          animation-delay: 1.4s;
-          color: #bfbbbb;
+        .portfolio-dashboard__metrics {
+          display: grid;
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+          gap: 1rem;
+        }
+
+        .portfolio-metric {
+          background: linear-gradient(135deg, rgba(255, 107, 53, 0.08) 0%, rgba(255, 138, 92, 0.12) 100%);
+          border-radius: 0.75rem;
+          padding: 1rem;
+          display: flex;
+          flex-direction: column;
+          gap: 0.35rem;
+          transition: transform 0.2s ease, box-shadow 0.2s ease;
+          animation: metricFade 0.6s ease forwards;
+        }
+
+        .portfolio-metric:nth-of-type(1) {
+          animation-delay: 0.1s;
+        }
+
+        .portfolio-metric:nth-of-type(2) {
+          animation-delay: 0.2s;
+        }
+
+        .portfolio-metric:nth-of-type(3) {
+          animation-delay: 0.3s;
+        }
+
+        .portfolio-metric:hover {
+          transform: translateY(-2px) scale(1.02);
+          box-shadow: 0 18px 35px -18px rgba(15, 23, 42, 0.35);
+        }
+
+        .portfolio-metric__label {
+          font-size: 0.875rem;
+          font-weight: 600;
+          color: #2d3436;
+          letter-spacing: 0.04em;
+          text-transform: uppercase;
+        }
+
+        .portfolio-metric__value {
+          font-size: 1.75rem;
+          font-weight: 700;
+          color: #2d3436;
+        }
+
+        .portfolio-metric__caption {
+          font-size: 0.75rem;
+          font-weight: 500;
+          color: #718096;
+          letter-spacing: 0.02em;
+          text-transform: uppercase;
+        }
+
+        .portfolio-dashboard__chart {
+          background: rgba(255, 255, 255, 0.9);
+          border-radius: 0.75rem;
+          padding: 1.25rem;
+          border: 1px solid rgba(226, 232, 240, 0.6);
+          display: flex;
+          flex-direction: column;
+          gap: 1rem;
+        }
+
+        .portfolio-dashboard__chart-header {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+        }
+
+        .portfolio-dashboard__chart-title {
+          font-size: 0.875rem;
+          font-weight: 600;
+          color: #2d3436;
+        }
+
+        .portfolio-dashboard__chart-status {
+          font-size: 0.75rem;
+          font-weight: 700;
+          color: #10b981;
+          background: rgba(16, 185, 129, 0.12);
+          border-radius: 999px;
+          padding: 0.2rem 0.75rem;
+          text-transform: uppercase;
+          letter-spacing: 0.08em;
+          animation: badgePulse 2.5s ease-in-out infinite;
+        }
+
+        .portfolio-dashboard__sparkline {
+          display: flex;
+          align-items: flex-end;
+          gap: 0.75rem;
+          height: 120px;
+          width: 100%;
+        }
+
+        .portfolio-dashboard__bar {
+          flex: 1;
+          max-width: 14px;
+          border-radius: 999px;
+          background: linear-gradient(180deg, #ff6b35 0%, #ff8a5c 80%);
+          height: 0;
+          opacity: 0;
+          animation: barGrow 1s ease-out forwards;
+          animation-delay: calc(0.12s * var(--bar-index));
+        }
+
+        .portfolio-dashboard__bar::after {
+          content: '';
+          display: block;
+          width: 100%;
+          height: 100%;
+          border-radius: inherit;
+          background: linear-gradient(180deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0) 100%);
         }
 
         /* Services Styles */
@@ -624,12 +797,45 @@ const Home = () => {
           }
         }
 
-        @keyframes float {
+        @keyframes dashboardFloat {
           0%, 100% {
-            transform: translateY(0px) rotate(0deg);
+            transform: translateY(0);
           }
           50% {
-            transform: translateY(-20px) rotate(180deg);
+            transform: translateY(-10px);
+          }
+        }
+
+        @keyframes badgePulse {
+          0%, 100% {
+            transform: scale(1);
+            box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.3);
+          }
+          50% {
+            transform: scale(1.05);
+            box-shadow: 0 0 0 6px rgba(16, 185, 129, 0);
+          }
+        }
+
+        @keyframes barGrow {
+          0% {
+            height: 0;
+            opacity: 0;
+          }
+          100% {
+            height: var(--bar-height);
+            opacity: 1;
+          }
+        }
+
+        @keyframes metricFade {
+          0% {
+            opacity: 0;
+            transform: translateY(15px);
+          }
+          100% {
+            opacity: 1;
+            transform: translateY(0);
           }
         }
 
@@ -661,19 +867,12 @@ const Home = () => {
           }
           
           .hero__visual {
-            height: 300px;
+            height: auto;
             order: -1;
           }
-          
-          .hero__crypto-icons {
-            width: 250px;
-            height: 250px;
-          }
-          
-          .crypto-icon {
-            width: 60px;
-            height: 60px;
-            font-size: 1.25rem;
+
+          .portfolio-dashboard {
+            max-width: 380px;
           }
 
           .services__grid {
@@ -691,20 +890,40 @@ const Home = () => {
             padding: 3rem 1.5rem;
           }
           
-          .hero__title {
-            font-size: 1.875rem;
+          .hero__visual {
+            height: auto;
           }
-          
-          .hero__cta {
-            flex-direction: column;
-            align-items: center;
+
+          .portfolio-dashboard {
+            padding: 1rem;
+            max-width: 100%;
+            gap: 1rem;
           }
-          
-          .btn {
-            width: 100%;
-            max-width: 280px;
+
+          .portfolio-dashboard__title {
+            font-size: 0.875rem;
           }
-          
+
+          .portfolio-dashboard__metrics {
+            grid-template-columns: 1fr;
+          }
+
+          .portfolio-metric {
+            padding: 0.875rem;
+          }
+
+          .portfolio-metric__value {
+            font-size: 1.5rem;
+          }
+
+          .portfolio-dashboard__sparkline {
+            height: 100px;
+            gap: 0.5rem;
+          }
+
+          .portfolio-dashboard__bar {
+            max-width: 12px;
+          }
           .hero__visual {
             height: 200px;
           }
