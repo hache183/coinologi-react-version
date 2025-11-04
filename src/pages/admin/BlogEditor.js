@@ -104,6 +104,25 @@ const BlogEditor = () => {
       return;
     }
 
+    if (file.size > 2 * 1024 * 1024) {
+      setError('L\'immagine supera i 2MB. Comprimi l\'immagine e riprova.');
+      setSuccessMessage(null);
+      if (fileInputRef.current) {
+        fileInputRef.current.value = '';
+      }
+      return;
+    }
+
+    const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
+    if (!allowedTypes.includes(file.type)) {
+      setError('Formato non supportato. Usa JPG, PNG o WebP.');
+      setSuccessMessage(null);
+      if (fileInputRef.current) {
+        fileInputRef.current.value = '';
+      }
+      return;
+    }
+
     const supportsObjectURL = typeof URL !== 'undefined' && typeof URL.createObjectURL === 'function';
     const objectUrl = supportsObjectURL ? URL.createObjectURL(file) : null;
     if (objectUrl) {
@@ -346,22 +365,35 @@ const BlogEditor = () => {
                       style={{ display: 'none' }}
                       disabled={isUploading}
                     />
-                    <small>Supporto immagini fino a 2MB. Il file verrà ospitato dal backend.</small>
+                    <small style={{ display: 'block', marginBottom: '8px' }}>
+                      📸 <strong>Dimensioni consigliate:</strong> 1200x675px (16:9) o 1200x900px (4:3)
+                    </small>
+                    <small style={{ display: 'block', marginBottom: '8px' }}>
+                      📏 <strong>Formati supportati:</strong> JPG, PNG, WebP
+                    </small>
+                    <small style={{ display: 'block', color: 'var(--color-gray-600)' }}>
+                      ⚠️ <strong>Limite:</strong> Max 2MB per file. Le immagini saranno visualizzate senza taglio.
+                    </small>
                   </div>
                   {imagePreviewSrc ? (
-                    <div className="editor__image-preview">
-                      <img src={imagePreviewSrc} alt="Anteprima immagine in evidenza" />
+                    <>
+                      <div className="editor__image-preview">
+                        <img src={imagePreviewSrc} alt="Anteprima immagine in evidenza" />
+                      </div>
                       <button
                         type="button"
                         className="btn btn--link btn--danger"
                         onClick={() => {
                           setPreviewUrl(null);
                           setForm((prev) => ({ ...prev, featuredImage: '' }));
+                          if (fileInputRef.current) {
+                            fileInputRef.current.value = '';
+                          }
                         }}
                       >
                         Rimuovi immagine
                       </button>
-                    </div>
+                    </>
                   ) : null}
                 </label>
 

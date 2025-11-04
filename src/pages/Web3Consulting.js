@@ -363,11 +363,6 @@ const Web3Consulting = () => {
           animation: glow 2s ease-in-out infinite alternate;
         }
 
-        @keyframes glow {
-          from { box-shadow: 0 0 20px rgba(139, 92, 246, 0.5); }
-          to { box-shadow: 0 0 30px rgba(139, 92, 246, 0.8); }
-        }
-
         .hero__stats {
           display: flex;
           gap: 2rem;
@@ -412,22 +407,22 @@ const Web3Consulting = () => {
           box-shadow: 0 25px 50px rgba(15, 23, 42, 0.25);
           max-width: 420px;
           width: 100%;
-          animation: float 6s ease-in-out infinite;
           border: 1px solid rgba(226, 232, 240, 0.8);
           opacity: 0;
           transform: translateY(16px);
-          transition: opacity 0.6s ease, transform 0.6s ease;
-          animation-play-state: paused;
+          transition: opacity 0.6s ease, transform 0.6s ease, box-shadow 0.3s ease;
+          will-change: transform;
         }
 
         .services-dashboard--visible {
           opacity: 1;
           transform: translateY(0);
-          animation-play-state: running;
+          box-shadow: 0 35px 60px rgba(15, 23, 42, 0.3);
         }
 
         .services-dashboard.no-animation {
-          animation: none;
+          transform: none;
+          box-shadow: 0 25px 50px rgba(15, 23, 42, 0.25);
         }
 
         .dashboard-header {
@@ -693,12 +688,6 @@ const Web3Consulting = () => {
           max-width: 100%;
           overflow: visible;
         }
-
-        @keyframes float {
-          0%, 100% { transform: translateY(0); }
-          50% { transform: translateY(-10px); }
-        }
-
         @keyframes slideInRight {
           from {
             opacity: 0;

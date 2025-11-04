@@ -2,6 +2,14 @@
   display: flex;
   gap: var(--space-4);
   flex-wrap: wrap;
+  background: #fff;
+  border-radius: var(--radius-xl);
+  padding: clamp(var(--space-4), 4vw, var(--space-5));
+  box-shadow: var(--shadow-sm);
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  min-height: 100%;
 }
 
 .button {

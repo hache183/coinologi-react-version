@@ -452,17 +452,21 @@ const AboutUs = () => {
           max-width: 420px;
           width: 100%;
           border: 1px solid rgba(255, 255, 255, 0.3);
-          animation: float 6s ease-in-out infinite;
-          animation-play-state: paused;
           opacity: 0;
           transform: translateY(16px);
-          transition: opacity 0.6s ease, transform 0.6s ease;
+          transition: opacity 0.6s ease, transform 0.6s ease, box-shadow 0.3s ease;
+          will-change: transform;
         }
 
         .stats-dashboard--visible {
           opacity: 1;
           transform: translateY(0);
-          animation-play-state: running;
+          box-shadow: 0 35px 60px rgba(15, 23, 42, 0.3);
+        }
+
+        .stats-dashboard:hover {
+          transform: translateY(-6px);
+          box-shadow: 0 35px 60px rgba(15, 23, 42, 0.32);
         }
 
         .dashboard-header {
@@ -903,12 +907,6 @@ const AboutUs = () => {
           color: var(--color-gray-600);
           line-height: var(--line-height-relaxed);
           margin-bottom: 0;
-        }
-
-        /* Float Animation */
-        @keyframes float {
-          0%, 100% { transform: translateY(0); }
-          50% { transform: translateY(-10px); }
         }
 
         @keyframes fadeInUp {

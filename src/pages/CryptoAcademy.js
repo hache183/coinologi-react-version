@@ -77,17 +77,16 @@ const CryptoAcademy = () => {
       id: 'academy-base-registered',
       level: 'Base',
       icon: 'fas fa-laptop-code',
-      title: 'Formazione Base (Corsi Registrati)',
+      title: 'Coinologi Academy',
       description: 'Percorso on-demand completo con contenuti aggiornati e supporto costante.',
       features: [
         'Accesso a tutti i corsi video registrati',
-        '2 call live settimanali/mensili (da definire in UI)',
+        '1 o 2 call live settimanali',
         'Materiali scaricabili e aggiornati',
-        'Certificazione finale inclusa',
-        'Sconto €80 su sala segnali (paghi €70 invece di €150)'
+        'Accesso alle community VIP'
       ],
       newPrice: '€150/mese',
-      cta: 'Iscriviti alla Base'
+      cta: 'Iscriviti alla Coinologi Academy'
     },
     {
       id: 'academy-one-to-one',
@@ -98,9 +97,8 @@ const CryptoAcademy = () => {
       features: [
         'Consulenza personalizzata 1-on-1',
         'Piano di studi tailor-made',
-        'Sessioni registrate e disponibili on demand',
         'Follow-up dedicato via chat',
-        '€70/ora per chi ha formazione mensile (max 5 ore/mese)'
+        '€70/ora per chi ha Coinologi Academy (max 5 ore/mese)'
       ],
       newPrice: '€100/ora',
       cta: 'Prenota la One-to-One'
@@ -112,7 +110,7 @@ const CryptoAcademy = () => {
       title: 'Pacchetto Completo',
       description: 'La combinazione ideale di formazione, coaching e segnali professionali.',
       features: [
-        'Tutti i vantaggi della Formazione Base',
+        'Tutti i vantaggi della Coinologi Academy',
         'Sala Segnali Mensile inclusa',
         'Sconto dedicato sulla Formazione One-to-One',
         'Supporto prioritario e community esclusiva',
@@ -444,12 +442,13 @@ const CryptoAcademy = () => {
           padding: 1.5rem;
           box-shadow: 0 35px 60px -12px rgba(0, 0, 0, 0.3);
           backdrop-filter: blur(20px);
-          animation: float 6s ease-in-out infinite;
+          transition: transform 0.3s ease, box-shadow 0.3s ease;
+          transform: translateZ(0);
         }
 
-        @keyframes float {
-          0%, 100% { transform: translateY(0px); }
-          50% { transform: translateY(-10px); }
+        .academy-dashboard:hover {
+          transform: translateY(-6px);
+          box-shadow: 0 45px 80px -12px rgba(0, 0, 0, 0.34);
         }
 
         .dashboard-header {

@@ -703,17 +703,21 @@ const ExclusiveEvents = () => {
           max-width: 420px;
           width: 100%;
           border: 1px solid rgba(255, 255, 255, 0.3);
-          animation: float 6s ease-in-out infinite;
           opacity: 0;
           transform: translateY(16px);
-          transition: opacity 0.6s ease, transform 0.6s ease;
-          animation-play-state: paused;
+          transition: opacity 0.6s ease, transform 0.6s ease, box-shadow 0.3s ease;
+          will-change: transform;
         }
 
         .features-dashboard--visible {
           opacity: 1;
           transform: translateY(0);
-          animation-play-state: running;
+          box-shadow: 0 35px 60px rgba(15, 23, 42, 0.3);
+        }
+
+        .features-dashboard:hover {
+          transform: translateY(-6px);
+          box-shadow: 0 35px 60px rgba(15, 23, 42, 0.32);
         }
 
         .dashboard-header {
@@ -813,11 +817,6 @@ const ExclusiveEvents = () => {
         .feature-item:hover .feature-arrow {
           color: #ff6b35;
           transform: translateX(4px);
-        }
-
-        @keyframes float {
-          0%, 100% { transform: translateY(0); }
-          50% { transform: translateY(-10px); }
         }
 
         @keyframes fadeInUp {

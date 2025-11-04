@@ -80,11 +80,27 @@ const Dashboard = () => {
             <div>
               <h1>Dashboard amministrativa</h1>
               <p>Benvenuto, {user?.name}</p>
+              <nav className="dashboard__breadcrumb" aria-label="Navigazione">
+                <Link to="/" className="breadcrumb-link">
+                  <i className="fas fa-home" aria-hidden="true" /> Home
+                </Link>
+                <span className="breadcrumb-separator">/</span>
+                <Link to="/blog" className="breadcrumb-link">
+                  <i className="fas fa-newspaper" aria-hidden="true" /> Blog
+                </Link>
+                <span className="breadcrumb-separator">/</span>
+                <span className="breadcrumb-current">Dashboard Admin</span>
+              </nav>
             </div>
             <div className="dashboard__actions">
-              <Link to="/admin/blog/new" className="btn btn--primary">Nuovo articolo</Link>
+              <Link to="/" className="btn btn--secondary">
+                <i className="fas fa-arrow-left" aria-hidden="true" /> Torna al Sito
+              </Link>
+              <Link to="/admin/blog/new" className="btn btn--primary">
+                <i className="fas fa-plus" aria-hidden="true" /> Nuovo Articolo
+              </Link>
               <button type="button" className="btn btn--secondary" onClick={handleLogout}>
-                Logout
+                <i className="fas fa-sign-out-alt" aria-hidden="true" /> Logout
               </button>
             </div>
           </header>

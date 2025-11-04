@@ -201,7 +201,7 @@
 }
 .navBackdrop {
   position: fixed;
-  top: 130px;
+  top: 0;
   left: 0;
   right: 0;
   bottom: 0;
@@ -214,7 +214,7 @@
   }
   .navMenu {
     position: fixed;
-    top: 130px;
+    top: 0;
     left: 0;
     right: 0;
     background: white;
@@ -223,12 +223,20 @@
     flex-direction: column;
     align-items: stretch;
     gap: 0;
-    padding: 1.5rem;
+    padding: calc(130px + 1.5rem) 1.5rem calc(1.5rem + env(safe-area-inset-bottom, 0));
     transform: translateY(-100%);
     opacity: 0;
     visibility: hidden;
     transition: all 0.3s ease;
     z-index: 9999;
+    border-radius: 0;
+    height: 100vh;
+    overflow-y: auto;
+  }
+  @supports (height: 100dvh) {
+    .navMenu {
+      height: 100dvh;
+    }
   }
   .navMenuActive {
     transform: translateY(0);

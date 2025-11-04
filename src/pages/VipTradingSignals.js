@@ -500,14 +500,15 @@ const VipTradingSignals = () => {
           padding: 1.5rem;
           box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.25);
           border: 1px solid rgba(226, 232, 240, 0.9);
-          animation: float 6s ease-in-out infinite;
           width: 100%;
           max-width: 420px;
+          transition: transform 0.3s ease, box-shadow 0.3s ease;
+          transform: translateZ(0);
         }
 
-        @keyframes float {
-          0%, 100% { transform: translateY(0px); }
-          50% { transform: translateY(-10px); }
+        .trading-dashboard:hover {
+          transform: translateY(-6px);
+          box-shadow: 0 35px 60px rgba(15, 23, 42, 0.3);
         }
 
         .dashboard-header {
