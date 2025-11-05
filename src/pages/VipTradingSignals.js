@@ -107,11 +107,6 @@ const VipTradingSignals = () => {
       description: 'Accesso al gruppo Telegram VIP con discussioni, Q&A live e condivisione di strategie tra membri selezionati.'
     },
     {
-      icon: 'fas fa-video',
-      title: 'Webinar Settimanali',
-      description: 'Sessioni live esclusive con Marco Rossi per analisi di mercato, strategie avanzate e Q&A riservate ai VIP.'
-    },
-    {
       icon: 'fas fa-mobile-alt',
       title: 'App Mobile Dedicata',
       description: 'Dashboard personalizzata per tracciare performance, portfolio e ricevere notifiche push per ogni nuovo segnale.'
@@ -120,27 +115,6 @@ const VipTradingSignals = () => {
       icon: 'fas fa-headset',
       title: 'Supporto Priority 24/7',
       description: 'Assistenza dedicata via chat privata per dubbi su segnali, strategie o problemi tecnici.'
-    }
-  ];
-
-  const testimonials = [
-    {
-      stars: 5,
-      text: 'In 6 mesi ho ottenuto +87% di ROI seguendo i segnali VIP. La qualità delle analisi è impressionante e il supporto sempre presente.',
-      author: 'Alessandro M.',
-      role: 'Trader VIP da 8 mesi'
-    },
-    {
-      stars: 5,
-      text: 'Finalmente un servizio serio nel mondo crypto italiano. I segnali sono precisi e la community è il valore aggiunto.',
-      author: 'Martina R.',
-      role: 'Investitrice VIP da 1 anno'
-    },
-    {
-      stars: 5,
-      text: 'Da quando seguo COINOLOGI VIP ho triplicato il mio portfolio. La trasparenza e professionalità sono uniche.',
-      author: 'Giuseppe T.',
-      role: 'Trader VIP da 2 anni'
     }
   ];
 
@@ -154,10 +128,7 @@ const VipTradingSignals = () => {
         'Accesso completo segnali VIP per 12 mesi',
         'Bot trading automatico incluso',
         'Analisi tecniche avanzate',
-        'Community Telegram VIP',
-        'Supporto priority 24/7',
-        'Webinar mensili esclusivi',
-        '€700 per chi ha già formazione trimestrale'
+        'Supporto priority 24/7'
       ],
       cta: 'Richiedi Annuale',
       featured: true
@@ -165,7 +136,7 @@ const VipTradingSignals = () => {
     {
       name: 'Sala Segnali Mensile',
       badge: 'Mensile',
-      price: '€70',
+      price: '€120',
       period: '/mese',
       features: [
         'Segnali di trading in tempo reale',
@@ -322,26 +293,6 @@ const VipTradingSignals = () => {
         </div>
       </section>
 
-      {/* Testimonials Section */}
-      <section className="testimonials">
-        <div className="container">
-          <h2 className="testimonials__title">Cosa Dicono i Nostri VIP</h2>
-          <div className="testimonials__grid">
-            {testimonials.map((testimonial, index) => (
-              <div key={index} className="testimonial-card">
-                <div className="testimonial__stars">
-                  {'⭐'.repeat(testimonial.stars)}
-                </div>
-                <p className="testimonial__text">{testimonial.text}</p>
-                <div className="testimonial__author">
-                  <strong>{testimonial.author}</strong>
-                  <span>{testimonial.role}</span>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* Pricing Section */}
       <section className="vip-pricing">

@@ -82,7 +82,7 @@ const AboutUs = () => {
     {
       year: '2020',
       title: 'Crypto Academy',
-      description: 'Lancio della Crypto Academy con i primi corsi di formazione strutturati. Centinaia di studenti iniziano il loro percorso crypto con noi.'
+      description: 'Lancio della Crypto Academy con i primi corsi di formazione strutturati. Decine di studenti iniziano il loro percorso crypto con noi.'
     },
     {
       year: '2022',
@@ -98,51 +98,32 @@ const AboutUs = () => {
 
   const team = [
     {
-      name: 'Ivan Eo',
+      name: 'Ivan Epicoco',
       role: 'Founder & CEO',
       credential: 'Dottore Commercialista',
-      bio: 'Pioniere del settore crypto in Italia, Ivan ha iniziato il suo percorso nel 2014. Con la sua esperienza di Dottore Commercialista e la passione per l\'innovazione, guida COINOLOGI verso nuovi traguardi nel mondo blockchain.',
+      bio: 'Pioniere del settore crypto in Italia, Ivan ha iniziato il suo percorso nel 2014. Autore del libro "Diritto del Metaverso" pubblicato da Giappicchelli e ricercatore presso l\'Università di Trento, guida COINOLOGI con visione e innovazione.',
       stats: [
         { number: '10+', label: 'Anni Crypto' },
         { number: '500+', label: 'Consulenze' }
       ],
       isFounder: true,
       links: {
-        linkedin: 'https://www.linkedin.com/in/ivan-coinologi',
-        twitter: 'https://twitter.com/coinologi'
+        linkedin: 'https://www.linkedin.com/in/ivan-coinologi'
       }
     },
     {
-      name: 'Marco Rossi',
-      role: 'Head of Trading',
+      name: 'Marco Epicoco',
+      role: 'CTO',
       credential: 'Analista Finanziario',
-      bio: 'Ex trader istituzionale con 15 anni di esperienza nei mercati tradizionali e crypto. Marco guida la nostra divisione trading e sviluppa strategie innovative per i nostri VIP signals.',
+      bio: 'Trader con diversi anni di esperienza nel trading crypto. Marco guida la nostra divisione trading e sviluppa strategie innovative per i nostri VIP signals.',
+           stats: [
+        { number: '15+', label: 'Anni Crypto' },
+        { number: '1000+', label: 'Analisi Tecniche' }
+      ],
       links: {
-        linkedin: 'https://www.linkedin.com/in/marco-rossi-trading',
-        twitter: 'https://twitter.com/coinologi'
+        linkedin: 'https://www.linkedin.com/in/marco-epicoco'
       }
     },
-    {
-      name: 'Sara Bianchi',
-      role: 'Blockchain Developer',
-      credential: 'Specialista DeFi',
-      bio: 'Sviluppatrice blockchain esperta in smart contracts e protocolli DeFi. Sara guida i nostri progetti di consulenza Web3 e sviluppo di soluzioni innovative.',
-      links: {
-        linkedin: 'https://www.linkedin.com/in/sara-bianchi-dev',
-        twitter: 'https://twitter.com/coinologi',
-        github: 'https://github.com/sarabi-dev'
-      }
-    },
-    {
-      name: 'Luca Verde',
-      role: 'Community Manager',
-      credential: 'Specialista Marketing',
-      bio: 'Esperto di community building e marketing crypto. Luca gestisce la nostra community e sviluppa strategie per coinvolgere e educare i nostri membri.',
-      links: {
-        linkedin: 'https://www.linkedin.com/in/luca-verde-marketing',
-        twitter: 'https://twitter.com/coinologi'
-      }
-    }
   ];
 
   const values = [

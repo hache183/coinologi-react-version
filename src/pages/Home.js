@@ -56,7 +56,7 @@ const Home = () => {
       id: 'crypto-academy',
       icon: 'fas fa-graduation-cap',
       title: 'Crypto Academy',
-      description: 'Percorsi di formazione certificati per padroneggiare blockchain, crypto e trading, con metodi chiari e concreti adatti a ogni livello di esperienza.',
+      description: 'Percorsi di formazione per padroneggiare blockchain, crypto e trading, con metodi chiari e concreti adatti a ogni livello di esperienza.',
       link: 'Scopri di più',
       featured: false
     },
@@ -123,7 +123,7 @@ const Home = () => {
                   </div>
                   <div className="portfolio-info">
                     <span className="portfolio-label">Bitcoin</span>
-                    <span className="portfolio-value">€32.450</span>
+                    <span className="portfolio-value">€273.450</span>
                   </div>
                   <span className="portfolio-change portfolio-change--positive" ref={btcChangeRef}>+0.0%</span>
                 </div>
@@ -134,7 +134,7 @@ const Home = () => {
                   </div>
                   <div className="portfolio-info">
                     <span className="portfolio-label">Ethereum</span>
-                    <span className="portfolio-value">€12.800</span>
+                    <span className="portfolio-value">€78.800</span>
                   </div>
                   <span className="portfolio-change portfolio-change--positive" ref={ethChangeRef}>+0.0%</span>
                 </div>
