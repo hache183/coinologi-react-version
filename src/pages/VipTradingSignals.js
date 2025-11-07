@@ -1,93 +1,21 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React from 'react';
+import { Link } from 'react-router-dom';
 import SEO from '../components/SEO';
 
 const VipTradingSignals = () => {
-  const [dashboardProfit, setDashboardProfit] = useState(4.2);
-  const chartBarsRef = useRef([]);
-  const summaryNumbersRef = useRef([]);
-
-  useEffect(() => {
-    // Animate chart bars
-    const chartObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const height = entry.target.dataset.height;
-          entry.target.style.height = '0%';
-          setTimeout(() => {
-            entry.target.style.height = height;
-          }, 200);
-          chartObserver.unobserve(entry.target);
-        }
-      });
-    });
-
-    chartBarsRef.current.forEach(bar => {
-      if (bar) chartObserver.observe(bar);
-    });
-
-    // Animate summary numbers
-    const summaryObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          animateNumber(entry.target);
-          summaryObserver.unobserve(entry.target);
-        }
-      });
-    });
-
-    summaryNumbersRef.current.forEach(number => {
-      if (number) summaryObserver.observe(number);
-    });
-
-    // Animate trading dashboard profit
-    const profitInterval = setInterval(() => {
-      setDashboardProfit(prev => {
-        const change = (Math.random() * 0.2 - 0.1);
-        return Math.max(0, prev + change);
-      });
-    }, 3000);
-
-    return () => {
-      chartObserver.disconnect();
-      summaryObserver.disconnect();
-      clearInterval(profitInterval);
-    };
-  }, []);
-
-  const animateNumber = (element) => {
-    const target = element.textContent;
-    const isPercent = target.includes('%');
-    const isPlus = target.includes('+');
-    const isRatio = target.includes(':');
-    
-    if (isRatio) return; // Don't animate ratio values
-
-    const number = parseFloat(target.replace(/[^\d.]/g, ''));
-    let current = 0;
-    const increment = number / 50;
-    
-    const timer = setInterval(() => {
-      current += increment;
-      if (current >= number) {
-        current = number;
-        clearInterval(timer);
-      }
-      
-      let displayValue = Math.floor(current * 10) / 10; // One decimal place
-      let finalText = '';
-      if (isPlus) finalText += '+';
-      finalText += displayValue;
-      if (isPercent) finalText += '%';
-      
-      element.textContent = finalText;
-    }, 40);
-  };
-
-  const performanceData = [
-    { month: 'Gennaio 2025', profit: '+24.7%', height: '85%', signals: '15 Segnali • 13 Vincenti' },
-    { month: 'Dicembre 2024', profit: '+31.2%', height: '92%', signals: '18 Segnali • 17 Vincenti' },
-    { month: 'Novembre 2024', profit: '+18.9%', height: '76%', signals: '12 Segnali • 10 Vincenti' },
-    { month: 'Ottobre 2024', profit: '+15.3%', height: '68%', signals: '14 Segnali • 11 Vincenti' }
+  const heroHighlights = [
+    {
+      title: 'Report Verificati',
+      subtitle: 'Risultati aggiornati disponibili nella nuova pagina Risultati'
+    },
+    {
+      title: 'Strategie Multi-Timeframe',
+      subtitle: 'Ogni segnale include piano operativo completo e gestione del rischio'
+    },
+    {
+      title: 'Community Premium',
+      subtitle: 'Supporto dedicato e sessioni live con il team di analisti'
+    }
   ];
 
   const features = [
@@ -168,27 +96,21 @@ const VipTradingSignals = () => {
               La Community Riservata ai Vincenti
             </h1>
             <p className="hero__description">
-              Accedi ai segnali di trading crypto più esclusivi del mercato italiano. 
-              Analisi avanzate, strategie provate e una community riservata a investitori selezionati per massimizzare i tuoi risultati.
-            </p>
-            <div className="hero__stats">
-              <div className="hero__stat">
-                <span className="stat-number">+127%</span>
-                <span className="stat-label">ROI Medio 2024</span>
+                Accedi ai segnali di trading crypto più esclusivi del mercato italiano.
+                Analisi avanzate, strategie provate e una community riservata a investitori selezionati per massimizzare i tuoi risultati.
+              </p>
+              <div className="hero__stats">
+                {heroHighlights.map((item, index) => (
+                  <div key={index} className="hero__stat">
+                    <span className="stat-number">{item.title}</span>
+                    <span className="stat-label">{item.subtitle}</span>
+                  </div>
+                ))}
               </div>
-              <div className="hero__stat">
-                <span className="stat-number">89%</span>
-                <span className="stat-label">Win Rate</span>
+              <div className="hero__cta">
+                <button className="btn btn--primary">Accedi Ora</button>
+                <Link to="/results" className="btn btn--secondary">Vedi Risultati</Link>
               </div>
-              <div className="hero__stat">
-                <span className="stat-number">150+</span>
-                <span className="stat-label">Membri VIP</span>
-              </div>
-            </div>
-            <div className="hero__cta">
-              <button className="btn btn--primary">Accedi Ora</button>
-              <button className="btn btn--secondary">Vedi Performance</button>
-            </div>
           </div>
           <div className="hero__visual">
             <div className="trading-dashboard">
@@ -213,65 +135,28 @@ const VipTradingSignals = () => {
                   <span>TP1: $126,000 </span>
                   <span>SL: $79,100</span>
                 </div>
-                <div className="signal-profit">+{dashboardProfit.toFixed(1)}% PROFIT</div>
+                <div className="signal-profit">Storico risultati disponibile nella pagina Risultati</div>
               </div>
               <div className="recent-signals">
-                <div className="mini-signal">ETH/USDT +7.3% ✅</div>
-                <div className="mini-signal">ADA/USDT +12.1% ✅</div>
-                <div className="mini-signal">SOL/USDT +8.7% ✅</div>
+                <div className="mini-signal">ETH/USDT segnale completato ✅</div>
+                <div className="mini-signal">ADA/USDT gestione attiva 🛡️</div>
+                <div className="mini-signal">SOL/USDT sessione live conclusa 🎯</div>
               </div>
             </div>
           </div>
         </div>
       </section>
-      {/* ...existing code... */}
-
-      {/* Performance Section */}
-      <section className="performance">
+      {/* Results Preview Section */}
+      <section className="vip-results-link">
         <div className="container">
-          <h2 className="performance__title">Performance Track Record</h2>
-          <p className="performance__subtitle">Risultati verificati e trasparenti dei nostri segnali VIP</p>
-          
-          <div className="performance__grid">
-            {performanceData.map((data, index) => (
-              <div key={index} className="performance-card">
-                <h3>{data.month}</h3>
-                <div className="performance-chart">
-                  <div 
-                    className="chart-bar" 
-                    data-height={data.height}
-                    ref={el => chartBarsRef.current[index] = el}
-                  >
-                    {data.profit}
-                  </div>
-                </div>
-                <div className="performance-details">
-                  <span>{data.signals}</span>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          <div className="performance__summary">
-            <div className="summary-card">
-              <i className="fas fa-trophy"></i>
-              <h4>Win Rate Complessivo</h4>
-              <span className="summary-number" ref={el => summaryNumbersRef.current[0] = el}>89.2%</span>
-              <p>Su oltre 200 segnali analizzati</p>
-            </div>
-            <div className="summary-card">
-              <i className="fas fa-chart-line"></i>
-              <h4>ROI Medio Mensile</h4>
-              <span className="summary-number" ref={el => summaryNumbersRef.current[1] = el}>+22.5%</span>
-              <p>Performance media degli ultimi 12 mesi</p>
-            </div>
-            <div className="summary-card">
-              <i className="fas fa-shield-alt"></i>
-              <h4>Risk Management</h4>
-              <span className="summary-number" ref={el => summaryNumbersRef.current[2] = el}>1:3</span>
-              <p>Rapporto Risk/Reward medio</p>
-            </div>
-          </div>
+          <h2 className="vip-results-link__title">Consulta i risultati aggiornati</h2>
+          <p className="vip-results-link__subtitle">
+            Abbiamo raccolto i report mensili e lo storico delle operazioni VIP nella pagina Risultati.
+            Trasparenza totale, con filtri e ordinamenti per anno, stato operazione e performance.
+          </p>
+          <Link to="/results" className="btn btn--primary">
+            Vai alla pagina Risultati
+          </Link>
         </div>
       </section>
 
@@ -562,111 +447,23 @@ const VipTradingSignals = () => {
           box-shadow: inset 0 0 0 1px rgba(16, 185, 129, 0.2);
         }
 
-        .performance {
+        .vip-results-link {
           padding: 5rem 0;
           background: #f7fafc;
+          text-align: center;
         }
 
-        .performance__title {
-          text-align: center;
+        .vip-results-link__title {
           font-size: 2.25rem;
           margin-bottom: 1rem;
           color: #2d3436;
         }
 
-        .performance__subtitle {
-          text-align: center;
+        .vip-results-link__subtitle {
+          max-width: 640px;
+          margin: 0 auto 2rem;
           font-size: 1.125rem;
-          color: #718096;
-          margin-bottom: 4rem;
-        }
-
-        .performance__grid {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-          gap: 1.5rem;
-          margin-bottom: 4rem;
-        }
-
-        .performance-card {
-          background: white;
-          padding: 1.5rem;
-          border-radius: 0.75rem;
-          box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-          text-align: center;
-        }
-
-        .performance-card h3 {
-          font-size: 1.125rem;
-          margin-bottom: 1rem;
-          color: #2d3436;
-        }
-
-        .performance-chart {
-          height: 120px;
-          display: flex;
-          align-items: end;
-          justify-content: center;
-          margin-bottom: 1rem;
-        }
-
-        .chart-bar {
-          background: linear-gradient(135deg, #ff6b35 0%, #ff8a5c 100%);
-          width: 60px;
-          border-radius: 0.5rem 0.5rem 0 0;
-          display: flex;
-          align-items: end;
-          justify-content: center;
-          color: white;
-          font-weight: 700;
-          padding-bottom: 0.75rem;
-          transition: height 1s ease-out;
-          height: 0%;
-        }
-
-        .performance-details {
-          font-size: 0.875rem;
-          color: #718096;
-        }
-
-        .performance__summary {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-          gap: 2rem;
-        }
-
-        .summary-card {
-          background: white;
-          padding: 2rem;
-          border-radius: 1rem;
-          box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-          text-align: center;
-          border-top: 4px solid #ff6b35;
-        }
-
-        .summary-card i {
-          font-size: 1.875rem;
-          color: #ff6b35;
-          margin-bottom: 1rem;
-        }
-
-        .summary-card h4 {
-          font-size: 1.125rem;
-          margin-bottom: 0.75rem;
-          color: #2d3436;
-        }
-
-        .summary-number {
-          display: block;
-          font-size: 2.25rem;
-          font-weight: 700;
-          color: #ff6b35;
-          margin-bottom: 0.5rem;
-        }
-
-        .summary-card p {
-          color: #718096;
-          margin: 0;
+          color: #4a5568;
         }
 
         .vip-features {
@@ -987,18 +784,11 @@ const VipTradingSignals = () => {
             grid-template-columns: 1fr;
           }
 
-          .performance__grid {
-            grid-template-columns: repeat(2, 1fr);
-          }
-
-          .performance__summary {
-            grid-template-columns: 1fr;
-          }
         }
 
         @media (max-width: 480px) {
-          .performance__grid {
-            grid-template-columns: 1fr;
+          .vip-results-link__title {
+            font-size: 1.875rem;
           }
         }
   `}</style>

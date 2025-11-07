@@ -30,7 +30,7 @@ const Contact = () => {
     { value: 'crypto-academy', label: 'Crypto Academy' },
     { value: 'vip-signals', label: 'VIP Trading Signals' },
     { value: 'web3-consulting', label: 'Web3 Consulting' },
-    { value: 'exclusive-events', label: 'Exclusive Events' },
+  { value: 'results', label: 'Results' },
     { value: 'general', label: 'Informazioni Generali' },
     { value: 'other', label: 'Altro' }
   ];

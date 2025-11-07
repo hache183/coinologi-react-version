@@ -67,7 +67,7 @@ const Header = () => {
     { to: '/crypto-academy', label: 'Crypto Academy' },
     { to: '/vip-trading-signals', label: 'VIP Trading Signals' },
     { to: '/web3-consulting', label: 'Web3 Consulting' },
-    { to: '/exclusive-events', label: 'Exclusive Events' },
+  { to: '/results', label: 'Results' },
     { to: '/contact', label: 'Contatti' }
   ];
   const navRef = useRef(null);

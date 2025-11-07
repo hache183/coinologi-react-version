@@ -1217,7 +1217,7 @@ button:focus, input:focus, select:focus, textarea:focus {
   margin-top: auto;
 }
 
-/* FIX PER EVENTS GRID (Exclusive Events) */
+/* FIX PER RESULTS GRID */
 .events-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));

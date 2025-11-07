@@ -78,11 +78,11 @@ const Home = () => {
       featured: false
     },
     {
-      id: 'exclusive-events',
-      icon: 'fa-solid fa-calendar',
-      title: 'Exclusive Events',
-      description: 'Partecipa ai nostri esclusivi eventi formativi e di networking, ideali per professionisti e investitori interessati alla blockchain e al Web3.',
-      link: 'Partecipa',
+      id: 'results',
+      icon: 'fas fa-chart-line',
+      title: 'Results',
+      description: 'Consulta i report aggiornati e lo storico delle performance VIP per verificare i risultati reali del servizio.',
+      link: 'Visualizza report',
       featured: false
     }
   ];

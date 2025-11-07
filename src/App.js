@@ -10,7 +10,7 @@ const Home = React.lazy(() => import('./pages/Home'));
 const CryptoAcademy = React.lazy(() => import('./pages/CryptoAcademy'));
 const VipTradingSignals = React.lazy(() => import('./pages/VipTradingSignals'));
 const Web3Consulting = React.lazy(() => import('./pages/Web3Consulting'));
-const ExclusiveEvents = React.lazy(() => import('./pages/ExclusiveEvents'));
+const Results = React.lazy(() => import('./pages/Results'));
 const AboutUs = React.lazy(() => import('./pages/AboutUs'));
 const Contact = React.lazy(() => import('./pages/Contact'));
 const Blog = React.lazy(() => import('./pages/Blog'));
@@ -42,7 +42,7 @@ function App() {
                 <Route path="/crypto-academy" element={<CryptoAcademy />} />
                 <Route path="/vip-trading-signals" element={<VipTradingSignals />} />
                 <Route path="/web3-consulting" element={<Web3Consulting />} />
-                <Route path="/exclusive-events" element={<ExclusiveEvents />} />
+                <Route path="/results" element={<Results />} />
                 <Route path="/about" element={<AboutUs />} />
                 <Route path="/about-us" element={<AboutUs />} />
                 <Route path="/contact" element={<Contact />} />

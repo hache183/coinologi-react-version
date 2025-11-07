@@ -8,7 +8,7 @@ const Footer = () => {
       { label: 'Crypto Academy', path: '/crypto-academy' },
       { label: 'VIP Trading Signals', path: '/vip-trading-signals' },
       { label: 'Web3 Consulting', path: '/web3-consulting' },
-      { label: 'Exclusive Events', path: '/exclusive-events' },
+  { label: 'Results', path: '/results' },
       { label: 'Blog', path: '/blog' }
     ],
     company: [
