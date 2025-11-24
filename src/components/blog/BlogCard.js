@@ -23,7 +23,7 @@ const BlogCard = ({ post }) => {
         {post.excerpt ? <p className={styles.excerpt}>{post.excerpt}</p> : null}
         <div className={styles.meta}>
           <span>{publishDate}</span>
-          <span>{post.author?.name || 'Coinologi Team'}</span>
+            <span>{post.author?.name || 'Coinologi Team'}</span>
         </div>
         <Link className={styles.readMore} to={`/blog/${post.slug}`}>
           Leggi tutto →
@@ -35,7 +35,6 @@ const BlogCard = ({ post }) => {
 
 BlogCard.propTypes = {
   post: PropTypes.shape({
-    _id: PropTypes.string,
     title: PropTypes.string.isRequired,
     slug: PropTypes.string.isRequired,
     excerpt: PropTypes.string,

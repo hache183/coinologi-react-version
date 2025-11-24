@@ -486,6 +486,8 @@ const Results = () => {
           background: linear-gradient(135deg, #0f172a 0%, #1f2937 58%, #ff7a45 100%);
           color: #ffffff;
           padding: calc(5rem + 120px) 0 4.5rem;
+          opacity: 0;
+          animation: fadeIn 0.8s ease-out forwards;
         }
 
         .results-hero__grid {
@@ -503,6 +505,7 @@ const Results = () => {
           font-size: clamp(2.4rem, 5vw, 3.4rem);
           margin-bottom: 1rem;
           color: #ffffff;
+          animation: slideInUp 0.8s ease-out;
         }
 
         .results-hero__content p {
@@ -510,12 +513,14 @@ const Results = () => {
           line-height: 1.8;
           margin-bottom: 2.2rem;
           color: rgba(255, 255, 255, 0.82);
+          animation: slideInUp 0.8s ease-out 0.15s both;
         }
 
         .results-hero__cta {
           display: flex;
           gap: 1rem;
           flex-wrap: wrap;
+          animation: slideInUp 0.8s ease-out 0.3s both;
         }
 
         .results-hero__metrics {
@@ -532,6 +537,8 @@ const Results = () => {
           backdrop-filter: blur(12px);
           min-height: 100%;
           transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+          opacity: 0;
+          animation: slideInUp 0.8s ease-out forwards;
         }
 
         .metric-card:hover {
@@ -539,6 +546,12 @@ const Results = () => {
           border-color: rgba(255, 255, 255, 0.4);
           box-shadow: 0 18px 32px rgba(15, 23, 42, 0.35);
         }
+
+        .results-hero__metrics .metric-card:nth-child(1) { animation-delay: 0.2s; }
+        .results-hero__metrics .metric-card:nth-child(2) { animation-delay: 0.3s; }
+        .results-hero__metrics .metric-card:nth-child(3) { animation-delay: 0.4s; }
+        .results-hero__metrics .metric-card:nth-child(4) { animation-delay: 0.5s; }
+        .results-hero__metrics .metric-card:nth-child(5) { animation-delay: 0.6s; }
 
         .metric-card__label {
           display: block;
@@ -563,6 +576,9 @@ const Results = () => {
 
         .results-section {
           padding: clamp(3.2rem, 6vw, 4.75rem) 0;
+          opacity: 0;
+          animation: fadeIn 0.8s ease-out forwards;
+          animation-delay: 0.2s;
         }
 
         .results-section--alt {
@@ -605,12 +621,21 @@ const Results = () => {
           flex-direction: column;
           gap: 1.35rem;
           transition: transform 0.3s ease, box-shadow 0.3s ease;
+          opacity: 0;
+          animation: slideInUp 0.7s ease-out forwards;
         }
 
         .year-card:hover {
           transform: translateY(-6px);
           box-shadow: 0 24px 50px rgba(15, 23, 42, 0.12);
         }
+
+        .year-highlights .year-card:nth-child(1) { animation-delay: 0.2s; }
+        .year-highlights .year-card:nth-child(2) { animation-delay: 0.3s; }
+        .year-highlights .year-card:nth-child(3) { animation-delay: 0.4s; }
+        .year-highlights .year-card:nth-child(4) { animation-delay: 0.5s; }
+        .year-highlights .year-card:nth-child(5) { animation-delay: 0.6s; }
+
 
         .year-card__header {
           display: flex;
@@ -679,12 +704,20 @@ const Results = () => {
           flex-direction: column;
           gap: 1.1rem;
           transition: transform 0.3s ease, box-shadow 0.3s ease;
+          opacity: 0;
+          animation: slideInUp 0.7s ease-out forwards;
         }
 
         .trade-card:hover {
           transform: translateY(-6px);
           box-shadow: 0 24px 48px rgba(15, 23, 42, 0.12);
         }
+
+        .trade-spotlight .trade-card:nth-child(1) { animation-delay: 0.2s; }
+        .trade-spotlight .trade-card:nth-child(2) { animation-delay: 0.3s; }
+        .trade-spotlight .trade-card:nth-child(3) { animation-delay: 0.4s; }
+        .trade-spotlight .trade-card:nth-child(4) { animation-delay: 0.5s; }
+        .trade-spotlight .trade-card:nth-child(5) { animation-delay: 0.6s; }
 
         .trade-card__header {
           display: flex;
@@ -770,10 +803,14 @@ const Results = () => {
           background: linear-gradient(120deg, #111827 0%, #1e293b 70%, #ff6b35 100%);
           color: #ffffff;
           padding: clamp(4.5rem, 8vw, 5.5rem) 0;
+          opacity: 0;
+          animation: fadeIn 0.8s ease-out forwards;
+          animation-delay: 0.2s;
         }
 
         .results-cta__content {
           max-width: 720px;
+          animation: slideInUp 0.8s ease-out 0.2s both;
         }
 
         .results-cta__content h2 {

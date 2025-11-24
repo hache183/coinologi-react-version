@@ -1,92 +1,29 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import DOMPurify from 'dompurify';
 import SEO from '../components/SEO';
 import BlogCard from '../components/blog/BlogCard';
-import { blogService } from '../services/blogService';
+import { getPostBySlug, getRelatedPosts } from '../content/posts';
 
 const BlogPost = () => {
   const { slug } = useParams();
   const navigate = useNavigate();
-  const [post, setPost] = useState(null);
-  const [relatedPosts, setRelatedPosts] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
 
-  useEffect(() => {
-    const controller = new AbortController();
-
-    const loadPost = async () => {
-      setIsLoading(true);
-      setError(null);
-
-      try {
-        const data = await blogService.getPostBySlug(slug, { signal: controller.signal });
-        if (data.success) {
-          setPost(data.post);
-        }
-      } catch (err) {
-        if (err.name !== 'AbortError') {
-          setError(err.message || 'Articolo non trovato');
-        }
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    loadPost();
-
-    return () => controller.abort();
-  }, [slug]);
-
-  useEffect(() => {
-    if (!post?.category) return;
-
-    const controller = new AbortController();
-
-    const loadRelated = async () => {
-      try {
-        const data = await blogService.getPublicPosts(
-          {
-            category: post.category,
-            limit: 3,
-            page: 1
-          },
-          { signal: controller.signal }
-        );
-        if (data.success) {
-          const filtered = data.posts.filter((item) => item.slug !== slug);
-          setRelatedPosts(filtered);
-        }
-      } catch (_err) {
-        // Ignora, non bloccare il rendering per suggerimenti mancanti
-      }
-    };
-
-    loadRelated();
-
-    return () => controller.abort();
-  }, [post, slug]);
+  const post = useMemo(() => getPostBySlug(slug), [slug]);
+  const relatedPosts = useMemo(() => getRelatedPosts(slug), [slug]);
 
   const sanitizedContent = useMemo(() => {
-    if (!post?.content) return '';
+    if (!post?.content) {
+      return '';
+    }
     return DOMPurify.sanitize(post.content);
   }, [post]);
 
-  if (isLoading) {
-    return (
-      <div className="page-loader" role="status" aria-live="polite">
-        <div className="loader-spinner" />
-        <p>Caricamento articolo…</p>
-      </div>
-    );
-  }
-
-  if (error) {
+  if (!post) {
     return (
       <div className="container blog-post__error">
         <div className="alert alert--error" role="alert">
-          {error}
+          Articolo non trovato
         </div>
         <button type="button" className="btn btn--secondary" onClick={() => navigate('/blog')}>
           Torna al blog
@@ -95,11 +32,10 @@ const BlogPost = () => {
     );
   }
 
-  if (!post) {
-    return null;
-  }
-
   const publishDate = post.publishedAt ? new Date(post.publishedAt).toLocaleDateString('it-IT') : null;
+  const shareUrl = typeof window !== 'undefined'
+    ? window.location.href
+    : `https://coinologi.net/blog/${post.slug}`;
 
   return (
     <>
@@ -125,7 +61,7 @@ const BlogPost = () => {
               </button>
               <div className="blog-post__share" aria-label="Condividi">
                 <a
-                  href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(post.title)}&url=${encodeURIComponent(window.location.href)}`}
+                  href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(post.title)}&url=${encodeURIComponent(shareUrl)}`}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -133,7 +69,7 @@ const BlogPost = () => {
                   <span className="sr-only">Condividi su X</span>
                 </a>
                 <a
-                  href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`}
+                  href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -141,7 +77,7 @@ const BlogPost = () => {
                   <span className="sr-only">Condividi su Facebook</span>
                 </a>
                 <a
-                  href={`https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(window.location.href)}&title=${encodeURIComponent(post.title)}`}
+                  href={`https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(shareUrl)}&title=${encodeURIComponent(post.title)}`}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -168,7 +104,7 @@ const BlogPost = () => {
             <h2>Articoli correlati</h2>
             <div className="blog-grid">
               {relatedPosts.map((related) => (
-                <BlogCard key={related._id} post={related} />
+                <BlogCard key={related.slug} post={related} />
               ))}
             </div>
           </div>
