@@ -58,6 +58,7 @@ const Home = () => {
       title: 'Crypto Academy',
       description: 'Percorsi di formazione per padroneggiare blockchain, crypto e trading, con metodi chiari e concreti adatti a ogni livello di esperienza.',
       link: 'Scopri di più',
+      path: '/crypto-academy',
       featured: false
     },
     {
@@ -66,6 +67,7 @@ const Home = () => {
       title: 'VIP Crypto Trading Signals',
       description: 'Accedi a segnali di trading esclusivi e analisi avanzate, entrando in una community riservata a investitori selezionati per massimizzare i tuoi risultati.',
       link: 'Accedi ora',
+      path: '/vip-trading-signals',
       featured: false,
       badge: 'VIP'
     },
@@ -75,6 +77,7 @@ const Home = () => {
       title: 'Web3 Consulting',
       description: 'Consulenze personalizzate per aziende che desiderano integrare blockchain, tokenomics e Web3 nei propri modelli di business, con strategie chiare e operative.',
       link: 'Consulta ora',
+      path: '/web3-consulting',
       featured: false
     },
     {
@@ -83,6 +86,7 @@ const Home = () => {
       title: 'Results',
       description: 'Consulta i report aggiornati e lo storico delle performance VIP per verificare i risultati reali del servizio.',
       link: 'Visualizza report',
+      path: '/results',
       featured: false
     }
   ];
@@ -175,9 +179,13 @@ const Home = () => {
                 <p className="service-card__description">
                   {service.description}
                 </p>
-                <button className="service-card__link" aria-label={`Scopri ${service.title}`}>
+                <Link
+                  to={service.path}
+                  className="service-card__link"
+                  aria-label={`Vai alla pagina ${service.title}`}
+                >
                   {service.link} <i className="fas fa-arrow-right" aria-hidden="true"></i>
-                </button>
+                </Link>
               </article>
             ))}
           </div>
@@ -211,85 +219,8 @@ const Home = () => {
         </div>
       </section>
 
-      <style jsx>{`
-        /* Hero Styles */
-        .hero {
-          position: relative;
-          min-height: 100vh;
-          display: flex;
-          align-items: center;
-          background: linear-gradient(135deg, #2d3436 0%, #636e72 100%);
-          overflow: hidden;
-        }
-
-        .hero::before {
-          content: '';
-          position: absolute;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          background: linear-gradient(135deg, rgba(255, 107, 53, 0.1) 0%, rgba(99, 110, 114, 0.1) 100%);
-          z-index: 1;
-        }
-
-        .hero__container {
-          position: relative;
-          z-index: 2;
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 4rem;
-          align-items: center;
-          max-width: 1200px;
-          margin: 0 auto;
-          padding: 5rem 1.5rem;
-          width: 100%;
-        }
-
-        .hero__content {
-          display: flex;
-          flex-direction: column;
-          gap: 1.5rem;
-        }
-
-        .hero__title {
-          font-size: 3rem;
-          font-weight: 700;
-          line-height: 1.25;
-          color: white;
-          margin-bottom: 1.5rem;
-          animation: slideInUp 0.8s ease-out;
-        }
-
-        .hero__title-highlight {
-          background: linear-gradient(135deg, #ff6b35 0%, #ff8a5c 100%);
-          -webkit-background-clip: text;
-          background-clip: text;
-          -webkit-text-fill-color: transparent;
-          font-weight: 700;
-        }
-
-        .hero__description {
-          font-size: 1.125rem;
-          line-height: 1.625;
-          color: #e2e8f0;
-          margin-bottom: 2rem;
-          animation: slideInUp 0.8s ease-out 0.2s both;
-        }
-
-        .hero__cta {
-          display: flex;
-          gap: 1rem;
-          animation: slideInUp 0.8s ease-out 0.4s both;
-        }
-
-        .hero__visual {
-          position: relative;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          height: 500px;
-        }
+      <style>{`
+        /* Hero styles live in src/styles/global.css */
 
         .portfolio-dashboard {
           background: #ffffff;
@@ -787,36 +718,6 @@ const Home = () => {
 
         /* Responsive Design */
         @media (max-width: 991px) {
-          .hero {
-            min-height: 90vh;
-            padding-top: 80px;
-          }
-          
-          .hero__container {
-            grid-template-columns: 1fr;
-            gap: 3rem;
-            text-align: center;
-            padding: 4rem 1.5rem;
-          }
-          
-          .hero__title {
-            font-size: 2.25rem;
-          }
-          
-          .hero__description {
-            font-size: 1rem;
-          }
-          
-          .hero__cta {
-            justify-content: center;
-            flex-wrap: wrap;
-          }
-          
-          .hero__visual {
-            height: auto;
-            order: -1;
-          }
-
           .portfolio-dashboard {
             max-width: 380px;
           }
@@ -832,14 +733,6 @@ const Home = () => {
         }
 
         @media (max-width: 767px) {
-          .hero__container {
-            padding: 3rem 1.5rem;
-          }
-          
-          .hero__visual {
-            height: auto;
-          }
-
           .portfolio-dashboard {
             padding: 16px;
             max-width: 100%;

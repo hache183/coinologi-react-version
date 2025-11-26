@@ -66,6 +66,10 @@
   --font-size-5xl: 3rem;       /* 48px */
   --font-size-6xl: 3.75rem;    /* 60px */
   
+  --hero-content-max-width: 640px;
+  --hero-animation-duration: 0.85s;
+  --hero-animation-easing: cubic-bezier(0.19, 1, 0.22, 1);
+  
   --line-height-tight: 1.25;
   --line-height-snug: 1.375;
   --line-height-normal: 1.5;
@@ -373,12 +377,16 @@ button:focus, input:focus, select:focus, textarea:focus {
 .hero__content {
   display: flex;
   flex-direction: column;
-  gap: var(--space-6);
-  max-width: min(65ch, 100%);
+  gap: var(--space-4);
+  max-width: min(var(--hero-content-max-width), 100%);
+  width: 100%;
+  text-align: left;
+  margin-left: 0;
+  margin-right: auto;
+  align-items: flex-start;
 }
 
 .hero__badge {
-  margin: auto;
   display: inline-flex;
   align-items: center;
   gap: var(--space-2);
@@ -392,6 +400,7 @@ button:focus, input:focus, select:focus, textarea:focus {
   letter-spacing: 0.05em;
   margin-bottom: var(--space-4);
   align-self: flex-start;
+  animation: heroFadeUp var(--hero-animation-duration) var(--hero-animation-easing) 0s both;
 }
 
 .hero__title {
@@ -399,8 +408,9 @@ button:focus, input:focus, select:focus, textarea:focus {
   font-weight: var(--font-weight-bold);
   line-height: var(--line-height-tight);
   color: var(--color-white);
-  margin-bottom: var(--space-6);
-  animation: slideInUp 0.8s ease-out;
+  margin-bottom: var(--space-4);
+  max-width: min(var(--hero-content-max-width), 100%);
+  animation: heroFadeUp var(--hero-animation-duration) var(--hero-animation-easing) 0.15s both;
 }
 
 .hero__title-highlight {
@@ -415,10 +425,10 @@ button:focus, input:focus, select:focus, textarea:focus {
   font-size: var(--font-size-lg);
   line-height: var(--line-height-relaxed);
   color: var(--color-gray-300);
-  margin-bottom: var(--space-8);
-  animation: slideInUp 0.8s ease-out 0.2s both;
-  max-width: min(60ch, 100%);
+  margin-bottom: var(--space-6);
+  max-width: min(var(--hero-content-max-width), 100%);
   overflow-wrap: break-word;
+  animation: heroFadeUp var(--hero-animation-duration) var(--hero-animation-easing) 0.3s both;
 }
 
 .hero__stats {
@@ -454,7 +464,9 @@ button:focus, input:focus, select:focus, textarea:focus {
 .hero__cta {
   display: flex;
   gap: var(--space-4);
-  animation: slideInUp 0.8s ease-out 0.4s both;
+  flex-wrap: wrap;
+  align-items: center;
+  animation: heroFadeUp var(--hero-animation-duration) var(--hero-animation-easing) 0.45s both;
 }
 
 .hero__visual {
@@ -464,7 +476,7 @@ button:focus, input:focus, select:focus, textarea:focus {
   justify-content: center;
   width: 100%;
   max-width: 100%;
-  overflow: hidden;
+  /* overflow: hidden; Removed to prevent clipping of shadows/animations */
   height: 500px;
 }
 
@@ -1000,6 +1012,17 @@ button:focus, input:focus, select:focus, textarea:focus {
   }
 }
 
+@keyframes heroFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 @keyframes float {
   0%, 100% {
     transform: translateY(0px);
@@ -1414,6 +1437,20 @@ button:focus, input:focus, select:focus, textarea:focus {
     gap: 2rem;
     text-align: center;
     padding: 3rem 1.5rem;
+  }
+
+  .hero__content {
+    align-items: center;
+    text-align: center;
+    margin: 0 auto;
+  }
+
+  .hero__badge {
+    align-self: center;
+  }
+
+  .hero__cta {
+    justify-content: center;
   }
 
   .hero__stats {
@@ -2031,25 +2068,10 @@ body {
 
 .hero--blog {
   background: linear-gradient(135deg, var(--color-secondary) 0%, var(--color-secondary-light) 50%, var(--color-primary) 100%);
-  min-height: 70vh;
-  padding-block: clamp(var(--space-12), 10vw, var(--space-16));
+  min-height: 90vh;
 }
 
-.hero--blog .hero__container {
-  grid-template-columns: 1fr;
-  max-width: 800px;
-  text-align: center;
-  margin: 0 auto;
-}
-
-.hero--blog .hero__content {
-  max-width: 100%;
-  align-items: center;
-}
-
-.hero--blog .hero__description {
-  color: rgba(255, 255, 255, 0.82);
-}
+/* Removed .hero--blog overrides to enforce standard layout consistency */
 
 .blog-content {
   background: var(--color-gray-50);
@@ -2835,8 +2857,17 @@ body {
 
   .blog-post__hero {
     padding-top: calc(var(--space-16) + 96px);
-  padding-bottom: clamp(var(--space-12), 14vw, var(--space-16));
+    padding-bottom: clamp(var(--space-12), 14vw, var(--space-16));
     min-height: auto;
+    text-align: center;
+  }
+
+  .blog-post__header {
+    align-items: center;
+  }
+
+  .blog-post__meta {
+    justify-content: center;
   }
 
   .blog-post__header h1 {

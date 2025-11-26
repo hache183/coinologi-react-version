@@ -192,7 +192,6 @@ const CryptoAcademy = () => {
             </div>
             <div className="hero__cta">
               <button className="btn btn--primary">Esplora i Corsi</button>
-              <button className="btn btn--secondary">Demo Gratuita</button>
             </div>
           </div>
           <div className="hero__visual">
@@ -277,32 +276,6 @@ const CryptoAcademy = () => {
         </div>
       </section>
 
-      {/* Demo Section */}
-      <section className="demo-section">
-        <div className="container">
-          <div className="demo-content">
-            <div className="demo-info">
-              <h2 className="demo-title">Prova Gratuita</h2>
-              <p className="demo-description">
-                Accedi a una lezione demo gratuita e scopri la qualità dei nostri contenuti formativi. Nessun impegno, solo valore puro.
-              </p>
-              <ul className="demo-features">
-                <li><i className="fas fa-play-circle"></i> Video lezione di 45 minuti</li>
-                <li><i className="fas fa-download"></i> Materiali scaricabili</li>
-                <li><i className="fas fa-question-circle"></i> Q&A con esperti</li>
-              </ul>
-              <button className="btn btn--cta">Accedi alla Demo</button>
-            </div>
-            <div className="demo-video">
-              <div className="video-placeholder">
-                <i className="fas fa-play"></i>
-                <span>Guarda l'Anteprima</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* Instructors Section */}
       <section className="instructors">
         <div className="container">
@@ -362,8 +335,8 @@ const CryptoAcademy = () => {
           <div className="cta__content">
             <h2 className="cta__title">Inizia il Tuo Percorso Crypto Oggi</h2>
             <p className="cta__description">
-              Unisciti a centinaia di studenti che hanno già trasformato la loro carriera con i nostri corsi. 
-              Inizia con una lezione gratuita e scopri il tuo potenziale nel mondo blockchain.
+              Unisciti a centinaia di studenti che hanno già trasformato la loro carriera con i nostri corsi.
+              Prenota una call con il team e scopri il percorso formativo più adatto ai tuoi obiettivi.
             </p>
             <div className="cta__features">
               <div className="cta__feature">
@@ -379,62 +352,13 @@ const CryptoAcademy = () => {
                 <span>Supporto dedicato</span>
               </div>
             </div>
-            <button className="btn btn--cta">Inizia Gratis</button>
+            <button className="btn btn--cta">Parla con un Tutor</button>
           </div>
         </div>
       </section>
 
       <style jsx>{`
-        .hero--academy {
-          background: linear-gradient(135deg, #2d3436 0%, #636e72 50%, #ff6b35 100%);
-          min-height: 90vh;
-          position: relative;
-          overflow: hidden;
-        }
-
-        .hero__badge {
-          display: inline-flex;
-          align-items: center;
-          gap: 0.5rem;
-          background: linear-gradient(135deg, #ff6b35 0%, #ff8a5c 100%);
-          color: white;
-          padding: 0.5rem 1rem;
-          border-radius: 9999px;
-          font-size: 0.875rem;
-          font-weight: 700;
-          text-transform: uppercase;
-          letter-spacing: 0.05em;
-          margin-bottom: 1rem;
-        }
-
-        .hero__stats {
-          display: flex;
-          gap: 2rem;
-          margin: 2rem 0;
-          flex-wrap: wrap;
-        }
-
-        .hero__stat {
-          text-align: center;
-          background: rgba(255, 255, 255, 0.1);
-          padding: 1rem 1.5rem;
-          border-radius: 0.75rem;
-          backdrop-filter: blur(10px);
-        }
-
-        .stat-number {
-          display: block;
-          font-size: 1.875rem;
-          font-weight: 700;
-          color: #ff6b35;
-          margin-bottom: 0.5rem;
-        }
-
-        .stat-label {
-          font-size: 0.875rem;
-          color: white;
-          font-weight: 500;
-        }
+        /* Hero layout + animations handled globally */
 
         .academy-dashboard {
           background: rgba(255, 255, 255, 0.95);
@@ -677,82 +601,6 @@ const CryptoAcademy = () => {
           transform: translateY(-2px);
         }
 
-        .demo-section {
-          padding: 5rem 0;
-          background: #f7fafc;
-        }
-
-        .demo-content {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 3rem;
-          align-items: center;
-        }
-
-        .demo-title {
-          font-size: 1.875rem;
-          color: #2d3436;
-          margin-bottom: 1rem;
-        }
-
-        .demo-description {
-          font-size: 1.125rem;
-          color: #718096;
-          line-height: 1.625;
-          margin-bottom: 1.5rem;
-        }
-
-        .demo-features {
-          list-style: none;
-          padding: 0;
-          margin-bottom: 2rem;
-        }
-
-        .demo-features li {
-          display: flex;
-          align-items: center;
-          gap: 0.75rem;
-          margin-bottom: 0.75rem;
-          font-size: 1rem;
-          color: #4a5568;
-        }
-
-        .demo-features i {
-          color: #ff6b35;
-          font-size: 1.125rem;
-        }
-
-        .demo-video {
-          background: white;
-          border-radius: 1rem;
-          padding: 2rem;
-          box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-        }
-
-        .video-placeholder {
-          aspect-ratio: 16/9;
-          background: #e2e8f0;
-          border-radius: 0.5rem;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-          color: #718096;
-          cursor: pointer;
-          transition: all 0.15s ease-out;
-        }
-
-        .video-placeholder:hover {
-          background: #cbd5e0;
-          transform: scale(1.02);
-        }
-
-        .video-placeholder i {
-          font-size: 2.25rem;
-          margin-bottom: 0.75rem;
-          color: #ff6b35;
-        }
-
         .instructors {
           padding: 5rem 0;
         }
@@ -893,11 +741,6 @@ const CryptoAcademy = () => {
         }
 
         @media (max-width: 768px) {
-          .hero__stats {
-            flex-direction: column;
-            align-items: center;
-          }
-
           .academy-dashboard {
             margin-top: 2rem;
           }

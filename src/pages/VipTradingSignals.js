@@ -237,98 +237,7 @@ const VipTradingSignals = () => {
       </section>
 
   <style>{`
-        .hero--vip {
-          background: linear-gradient(135deg, #2d3436 0%, #636e72 50%, #ff6b35 100%);
-          position: relative;
-          overflow: hidden;
-          /* push content below the fixed ticker + header (60px + 70px = 130px) */
-          padding-top: 140px;
-          min-height: calc(90vh - 140px);
-        }
-
-        .hero--vip .hero__container {
-          align-items: stretch;
-        }
-
-        .hero--vip .hero__content {
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-        }
-
-        .hero--vip .hero__visual {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          height: auto;
-          min-height: 100%;
-          overflow: visible;
-          padding: 1rem 0;
-        }
-
-        .hero--vip::before {
-          content: '';
-          position: absolute;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          background: radial-gradient(circle at 30% 70%, rgba(255, 107, 53, 0.3) 0%, transparent 50%);
-          z-index: 1;
-        }
-
-        .hero__badge {
-          display: inline-flex;
-          align-items: center;
-          gap: 0.5rem;
-          background: linear-gradient(45deg, #ffd700, #ffed4e);
-          color: #2d3436;
-          padding: 0.5rem 1rem;
-          border-radius: 9999px;
-          font-size: 0.875rem;
-          font-weight: 700;
-          text-transform: uppercase;
-          letter-spacing: 0.05em;
-          margin-bottom: 1rem;
-          animation: glow 2s ease-in-out infinite alternate;
-        }
-
-        @keyframes glow {
-          from { box-shadow: 0 0 20px rgba(255, 215, 0, 0.5); }
-          to { box-shadow: 0 0 30px rgba(255, 215, 0, 0.8); }
-        }
-
-        .hero__stats {
-          display: flex;
-          gap: 2rem;
-          margin: 2rem 0;
-          flex-wrap: wrap;
-        }
-
-        .hero__stat {
-          text-align: center;
-          background: rgba(255, 255, 255, 0.18);
-          padding: 1rem 1.5rem;
-          border-radius: 0.75rem;
-          backdrop-filter: blur(12px);
-          border: 2px solid rgba(255, 255, 255, 0.3);
-          box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
-        }
-
-        .hero__stat .stat-number {
-          display: block;
-          font-size: 1.875rem;
-          font-weight: 700;
-          color: #ffd700;
-          margin-bottom: 0.5rem;
-          text-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
-        }
-
-        .hero__stat .stat-label {
-          font-size: 0.875rem;
-          color: rgba(255, 255, 255, 0.95);
-          font-weight: 600;
-        }
+        /* Hero layout + animations handled globally */
 
         .trading-dashboard {
           background: #ffffff;
@@ -761,11 +670,6 @@ const VipTradingSignals = () => {
         }
 
     @media (max-width: 768px) {
-          .hero__stats {
-            flex-direction: column;
-            align-items: center;
-          }
-
           .trading-dashboard {
       margin-top: 2rem;
       /* ensure dashboard doesn't sit under the fixed header on small screens */

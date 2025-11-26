@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import SEO from '../components/SEO';
 
 function useAnimatedMetric(value, options = {}) {
@@ -258,9 +259,9 @@ const Web3Consulting = () => {
                 </div>
                 <h3 className="service-card__title">{service.title}</h3>
                 <p className="service-card__description">{service.description}</p>
-                <button className="service-card__link">
+                <Link to="/contact" className="service-card__link">
                   Scopri di più <i className="fas fa-arrow-right"></i>
-                </button>
+                </Link>
               </article>
             ))}
           </div>
@@ -328,77 +329,8 @@ const Web3Consulting = () => {
         </div>
       </section>
 
-      <style jsx>{`
-        .hero--web3 {
-          background: linear-gradient(135deg, #2d3436 0%, #636e72 50%, #ff6b35 100%);
-          position: relative;
-          overflow: hidden;
-          min-height: 90vh;
-        }
-
-        .hero--web3::before {
-          content: '';
-          position: absolute;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          background: radial-gradient(circle at 30% 70%, rgba(255, 107, 53, 0.3) 0%, transparent 50%);
-          z-index: 1;
-        }
-
-        .hero__badge {
-          display: inline-flex;
-          align-items: center;
-          gap: 0.5rem;
-          background: linear-gradient(45deg, #8b5cf6, #a855f7);
-          color: white;
-          padding: 0.5rem 1rem;
-          border-radius: 9999px;
-          font-size: 0.875rem;
-          font-weight: 700;
-          text-transform: uppercase;
-          letter-spacing: 0.05em;
-          margin-bottom: 1rem;
-          animation: glow 2s ease-in-out infinite alternate;
-        }
-
-        .hero__stats {
-          display: flex;
-          gap: 2rem;
-          margin: 2rem 0;
-          flex-wrap: wrap;
-          justify-content: center;
-        }
-
-        .hero__stat {
-          text-align: center;
-          background: rgba(255, 255, 255, 0.1);
-          padding: 1rem 1.5rem;
-          border-radius: 0.75rem;
-          backdrop-filter: blur(10px);
-          border: 1px solid rgba(255, 255, 255, 0.2);
-          min-width: 120px;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-        }
-
-        .stat-number {
-          display: block;
-          font-size: 1.5rem;
-          font-weight: 700;
-          color: #8b5cf6;
-          margin-bottom: 0.25rem;
-          min-width: 80px;
-          text-align: center;
-        }
-
-        .stat-label {
-          font-size: 0.875rem;
-          color: rgba(255, 255, 255, 0.9);
-          font-weight: 500;
-        }
+      <style>{`
+        /* Hero layout + animations handled globally */
 
         .services-dashboard {
           background: #ffffff;
@@ -666,28 +598,7 @@ const Web3Consulting = () => {
           background: linear-gradient(135deg, #2d3436 0%, #ff6b35 100%);
         }
 
-        /* Hero container fix */
-        .hero--web3 .hero__container {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          gap: 2rem;
-          max-width: 1200px;
-          margin: 0 auto;
-          padding: 4rem 2rem;
-          min-height: 90vh;
-          position: relative;
-          z-index: 2;
-        }
-
-        .hero--web3 .hero__visual {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          width: 100%;
-          max-width: 100%;
-          overflow: visible;
-        }
+        /* Hero layout managed via global styles */
         @keyframes slideInRight {
           from {
             opacity: 0;
@@ -717,24 +628,6 @@ const Web3Consulting = () => {
 
         /* Tablet portrait (991px e meno) */
         @media (max-width: 991px) {
-          .hero--web3 .hero__container {
-            flex-direction: column;
-            justify-content: center;
-            text-align: center;
-            gap: 3rem;
-          }
-
-          .hero__content, 
-          .hero__visual {
-            width: 100%;
-            align-items: center;
-          }
-
-          .hero__stats {
-            flex-direction: column;
-            align-items: center;
-          }
-
           .services-dashboard {
             max-width: 380px;
           }
@@ -746,11 +639,6 @@ const Web3Consulting = () => {
 
         /* Tablet piccolo (767px e meno) */
         @media (max-width: 767px) {
-          .hero--web3 .hero__container {
-            padding: 2.5rem 1rem;
-            gap: 2rem;
-          }
-
           .case-study__metrics {
             grid-template-columns: 1fr;
           }
@@ -778,12 +666,6 @@ const Web3Consulting = () => {
 
         /* Mobile large (575px e meno) */
         @media (max-width: 575px) {
-          .hero__cta {
-            flex-direction: column;
-            gap: 1rem;
-            align-items: center;
-          }
-
           .btn {
             width: 100%;
             font-size: 1rem;
@@ -844,12 +726,6 @@ const Web3Consulting = () => {
           }
         }
 
-        .hero__cta {
-          display: flex;
-          gap: 1.5rem;
-          justify-content: center;
-          margin-top: 2rem;
-        }
         .btn {
           padding: 0.85rem 2.2rem;
           border-radius: 10px;
