@@ -20,10 +20,8 @@ const Footer = () => {
   };
 
   const socialLinks = [
-    { icon: 'fab fa-twitter', label: 'Twitter', url: 'https://twitter.com/coinologi' },
-    { icon: 'fab fa-linkedin-in', label: 'LinkedIn', url: 'https://www.linkedin.com/company/coinologi' },
     { icon: 'fab fa-telegram-plane', label: 'Telegram', url: 'https://t.me/coinologi_official' },
-    { icon: 'fab fa-youtube', label: 'YouTube', url: 'https://www.youtube.com/@coinologi' }
+    { icon: 'fab fa-instagram', label: 'Instagram', url: 'https://www.instagram.com/coinologi/' }
   ];
 
   return (

@@ -28,7 +28,7 @@ const parseDateFromString = (value) => {
   if (!value) {
     return null;
   }
-  const parts = value.split(/[\/\-]/).map((part) => part.trim());
+  const parts = value.replace(/-/g, '/').split('/').map((part) => part.trim());
   if (parts.length < 3) {
     return null;
   }
@@ -68,7 +68,7 @@ const Results = () => {
       stopLoss: item.stopLoss,
       totalTrades: item.totalTrades
     };
-  }), [monthlyStats]);
+  }), []);
 
   const historicMonthly = useMemo(() => {
     const monthMap = new Map();
@@ -110,7 +110,7 @@ const Results = () => {
       ...entry,
       successRate: entry.totalTrades ? (entry.takeProfit / entry.totalTrades) * 100 : null
     }));
-  }, [tradeResults]);
+  }, []);
 
   const combinedMonthly = useMemo(
     () => [...historicMonthly, ...monthlyStatsNormalized],
@@ -487,7 +487,7 @@ const Results = () => {
           color: #ffffff;
           padding: calc(5rem + 120px) 0 4.5rem;
           opacity: 0;
-          animation: fadeIn 0.8s ease-out forwards;
+          animation: fadeIn 0.6s ease-out forwards;
         }
 
         .results-hero__grid {
@@ -505,7 +505,7 @@ const Results = () => {
           font-size: clamp(2.4rem, 5vw, 3.4rem);
           margin-bottom: 1rem;
           color: #ffffff;
-          animation: slideInUp 0.8s ease-out;
+          animation: slideInUp 0.6s ease-out;
         }
 
         .results-hero__content p {
@@ -513,14 +513,14 @@ const Results = () => {
           line-height: 1.8;
           margin-bottom: 2.2rem;
           color: rgba(255, 255, 255, 0.82);
-          animation: slideInUp 0.8s ease-out 0.15s both;
+          animation: slideInUp 0.6s ease-out 0.15s both;
         }
 
         .results-hero__cta {
           display: flex;
           gap: 1rem;
           flex-wrap: wrap;
-          animation: slideInUp 0.8s ease-out 0.3s both;
+          animation: slideInUp 0.6s ease-out 0.3s both;
         }
 
         .results-hero__metrics {
@@ -538,7 +538,7 @@ const Results = () => {
           min-height: 100%;
           transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
           opacity: 0;
-          animation: slideInUp 0.8s ease-out forwards;
+          animation: slideInUp 0.6s ease-out forwards;
         }
 
         .metric-card:hover {
@@ -577,7 +577,7 @@ const Results = () => {
         .results-section {
           padding: clamp(3.2rem, 6vw, 4.75rem) 0;
           opacity: 0;
-          animation: fadeIn 0.8s ease-out forwards;
+          animation: fadeIn 0.6s ease-out forwards;
           animation-delay: 0.2s;
         }
 
@@ -622,7 +622,7 @@ const Results = () => {
           gap: 1.35rem;
           transition: transform 0.3s ease, box-shadow 0.3s ease;
           opacity: 0;
-          animation: slideInUp 0.7s ease-out forwards;
+          animation: slideInUp 0.6s ease-out forwards;
         }
 
         .year-card:hover {
@@ -705,7 +705,7 @@ const Results = () => {
           gap: 1.1rem;
           transition: transform 0.3s ease, box-shadow 0.3s ease;
           opacity: 0;
-          animation: slideInUp 0.7s ease-out forwards;
+          animation: slideInUp 0.6s ease-out forwards;
         }
 
         .trade-card:hover {
@@ -804,13 +804,13 @@ const Results = () => {
           color: #ffffff;
           padding: clamp(4.5rem, 8vw, 5.5rem) 0;
           opacity: 0;
-          animation: fadeIn 0.8s ease-out forwards;
+          animation: fadeIn 0.6s ease-out forwards;
           animation-delay: 0.2s;
         }
 
         .results-cta__content {
           max-width: 720px;
-          animation: slideInUp 0.8s ease-out 0.2s both;
+          animation: slideInUp 0.6s ease-out 0.2s both;
         }
 
         .results-cta__content h2 {

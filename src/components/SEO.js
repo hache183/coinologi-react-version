@@ -57,9 +57,8 @@ const SEO = ({
           },
           "foundingDate": "2014",
           "sameAs": [
-            "https://twitter.com/coinologi",
-            "https://linkedin.com/company/coinologi",
-            "https://t.me/coinologi_official"
+            "https://t.me/coinologi_official",
+            "https://www.instagram.com/coinologi/"
           ]
         })}
       </script>

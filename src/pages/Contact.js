@@ -58,11 +58,8 @@ const Contact = () => {
   ];
 
   const socialLinks = [
-    { platform: 'twitter', icon: 'fab fa-twitter', url: 'https://twitter.com/coinologi' },
-    { platform: 'linkedin', icon: 'fab fa-linkedin-in', url: 'https://www.linkedin.com/company/coinologi' },
     { platform: 'telegram', icon: 'fab fa-telegram', url: 'https://t.me/coinologi_official' },
-    { platform: 'youtube', icon: 'fab fa-youtube', url: 'https://www.youtube.com/@coinologi' },
-    { platform: 'instagram', icon: 'fab fa-instagram', url: 'https://www.instagram.com/coinologi' }
+    { platform: 'instagram', icon: 'fab fa-instagram', url: 'https://www.instagram.com/coinologi/' }
   ];
 
   const faqData = [
@@ -231,6 +228,32 @@ const Contact = () => {
             <div className="hero__cta">
               <button className="btn btn--primary">Invia Messaggio</button>
               <button className="btn btn--secondary">Chiamaci</button>
+            </div>
+          </div>
+
+          <div className="hero__visual">
+            <div className="support-dashboard">
+              <div className="dashboard-header">
+                <h3>🎧 CENTRO SUPPORTO</h3>
+                <span className="status-online">ONLINE</span>
+              </div>
+              
+              <div className="support-stats">
+                <div className="stat-box">
+                  <div className="stat-icon"><i className="fas fa-clock"></i></div>
+                  <div className="stat-info">
+                    <span className="stat-value">~2h</span>
+                    <span className="stat-label">Tempo Risposta</span>
+                  </div>
+                </div>
+                <div className="stat-box">
+                  <div className="stat-icon"><i className="fas fa-headset"></i></div>
+                  <div className="stat-info">
+                    <span className="stat-value">4/5</span>
+                    <span className="stat-label">Agenti Attivi</span>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -559,6 +582,110 @@ const Contact = () => {
 
         .contact-feature i {
           color: var(--color-primary);
+        }
+
+        /* Support Dashboard */
+        .support-dashboard {
+          background: rgba(255, 255, 255, 0.95);
+          border-radius: 1rem;
+          padding: 1.5rem;
+          box-shadow: 0 35px 60px -12px rgba(0, 0, 0, 0.3);
+          backdrop-filter: blur(20px);
+          transition: transform 0.3s ease, box-shadow 0.3s ease;
+          transform: translateZ(0);
+          max-width: 400px;
+          margin-left: auto;
+        }
+
+        .support-dashboard:hover {
+          transform: translateY(-6px);
+          box-shadow: 0 45px 80px -12px rgba(0, 0, 0, 0.34);
+        }
+
+        .dashboard-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 1.5rem;
+          padding-bottom: 0.75rem;
+          border-bottom: 2px solid #e2e8f0;
+        }
+
+        .dashboard-header h3 {
+          font-size: 1rem;
+          font-weight: 700;
+          color: #2d3436;
+          margin: 0;
+        }
+
+        .status-online {
+          background: #10b981;
+          color: white;
+          padding: 0.25rem 0.75rem;
+          border-radius: 9999px;
+          font-size: 0.75rem;
+          font-weight: 700;
+          display: flex;
+          align-items: center;
+          gap: 6px;
+        }
+
+        .status-online::before {
+          content: '';
+          display: block;
+          width: 8px;
+          height: 8px;
+          background: white;
+          border-radius: 50%;
+          animation: pulse 2s infinite;
+        }
+
+        .support-stats {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 1rem;
+          margin-bottom: 1.5rem;
+        }
+
+        .stat-box {
+          background: #f8fafc;
+          padding: 1rem;
+          border-radius: 0.75rem;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          text-align: center;
+          border: 1px solid #e2e8f0;
+        }
+
+        .stat-icon {
+          width: 32px;
+          height: 32px;
+          background: #e0f2fe;
+          color: #0ea5e9;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin-bottom: 0.5rem;
+        }
+
+        .stat-value {
+          font-size: 1.125rem;
+          font-weight: 700;
+          color: #0f172a;
+          display: block;
+        }
+
+        .stat-label {
+          font-size: 0.75rem;
+          color: #64748b;
+        }
+
+        @keyframes pulse {
+          0% { opacity: 1; }
+          50% { opacity: 0.5; }
+          100% { opacity: 1; }
         }
 
         /* Contact Section */

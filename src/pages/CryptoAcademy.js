@@ -124,33 +124,25 @@ const CryptoAcademy = () => {
 
   const instructors = [
     {
-      name: 'Ivan Eo',
-      role: 'Founder & Lead Instructor',
-      bio: 'Dottore Commercialista e esperto blockchain dal 2014. Oltre 8 anni di esperienza nel settore crypto.',
-      stats: { years: '10+', consultations: '500+' },
-      founder: true,
-      links: {
-        linkedin: 'https://www.linkedin.com/in/ivan-coinologi',
-        twitter: 'https://twitter.com/coinologi'
-      }
+      name: 'Tony Coltello - The Visionary',
+      role: 'Founder & CEO',
+      credential: 'Dottore Commercialista',
+      bio: 'Timing - Structure - Intention',
+      stats: [
+        { number: '10+', label: 'Anni Crypto' },
+        { number: '100+', label: 'Consulenze' }
+      ],
+      founder: true
     },
     {
-      name: 'Marco Rossi',
-      role: 'Trading Expert',
-      bio: 'Ex trader istituzionale con 15 anni di esperienza nei mercati finanziari tradizionali e crypto.',
-      links: {
-        linkedin: 'https://www.linkedin.com/in/marco-rossi-trading',
-        twitter: 'https://twitter.com/coinologi'
-      }
-    },
-    {
-      name: 'Sara Bianchi',
-      role: 'Blockchain Developer',
-      bio: 'Sviluppatrice blockchain esperta in smart contracts e protocolli DeFi e sviluppo di soluzioni innovative.',
-      links: {
-        linkedin: 'https://www.linkedin.com/in/sara-bianchi-dev',
-        twitter: 'https://twitter.com/coinologi'
-      }
+      name: 'Zak Sawyer - The Builder',
+      role: 'CTO',
+      credential: 'Analista Finanziario',
+      bio: 'Automation - Infrastructure - Execution',
+      stats: [
+        { number: '10+', label: 'Anni Crypto' },
+        { number: '150+', label: 'Analisi Tecniche' }
+      ]
     }
   ];
 
@@ -294,34 +286,27 @@ const CryptoAcademy = () => {
               >
                 {instructor.founder && <div className="instructor-card__badge">Founder</div>}
                 <div className="instructor-card__avatar">
-                  <i className="fas fa-user"></i>
+                  {instructor.name.split(' ').slice(0, 2).map(n => n[0]).join('')}
                 </div>
                 <h3 className="instructor-card__name">{instructor.name}</h3>
                 <p className="instructor-card__role">{instructor.role}</p>
+                {instructor.credential && (
+                  <p className="instructor-card__credential" style={{ fontSize: '0.875rem', color: '#a0aec0', fontStyle: 'italic', marginBottom: '0.5rem' }}>
+                    {instructor.credential}
+                  </p>
+                )}
                 <p className="instructor-card__bio">{instructor.bio}</p>
                 {instructor.stats && (
                   <div className="instructor-card__stats">
-                    <div className="stat">
-                      <span className="stat__number">{instructor.stats.years}</span>
-                      <span className="stat__label">Anni Crypto</span>
-                    </div>
-                    <div className="stat">
-                      <span className="stat__number">{instructor.stats.consultations}</span>
-                      <span className="stat__label">Consulenze</span>
-                    </div>
+                    {instructor.stats.map((stat, idx) => (
+                      <div key={idx} className="stat">
+                        <span className="stat__number">{stat.number}</span>
+                        <span className="stat__label">{stat.label}</span>
+                      </div>
+                    ))}
                   </div>
                 )}
                 <div className="instructor-card__social">
-                  {instructor.links?.linkedin ? (
-                    <a href={instructor.links.linkedin} target="_blank" rel="noopener noreferrer" aria-label={`LinkedIn di ${instructor.name}`}>
-                      <i className="fab fa-linkedin-in"></i>
-                    </a>
-                  ) : null}
-                  {instructor.links?.twitter ? (
-                    <a href={instructor.links.twitter} target="_blank" rel="noopener noreferrer" aria-label={`Twitter di ${instructor.name}`}>
-                      <i className="fab fa-twitter"></i>
-                    </a>
-                  ) : null}
                 </div>
               </div>
             ))}

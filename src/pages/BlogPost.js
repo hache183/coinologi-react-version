@@ -61,28 +61,12 @@ const BlogPost = () => {
               </button>
               <div className="blog-post__share" aria-label="Condividi">
                 <a
-                  href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(post.title)}&url=${encodeURIComponent(shareUrl)}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <i className="fab fa-x-twitter" aria-hidden />
-                  <span className="sr-only">Condividi su X</span>
-                </a>
-                <a
                   href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
                   <i className="fab fa-facebook" aria-hidden />
                   <span className="sr-only">Condividi su Facebook</span>
-                </a>
-                <a
-                  href={`https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(shareUrl)}&title=${encodeURIComponent(post.title)}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <i className="fab fa-linkedin" aria-hidden />
-                  <span className="sr-only">Condividi su LinkedIn</span>
                 </a>
               </div>
             </div>

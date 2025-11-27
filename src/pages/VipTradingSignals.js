@@ -124,15 +124,16 @@ const VipTradingSignals = () => {
                 <div className="signal-price">Entry: $59,450</div>
                 <div className="signal-targets">
                   <span>TP1: $88,200 ✅</span>
-                  <span>TP1: $92,400 ✅</span>
-                  <span>TP1: $98,900 ✅</span>
-                  <span>TP1: $103,800 ✅</span>
-                  <span>TP1: $105,000 ✅</span>
-                  <span>TP1: $109,000 ✅</span>
-                  <span>TP1: $111,000 ✅</span>
-                  <span>TP1: $114,000 ✅</span>
-                  <span>TP1: $118,000 ✅</span>
-                  <span>TP1: $126,000 </span>
+                  <span>TP2: $92,400 ✅</span>
+                  <span>TP3: $98,900 ✅</span>
+                  <span>TP4: $103,800 ✅</span>
+                  <span>TP5: $105,000 ✅</span>
+                  <span>TP6: $109,000 ✅</span>
+                  <span>TP7: $111,000 ✅</span>
+                  <span>TP8: $114,000 ✅</span>
+                  <span>TP9: $118,000 ✅</span>
+                  <span>TP10: $126,000 ✅</span>
+                  <span>TP11: $133,000 </span>
                   <span>SL: $79,100</span>
                 </div>
                 <div className="signal-profit">Storico risultati disponibile nella pagina Risultati</div>

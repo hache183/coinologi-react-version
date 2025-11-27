@@ -67,7 +67,7 @@ const AboutUs = () => {
     {
       year: '2014',
       title: 'I Primi Passi',
-      description: 'Ivan Eo scopre Bitcoin e inizia a studiare la tecnologia blockchain. Primo contatto con il mondo delle criptovalute e comprensione del potenziale rivoluzionario.'
+      description: 'Il nostro CEO scopre Bitcoin e inizia a studiare la tecnologia blockchain. Primo contatto con il mondo delle criptovalute e comprensione del potenziale rivoluzionario.'
     },
     {
       year: '2017',
@@ -98,31 +98,25 @@ const AboutUs = () => {
 
   const team = [
     {
-      name: 'Ivan Epicoco',
+      name: 'Tony Coltello - The Visionary',
       role: 'Founder & CEO',
       credential: 'Dottore Commercialista',
-      bio: 'Pioniere del settore crypto in Italia, Ivan ha iniziato il suo percorso nel 2014. Autore del libro "Diritto del Metaverso" pubblicato da Giappicchelli e ricercatore presso l\'Università di Trento, guida COINOLOGI con visione e innovazione.',
+      bio: 'Timing - Structure - Intention',
       stats: [
         { number: '10+', label: 'Anni Crypto' },
-        { number: '500+', label: 'Consulenze' }
+        { number: '100+', label: 'Consulenze' }
       ],
-      isFounder: true,
-      links: {
-        linkedin: 'https://www.linkedin.com/in/ivan-coinologi'
-      }
+      isFounder: true
     },
     {
-      name: 'Marco Epicoco',
+      name: 'Zak Sawyer - The Builder',
       role: 'CTO',
       credential: 'Analista Finanziario',
-      bio: 'Trader con diversi anni di esperienza nel trading crypto. Marco guida la nostra divisione trading e sviluppa strategie innovative per i nostri VIP signals.',
+      bio: 'Automation - Infrastructure - Execution',
            stats: [
-        { number: '15+', label: 'Anni Crypto' },
-        { number: '1000+', label: 'Analisi Tecniche' }
-      ],
-      links: {
-        linkedin: 'https://www.linkedin.com/in/marco-epicoco'
-      }
+        { number: '10+', label: 'Anni Crypto' },
+        { number: '150+', label: 'Analisi Tecniche' }
+      ]
     },
   ];
 
@@ -190,26 +184,6 @@ const AboutUs = () => {
         )}
         
         <div className="team-social">
-          {member.links?.linkedin ? (
-            <a
-              href={member.links.linkedin}
-              aria-label={`LinkedIn di ${member.name}`}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <i className="fab fa-linkedin-in"></i>
-            </a>
-          ) : null}
-          {member.links?.twitter ? (
-            <a
-              href={member.links.twitter}
-              aria-label={`Twitter di ${member.name}`}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <i className="fab fa-twitter"></i>
-            </a>
-          ) : null}
           {member.links?.github ? (
             <a
               href={member.links.github}

@@ -41,7 +41,7 @@ const Home = () => {
 
     animateCounter(btcChangeRef, 24.5, (value) => `+${value.toFixed(1)}%`);
     animateCounter(ethChangeRef, 18.3, (value) => `+${value.toFixed(1)}%`);
-    animateCounter(totalValueRef, 45250, (value) => `€${Math.round(value).toLocaleString('it-IT')}`);
+    animateCounter(totalValueRef, 352250, (value) => `€${Math.round(value).toLocaleString('it-IT')}`);
 
       obs.disconnect();
     }, { threshold: 0.45 });
@@ -106,7 +106,9 @@ const Home = () => {
               Il Futuro della <span className="hero__title-highlight">Crypto Consulting</span>
             </h1>
             <p className="hero__description">
-              Coinologi nasce da un'idea di Ivan Epicoco, Dottore Commercialista e nerd affilato che dal 2014 offre supporto trasparente e sicuro a chiunque voglia avvicinarsi al mondo delle tecnologie decentralizzate.
+              Crypto trading, ricerca e automazione.
+              Infrastrutture digitali e analisi avanzate per interpretare i mercati e gestire la volatilità.
+              Per chi vuole operare nelle crypto con precisione, metodo e strumenti professionali.
             </p>
             <div className="hero__cta">
               <Link to="/contact" className="btn btn--primary">Inizia Oggi</Link>
